@@ -1,7 +1,3 @@
 ﻿namespace Test {
-    public class Program
-    { 
-        
-        
-    }
+   hoi = "niks";
 }
