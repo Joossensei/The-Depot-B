@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "7TapPkCVW1ImnMp0URhSP3zqsUEEHJ+5f7mgwz0k8nZuRAElVrBDDILoVOuQrhrt1pwLu9LiRK1HJY5+7xrNdA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Hogeschool rotterdam\\OneDrive - Hogeschool Rotterdam\\Bureaublad\\project_depotv1\\project_depotv1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hogeschool rotterdam\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

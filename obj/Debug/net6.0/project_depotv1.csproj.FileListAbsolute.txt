@@ -1,0 +1,17 @@
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.exe
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.deps.json
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.runtimeconfig.json
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.dll
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.pdb
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.csproj.AssemblyReference.cache
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.AssemblyInfoInputs.cache
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.AssemblyInfo.cs
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.csproj.CoreCompileInputs.cache
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.csproj.CopyComplete
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.dll
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\refint\project_depotv1.dll
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.pdb
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.genruntimeconfig.cache
+C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\ref\project_depotv1.dll
