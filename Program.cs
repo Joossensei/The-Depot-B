@@ -22,7 +22,7 @@ namespace ReservationSystem
 
                 // Get user input
                 string input = Console.ReadLine();
-
+                // switch om te kijken welk nummer je heb ingevuld
                 switch (input)
                 {
                     case "1":
