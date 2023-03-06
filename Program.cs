@@ -5,6 +5,7 @@ namespace ReservationSystem
 {
     class Program
     {
+        // Comment die erg belangrijk is
         static void Main(string[] args)
         {
             bool running = true;
