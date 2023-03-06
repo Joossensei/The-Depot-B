@@ -55,16 +55,11 @@
     ]
   },
   "packageFolders": {
-<<<<<<< Updated upstream
     "C:\\Users\\Jorr-IT Solutions\\.nuget\\packages\\": {}
-=======
-    "/Users/danillovankesteren/.nuget/packages/": {}
->>>>>>> Stashed changes
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< Updated upstream
       "projectUniqueName": "C:\\Users\\Jorr-IT Solutions\\Bureaublad\\HR\\Project B\\The-Depot-B\\project_depotv1.csproj",
       "projectName": "project_depotv1",
       "projectPath": "C:\\Users\\Jorr-IT Solutions\\Bureaublad\\HR\\Project B\\The-Depot-B\\project_depotv1.csproj",
@@ -74,21 +69,12 @@
       "configFilePaths": [
         "C:\\Users\\Jorr-IT Solutions\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
-      "projectUniqueName": "/Users/danillovankesteren/Documents/GitHub/The-Depot-B/project_depotv1.csproj",
-      "projectName": "project_depotv1",
-      "projectPath": "/Users/danillovankesteren/Documents/GitHub/The-Depot-B/project_depotv1.csproj",
-      "packagesPath": "/Users/danillovankesteren/.nuget/packages/",
-      "outputPath": "/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "/Users/danillovankesteren/.nuget/NuGet/NuGet.Config"
->>>>>>> Stashed changes
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -128,11 +114,7 @@
             "privateAssets": "all"
           }
         },
-<<<<<<< Updated upstream
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
-=======
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.405/RuntimeIdentifierGraph.json"
->>>>>>> Stashed changes
       }
     }
   }
