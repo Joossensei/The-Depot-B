@@ -56,6 +56,9 @@ namespace ReservationSystem
                     case "5":
                         Console.WriteLine("---------------------------------------------------");
                         Console.WriteLine("\n");
+                        Console.WriteLine("Programma beeindigd");
+                        Console.WriteLine("\n");
+                        Console.WriteLine("---------------------------------------------------");
                         running = false;
                         break;
                     default:
