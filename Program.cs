@@ -5,70 +5,77 @@ namespace ReservationSystem
 {
     class Program
     {
-        // Comment die erg belangrijk is
+        //Some test data for the tours
+        static Tour[] tours = {
+            new(){
+                dateTime = DateTime.Now
+            },
+            new(){
+                dateTime = DateTime.Now.AddMinutes(20)
+            },
+            new(){
+                dateTime = DateTime.Now.AddMinutes(40)
+            }
+        };
+
         static void Main(string[] args)
         {
-            bool running = true;
+            ProgramManger.start(getStartScreen());
+        }
 
-            while (running)
-            {
-                // Display main menu
-                Console.WriteLine("Welcome to The Depot Reservation System");
-                Console.WriteLine("Please select an option:");
-                Console.WriteLine("1. Make a reservation");
-                Console.WriteLine("2. Cancel a reservation");
-                Console.WriteLine("3. View reservations");
-                Console.WriteLine("4. Login as manager");
-                Console.WriteLine("5. Exit");
 
-                // Get user input
-                string input = Console.ReadLine();
-
-                switch (input)
-                {
-                    case "1":
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Eerste clicked");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("---------------------------------------------------");
-                        break;
-                    case "2":
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Tweede clicked");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("---------------------------------------------------");
-                        break;
-                    case "3":
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("Derde clicked");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("---------------------------------------------------");
-                        break;
-                    case "4":
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("vierde clicked");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("---------------------------------------------------");
-                        break;
-                    case "5":
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("\n");
-                        running = false;
-                        break;
-                    default:
-                        Console.WriteLine("---------------------------------------------------");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("sorry deze input is verkeerd");
-                        Console.WriteLine("\n");
-                        Console.WriteLine("---------------------------------------------------");
-                        break;
+        //Function to get the home screen elements the start screen
+        static List<Action> getStartScreen()
+        {
+            List<Action> actions = new List<Action>{
+                new (){
+                    text = "Voer een actie uit door het nummer voor de actie in te voeren.",
+                    hasExtraBreak = true
+                },
+                new (){
+                    text = "Registratie controleren",
+                    onAction = line => {
+                        ProgramManger.setActions(new());
+                    }
+                },
+                new (){
+                    text = "Statistieken inzien",
+                    hasExtraBreak = true,
+                    onAction = line => {}
+                },
+                new (){
+                    text = $"Beschikbare rondleidingen ({DateTime.Now.ToShortDateString()})",
+                    hasExtraBreak = true
                 }
+            };
+
+            //Adding the tours
+            actions.AddRange(getTours());
+
+            return actions;
+        }
+
+        static List<Action> getTours()
+        {
+            List<Action> actions = new();
+
+            foreach (var tour in tours)
+            {
+                //Getting the free places from the tour and checking if it is full
+                int freePlaces = tour.maxBookingCount - tour.bookings.Count;
+                bool isFull = freePlaces == 0;
+
+                //Adding the action items
+                actions.Add(
+                    new()
+                    {
+                        text = $"{tour.dateTime.ToShortTimeString()} ({(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                        onAction = line => { }
+                    }
+                );
             }
+
+            return actions;
         }
     }
 }
-// Raihan test pull

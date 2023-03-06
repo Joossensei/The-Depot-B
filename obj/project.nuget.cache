@@ -1,18 +1,17 @@
 {
   "version": 2,
-<<<<<<< Updated upstream
-  "dgSpecHash": "IrpymoNVcZZG59DssqZ+j/gueirgkF+HZyzGfC3ieM+Tzb149DaCWPGM2jhrJI9QAlEag+inMGxDjiD1bJqXLg==",
+  "dgSpecHash": "OyQVZ2CoZ1AUg5XxOeJCIee2mCSAw9laXNlcUxjW/G6Rhy1T8juFUjA41Qxsl3zN0dlDMGMOTPEcD0eiofZ6rQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jorr-IT Solutions\\Bureaublad\\HR\\Project B\\The-Depot-B\\project_depotv1.csproj",
+  "projectFilePath": "C:\\Users\\wasda\\Documents\\School\\Hr\\Jaar 1\\Periode 3\\Project\\Project B\\The-Depot-B\\project_depotv1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jorr-IT Solutions\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
-=======
-  "dgSpecHash": "clm6nsklePVr799RO+CrCDjk+6Ee3da+Gni0X+ZyCCoNCtEA8Y7Xgb3bVmaT8MxLL+ETOFfvZj5406FCZETAcA==",
-  "success": true,
-  "projectFilePath": "/Users/danillovankesteren/Documents/GitHub/The-Depot-B/project_depotv1.csproj",
-  "expectedPackageFiles": [
-    "/Users/danillovankesteren/.nuget/packages/newtonsoft.json/13.0.2/newtonsoft.json.13.0.2.nupkg.sha512"
->>>>>>> Stashed changes
+    "C:\\Users\\wasda\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\wasda\\Documents\\School\\Hr\\Jaar 1\\Periode 3\\Project\\Project B\\The-Depot-B\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
