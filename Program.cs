@@ -29,28 +29,28 @@ namespace ReservationSystem
                     case "1":
                         Console.WriteLine("---------------------------------------------------");
                         Console.WriteLine("\n");
-                        Console.WriteLine("First clicked");
+                        Console.WriteLine("Eerste clicked");
                         Console.WriteLine("\n");
                         Console.WriteLine("---------------------------------------------------");
                         break;
                     case "2":
                         Console.WriteLine("---------------------------------------------------");
                         Console.WriteLine("\n");
-                        Console.WriteLine("Second clicked");
+                        Console.WriteLine("Tweede clicked");
                         Console.WriteLine("\n");
                         Console.WriteLine("---------------------------------------------------");
                         break;
                     case "3":
                         Console.WriteLine("---------------------------------------------------");
                         Console.WriteLine("\n");
-                        Console.WriteLine("Third clicked");
+                        Console.WriteLine("Derde clicked");
                         Console.WriteLine("\n");
                         Console.WriteLine("---------------------------------------------------");
                         break;
                     case "4":
                         Console.WriteLine("---------------------------------------------------");
                         Console.WriteLine("\n");
-                        Console.WriteLine("Fourth clicked");
+                        Console.WriteLine("vierde clicked");
                         Console.WriteLine("\n");
                         Console.WriteLine("---------------------------------------------------");
                         break;
@@ -62,7 +62,7 @@ namespace ReservationSystem
                     default:
                         Console.WriteLine("---------------------------------------------------");
                         Console.WriteLine("\n");
-                        Console.WriteLine("Invalid input");
+                        Console.WriteLine("sorry deze input is verkeerd");
                         Console.WriteLine("\n");
                         Console.WriteLine("---------------------------------------------------");
                         break;
