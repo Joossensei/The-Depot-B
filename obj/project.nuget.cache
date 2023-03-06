@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "IrpymoNVcZZG59DssqZ+j/gueirgkF+HZyzGfC3ieM+Tzb149DaCWPGM2jhrJI9QAlEag+inMGxDjiD1bJqXLg==",
+  "dgSpecHash": "mcEL6YWv2zTPxRmLHYkxWQcukuUuH0fHsWErU6z3PTm+YYRBp1xzltiOywwYYJ888KzPVR5QluERkywUYB9cBw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jorr-IT Solutions\\Bureaublad\\HR\\Project B\\The-Depot-B\\project_depotv1.csproj",
+  "projectFilePath": "D:\\depot\\The-Depot-B\\project_depotv1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jorr-IT Solutions\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+    "C:\\Users\\Hogeschool rotterdam\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
   ],
   "logs": []
 }

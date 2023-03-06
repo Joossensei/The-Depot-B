@@ -32,3 +32,20 @@ C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\
 C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.pdb
 C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.genruntimeconfig.cache
 C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\ref\project_depotv1.dll
+D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.exe
+D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.deps.json
+D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.runtimeconfig.json
+D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.dll
+D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.pdb
+D:\depot\The-Depot-B\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.AssemblyReference.cache
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfoInputs.cache
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfo.cs
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CoreCompileInputs.cache
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CopyComplete
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.dll
+D:\depot\The-Depot-B\obj\Debug\net6.0\refint\project_depotv1.dll
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.pdb
+D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.genruntimeconfig.cache
+D:\depot\The-Depot-B\obj\Debug\net6.0\ref\project_depotv1.dll
