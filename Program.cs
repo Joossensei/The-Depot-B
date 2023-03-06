@@ -51,6 +51,7 @@ while (running)
             Console.WriteLine("\n");
             Console.WriteLine("---------------------------------------------------");
             running = false;
+            break;
         default:
             Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("\n");
