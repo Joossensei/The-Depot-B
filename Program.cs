@@ -7,7 +7,7 @@ namespace ReservationSystem
     {
         //Some test data for the tours
         static Tour[] tours = {
-            new(){
+            new (){
                 dateTime = DateTime.Now
             },
             new(){
@@ -15,6 +15,9 @@ namespace ReservationSystem
             },
             new(){
                 dateTime = DateTime.Now.AddMinutes(40)
+            },
+            new(){
+                dateTime = DateTime.Now.AddMinutes(60)
             }
         };
 
@@ -22,7 +25,6 @@ namespace ReservationSystem
         {
             ProgramManger.start(getStartScreen());
         }
-
 
         //Function to get the home screen elements the start screen
         static List<Action> getStartScreen()
@@ -33,17 +35,6 @@ namespace ReservationSystem
                     hasExtraBreak = true
                 },
                 new (){
-                    text = "Registratie controleren",
-                    onAction = line => {
-                        ProgramManger.setActions(new());
-                    }
-                },
-                new (){
-                    text = "Statistieken inzien",
-                    hasExtraBreak = true,
-                    onAction = line => {}
-                },
-                new (){
                     text = $"Beschikbare rondleidingen ({DateTime.Now.ToShortDateString()})",
                     hasExtraBreak = true
                 }
@@ -51,6 +42,29 @@ namespace ReservationSystem
 
             //Adding the tours
             actions.AddRange(getTours());
+
+            //Adding actions
+            actions.AddRange(new List<Action>(){
+                 new (){},
+                 new (){
+                    text = "Registratie controleren",
+                    onAction = line => {
+                        ProgramManger.setActions(new(){
+                            new(){
+                                text = "Enter value any value"
+                            }
+                        }, line =>{
+                            Console.WriteLine($"Value: {line} has been enterd");
+                        });
+                    }
+                },
+                new (){
+                    text = "Statistieken inzien",
+                    onAction = line => {
+                        ProgramManger.setActions(getStatistics());
+                    }
+                },
+            });
 
             return actions;
         }
@@ -69,11 +83,90 @@ namespace ReservationSystem
                 actions.Add(
                     new()
                     {
-                        text = $"{tour.dateTime.ToShortTimeString()} ({(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
-                        onAction = line => { }
+                        text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                        onAction = line =>
+                        {
+                            ProgramManger.setActions(getTour(tour));
+                        }
                     }
                 );
             }
+
+            return actions;
+        }
+
+        static List<Action> getTour(Tour tour)
+        {
+            //Getting the free places from the tour and checking if it is full
+            int freePlaces = tour.maxBookingCount - tour.bookings.Count;
+            bool isFull = freePlaces == 0;
+
+            return new(){
+                new (){
+                    text = "Voer een actie uit door het nummer voor de actie in te voeren.",
+                    hasExtraBreak = true
+                },
+                new()
+                {
+                    text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()}\n{(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")}",
+                    hasExtraBreak = true,
+                },
+                new (){
+                    text = "Rondleiding boeken",
+                    onAction = line => {
+                        ProgramManger.setActions(new());
+                }
+                },
+                new (){
+                    text = "Rondleiding starten",
+                    onAction = line => {}
+                },
+                new (){
+                    text = "Terug naar start",
+                    onAction = line => {
+                        ProgramManger.setActions(getStartScreen());
+                    }
+                },
+            };
+        }
+
+        static List<Action> getStatistics()
+        {
+            List<Action> actions = new(){
+                new (){
+                    text = "Voer een actie uit door het nummer voor de actie in te voeren.",
+                    hasExtraBreak = true
+                },
+                new (){
+                    text = $"Rondleidingen ({DateTime.Now.ToShortDateString()})",
+                    hasExtraBreak = true
+                }
+            };
+
+            //Add tours from today
+            actions.AddRange(getTours());
+
+            //Add other statistics
+            actions.AddRange(new List<Action>(){
+                new (){ text = "\nBezoekers: 3242",},
+                new (){ text = "Rondleiding boekingen: 120",},
+                new (){ text = "Rondleiding aanwezigen: 112",},
+                new (){ text = "Rondleiding afwezigen: 8",},
+                new (){
+                    text = "Annuleringen: 34",
+                    hasExtraBreak = true,
+                },
+                new (){
+                    text = "Statistieken periode",
+                    onAction = line => {}
+                },
+                new (){
+                    text = "Terug naar start",
+                    onAction = line => {
+                        ProgramManger.setActions(getStartScreen());
+                    }
+                },
+            });
 
             return actions;
         }
