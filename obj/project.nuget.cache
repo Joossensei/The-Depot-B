@@ -1,17 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OyQVZ2CoZ1AUg5XxOeJCIee2mCSAw9laXNlcUxjW/G6Rhy1T8juFUjA41Qxsl3zN0dlDMGMOTPEcD0eiofZ6rQ==",
+  "dgSpecHash": "mcEL6YWv2zTPxRmLHYkxWQcukuUuH0fHsWErU6z3PTm+YYRBp1xzltiOywwYYJ888KzPVR5QluERkywUYB9cBw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\wasda\\Documents\\School\\Hr\\Jaar 1\\Periode 3\\Project\\Project B\\The-Depot-B\\project_depotv1.csproj",
+  "projectFilePath": "D:\\depot\\The-Depot-B\\project_depotv1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\wasda\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+    "C:\\Users\\Hogeschool rotterdam\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\wasda\\Documents\\School\\Hr\\Jaar 1\\Periode 3\\Project\\Project B\\The-Depot-B\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

@@ -5,9 +5,31 @@ namespace ReservationSystem
 {
     class Program
     {
+        
+        // Get the current date and time
+        public static DateTime now = DateTime.Now;
+
+        // Set the opening and closing times for the restaurant
+        DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
+        DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
+
         //Some test data for the tours
-        static Tour[] tours = {
+        static Tour[] tours = 
+        {
+
+            
             new (){
+            dateTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 20, 0)
+            },
+            new(){
+                dateTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 40, 0)
+            },
+            new(){
+                dateTime = new DateTime(now.Year, now.Month, now.Day, now.AddHours(1).Hour, 0, 0)
+            }
+        };
+            //v1 tours Pieter
+            /*new (){
                 dateTime = DateTime.Now
             },
             new(){
@@ -19,10 +41,17 @@ namespace ReservationSystem
             new(){
                 dateTime = DateTime.Now.AddMinutes(60)
             }
-        };
+        };*/
 
         static void Main(string[] args)
         {
+            // Load entry tickets from JSON file
+            List<string> entryTickets = jsonManager.LoadEntryTickets();
+            
+
+
+            
+            // staring the program    
             ProgramManger.start(getStartScreen());
         }
 
@@ -170,5 +199,7 @@ namespace ReservationSystem
 
             return actions;
         }
+    
+
     }
 }
