@@ -7,6 +7,8 @@ public static class ProgramManger
     public static System.Action<string>? onOtherValue;
     public static List<string> errors = new();
 
+    public static Role userRole = Role.Customer;
+
     public static string readLine()
     {
         string line = Console.ReadLine() ?? "";
@@ -58,7 +60,7 @@ public static class ProgramManger
         foreach (var action in actions)
         {
             //Checking id the action has an action function
-            if (action.onAction != null)
+            if (action.onAction != null && action.validRoles.Contains(userRole))
             {
                 //Setting the id
                 action.setActionId(currentId);
@@ -74,12 +76,17 @@ public static class ProgramManger
         //Looping through the actions and rendering them
         foreach (var action in actions)
         {
-            if (action.id != null)
+            //Checking if you have the rights to have this role
+            if (action.validRoles.Contains(userRole))
             {
-                Console.Write(action.id + ": ");
-            }
+                //Checking if the actions has an action id
+                if (action.id != null)
+                {
+                    Console.Write(action.id + ": ");
+                }
 
-            Console.WriteLine(action.text + (action.hasExtraBreak ? "\n" : ""));
+                Console.WriteLine(action.text + (action.hasExtraBreak ? "\n" : ""));
+            }
         }
     }
 
@@ -141,8 +148,17 @@ public class Action
 
     public int? id { get; private set; }
 
+    public Role[] validRoles = new Role[] { Role.Admin, Role.Customer, Role.Guide };
+
     public void setActionId(int id)
     {
         this.id = id;
     }
+}
+
+public enum Role
+{
+    Customer,
+    Guide,
+    Admin
 }
