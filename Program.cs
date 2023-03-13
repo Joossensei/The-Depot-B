@@ -5,7 +5,7 @@ namespace ReservationSystem
 {
     class Program
     {
-        
+
         // Get the current date and time
         public static DateTime now = DateTime.Now;
 
@@ -14,10 +14,10 @@ namespace ReservationSystem
         DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
         //Some test data for the tours
-        static Tour[] tours = 
+        static Tour[] tours =
         {
 
-            
+
             new (){
             dateTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 20, 0)
             },
@@ -28,29 +28,29 @@ namespace ReservationSystem
                 dateTime = new DateTime(now.Year, now.Month, now.Day, now.AddHours(1).Hour, 0, 0)
             }
         };
-            //v1 tours Pieter
-            /*new (){
-                dateTime = DateTime.Now
-            },
-            new(){
-                dateTime = DateTime.Now.AddMinutes(20)
-            },
-            new(){
-                dateTime = DateTime.Now.AddMinutes(40)
-            },
-            new(){
-                dateTime = DateTime.Now.AddMinutes(60)
-            }
-        };*/
+        //v1 tours Pieter
+        /*new (){
+            dateTime = DateTime.Now
+        },
+        new(){
+            dateTime = DateTime.Now.AddMinutes(20)
+        },
+        new(){
+            dateTime = DateTime.Now.AddMinutes(40)
+        },
+        new(){
+            dateTime = DateTime.Now.AddMinutes(60)
+        }
+    };*/
 
         static void Main(string[] args)
         {
             // Load entry tickets from JSON file
             List<string> entryTickets = jsonManager.LoadEntryTickets();
-            
 
 
-            
+
+
             // staring the program    
             ProgramManger.start(getStartScreen());
         }
@@ -76,6 +76,7 @@ namespace ReservationSystem
             actions.AddRange(new List<Action>(){
                  new (){},
                  new (){
+                    validRoles = new Role[]{Role.Customer},
                     text = "Registratie controleren",
                     onAction = line => {
                         ProgramManger.setActions(new(){
@@ -88,9 +89,38 @@ namespace ReservationSystem
                     }
                 },
                 new (){
+                    validRoles = new Role[]{Role.Admin},
                     text = "Statistieken inzien",
                     onAction = line => {
                         ProgramManger.setActions(getStatistics());
+                    }
+                },
+                new (){
+                    validRoles = new Role[]{Role.Admin,Role.Guide},
+                    text = "Uitloggen",
+                    onAction = line => {
+                        ProgramManger.userRole = Role.Customer;
+                        ProgramManger.setActions(getStartScreen());
+                    }
+                },
+                new (){
+                    validRoles = new Role[]{Role.Customer},
+                    text = "Personeel login",
+                    onAction = line => {
+                        ProgramManger.setActions(new List<Action>{
+                            new(){
+                                text = "Voer je unieke code in of scan je badge om in te loggen"
+                            }
+                        }, (line)=>{
+                            if(line == "admin"){
+                                ProgramManger.userRole = Role.Admin;
+                                ProgramManger.setActions(getStartScreen());
+                            }
+                            else if(line == "guide"){
+                                ProgramManger.userRole = Role.Guide;
+                                ProgramManger.setActions(getStartScreen());
+                            }
+                        });
                     }
                 },
             });
@@ -141,12 +171,14 @@ namespace ReservationSystem
                     hasExtraBreak = true,
                 },
                 new (){
+                    validRoles = new Role[]{Role.Customer},
                     text = "Rondleiding boeken",
                     onAction = line => {
                         ProgramManger.setActions(new());
                 }
                 },
                 new (){
+                    validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
                     onAction = line => {
                         startTour.startTour.selectTour();
@@ -201,7 +233,7 @@ namespace ReservationSystem
 
             return actions;
         }
-    
+
 
     }
 }

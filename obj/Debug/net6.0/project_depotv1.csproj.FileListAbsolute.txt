@@ -1,68 +1,85 @@
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.exe
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.deps.json
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.runtimeconfig.json
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.dll
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\project_depotv1.pdb
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\bin\Debug\net6.0\Newtonsoft.Json.dll
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.csproj.AssemblyReference.cache
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.AssemblyInfoInputs.cache
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.AssemblyInfo.cs
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.csproj.CoreCompileInputs.cache
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.csproj.CopyComplete
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.dll
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\refint\project_depotv1.dll
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.pdb
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\project_depotv1.genruntimeconfig.cache
-C:\Users\Hogeschool rotterdam\OneDrive - Hogeschool Rotterdam\Bureaublad\project_depotv1\obj\Debug\net6.0\ref\project_depotv1.dll
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.exe
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.deps.json
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.runtimeconfig.json
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.dll
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.pdb
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\bin\Debug\net6.0\Newtonsoft.Json.dll
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.AssemblyReference.cache
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfoInputs.cache
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfo.cs
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CoreCompileInputs.cache
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CopyComplete
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.dll
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\refint\project_depotv1.dll
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.pdb
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.genruntimeconfig.cache
-C:\Users\Jorr-IT Solutions\Bureaublad\HR\Project B\The-Depot-B\obj\Debug\net6.0\ref\project_depotv1.dll
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.exe
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.deps.json
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.runtimeconfig.json
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.dll
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\bin\Debug\net6.0\project_depotv1.pdb
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\bin\Debug\net6.0\Newtonsoft.Json.dll
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.AssemblyReference.cache
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfoInputs.cache
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfo.cs
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CoreCompileInputs.cache
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CopyComplete
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.dll
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\refint\project_depotv1.dll
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.pdb
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\project_depotv1.genruntimeconfig.cache
-C:\Users\wasda\Documents\School\Hr\Jaar 1\Periode 3\Project\Project B\The-Depot-B\obj\Debug\net6.0\ref\project_depotv1.dll
-D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.exe
-D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.deps.json
-D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.runtimeconfig.json
-D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.dll
-D:\depot\The-Depot-B\bin\Debug\net6.0\project_depotv1.pdb
-D:\depot\The-Depot-B\bin\Debug\net6.0\Newtonsoft.Json.dll
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.AssemblyReference.cache
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfoInputs.cache
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.AssemblyInfo.cs
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CoreCompileInputs.cache
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.csproj.CopyComplete
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.dll
-D:\depot\The-Depot-B\obj\Debug\net6.0\refint\project_depotv1.dll
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.pdb
-D:\depot\The-Depot-B\obj\Debug\net6.0\project_depotv1.genruntimeconfig.cache
-D:\depot\The-Depot-B\obj\Debug\net6.0\ref\project_depotv1.dll
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/bin/Debug/net6.0/project_depotv1.exe
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/bin/Debug/net6.0/project_depotv1.deps.json
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/bin/Debug/net6.0/project_depotv1.runtimeconfig.json
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/bin/Debug/net6.0/project_depotv1.dll
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/bin/Debug/net6.0/project_depotv1.pdb
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/bin/Debug/net6.0/Newtonsoft.Json.dll
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.csproj.AssemblyReference.cache
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.AssemblyInfoInputs.cache
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.AssemblyInfo.cs
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.csproj.CoreCompileInputs.cache
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.csproj.CopyComplete
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.dll
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/refint/project_depotv1.dll
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.pdb
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/project_depotv1.genruntimeconfig.cache
+C:/Users/Hogeschool rotterdam/OneDrive - Hogeschool Rotterdam/Bureaublad/project_depotv1/obj/Debug/net6.0/ref/project_depotv1.dll
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.exe
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.deps.json
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.runtimeconfig.json
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.dll
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.pdb
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/bin/Debug/net6.0/Newtonsoft.Json.dll
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.AssemblyReference.cache
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfoInputs.cache
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfo.cs
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CoreCompileInputs.cache
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CopyComplete
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.dll
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/refint/project_depotv1.dll
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.pdb
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.genruntimeconfig.cache
+C:/Users/Jorr-IT Solutions/Bureaublad/HR/Project B/The-Depot-B/obj/Debug/net6.0/ref/project_depotv1.dll
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.exe
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.deps.json
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.runtimeconfig.json
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.dll
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/bin/Debug/net6.0/project_depotv1.pdb
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/bin/Debug/net6.0/Newtonsoft.Json.dll
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.AssemblyReference.cache
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfoInputs.cache
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfo.cs
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CoreCompileInputs.cache
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CopyComplete
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.dll
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/refint/project_depotv1.dll
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.pdb
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/project_depotv1.genruntimeconfig.cache
+C:/Users/wasda/Documents/School/Hr/Jaar 1/Periode 3/Project/Project B/The-Depot-B/obj/Debug/net6.0/ref/project_depotv1.dll
+D:/depot/The-Depot-B/bin/Debug/net6.0/project_depotv1.exe
+D:/depot/The-Depot-B/bin/Debug/net6.0/project_depotv1.deps.json
+D:/depot/The-Depot-B/bin/Debug/net6.0/project_depotv1.runtimeconfig.json
+D:/depot/The-Depot-B/bin/Debug/net6.0/project_depotv1.dll
+D:/depot/The-Depot-B/bin/Debug/net6.0/project_depotv1.pdb
+D:/depot/The-Depot-B/bin/Debug/net6.0/Newtonsoft.Json.dll
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.AssemblyReference.cache
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfoInputs.cache
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfo.cs
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CoreCompileInputs.cache
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CopyComplete
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.dll
+D:/depot/The-Depot-B/obj/Debug/net6.0/refint/project_depotv1.dll
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.pdb
+D:/depot/The-Depot-B/obj/Debug/net6.0/project_depotv1.genruntimeconfig.cache
+D:/depot/The-Depot-B/obj/Debug/net6.0/ref/project_depotv1.dll
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.AssemblyReference.cache
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfoInputs.cache
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.AssemblyInfo.cs
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CoreCompileInputs.cache
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.dll
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/refint/project_depotv1.dll
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.pdb
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.deps.json
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.runtimeconfig.json
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.dll
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.pdb
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CopyComplete
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.genruntimeconfig.cache
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/ref/project_depotv1.dll
