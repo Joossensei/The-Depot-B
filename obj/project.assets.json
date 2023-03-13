@@ -55,31 +55,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Hogeschool rotterdam\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/danillovankesteren/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\depot\\The-Depot-B\\project_depotv1.csproj",
+      "projectUniqueName": "/Users/danillovankesteren/Documents/GitHub/The-Depot-B/project_depotv1.csproj",
       "projectName": "project_depotv1",
-      "projectPath": "D:\\depot\\The-Depot-B\\project_depotv1.csproj",
-      "packagesPath": "C:\\Users\\Hogeschool rotterdam\\.nuget\\packages\\",
-      "outputPath": "D:\\depot\\The-Depot-B\\obj\\",
+      "projectPath": "/Users/danillovankesteren/Documents/GitHub/The-Depot-B/project_depotv1.csproj",
+      "packagesPath": "/Users/danillovankesteren/.nuget/packages/",
+      "outputPath": "/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Hogeschool rotterdam\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/danillovankesteren/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -119,7 +112,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.405/RuntimeIdentifierGraph.json"
       }
     }
   }

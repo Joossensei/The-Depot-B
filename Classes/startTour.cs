@@ -13,7 +13,7 @@ public static class startTour {
                 text = $"Beschikbare rondleidingen ({DateTime.Now.ToShortDateString()})",
                 hasExtraBreak = true
             }
-        };
+        }};
         else{
             ProgramManger.errors.Add("Oops u heeft geen rechten om dit uit te voerren");
         }
