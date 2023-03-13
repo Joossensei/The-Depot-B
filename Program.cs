@@ -148,7 +148,9 @@ namespace ReservationSystem
                 },
                 new (){
                     text = "Rondleiding starten",
-                    onAction = line => {}
+                    onAction = line => {
+                        startTour.startTour.selectTour();
+                    }
                 },
                 new (){
                     text = "Terug naar start",
