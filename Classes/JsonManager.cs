@@ -29,8 +29,23 @@ namespace ReservationSystem;
             }
         }
 
-        /*public static List<string> ReadEntryTickets()
+        public static List<Tour> LoadTours()
         {
-
-        }*/
+            try
+            {
+                using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
+                {
+                    string json = reader.ReadToEnd();
+                    List<Tour> Tour = JsonConvert.DeserializeObject<List<Tour>>(json);
+                    return Tour ?? new List<Tour>();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("No reservations found");
+                return new List<Tour>();
+            }
+        }
     }    
+
+    
