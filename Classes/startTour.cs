@@ -3,7 +3,7 @@ using ReservationSystem;
 public static class startTour {
     public static void selectTour()
     {
-        if(code == ""){
+        // if(code == ""){
         List<Action> actions = new List<Action> {
             new() {
                 text = "Selecteer welke rondleiding je wilt starten",
@@ -13,10 +13,11 @@ public static class startTour {
                 text = $"Beschikbare rondleidingen ({DateTime.Now.ToShortDateString()})",
                 hasExtraBreak = true
             }
-        }};
-        else{
-            ProgramManger.errors.Add("Oops u heeft geen rechten om dit uit te voerren");
-        }
+        };
+        // }
+        // else{
+        //     ProgramManger.errors.Add("Oops u heeft geen rechten om dit uit te voerren");
+        // }
         };
         
         
