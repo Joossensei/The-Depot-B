@@ -1,6 +1,8 @@
 using System;
 using Newtonsoft.Json;
 namespace ReservationSystem;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
     class jsonManager
     
@@ -35,7 +37,6 @@ namespace ReservationSystem;
             {
                 using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
                 {
-                    System.IO.File.ReadAllLines(@"C:\Users\Public\TestFolder\WriteLines2.txt");
                     string json = reader.ReadToEnd();
                     List<Tour> Tour = JsonConvert.DeserializeObject<List<Tour>>(json);
                     return Tour ?? new List<Tour>();
@@ -47,6 +48,10 @@ namespace ReservationSystem;
                 return new List<Tour>();
             }
         }
+        public  void writeToJson(List<Tour> tours, string fileName)
+        {
+            string json = JsonSerializer.Serialize(tours);
+            File.WriteAllText(fileName, json);
+        }
     }    
 
-    
