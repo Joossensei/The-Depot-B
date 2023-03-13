@@ -88,7 +88,10 @@ namespace ReservationSystem
         static List<Action> getTours()
         {
             List<Action> actions = new();
-            foreach (var tour in Tours.tours)
+            Tours myTours = new Tours();
+            Tour[] tours = myTours.GetTours();
+
+            foreach (var tour in tours)
             {
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = tour.maxBookingCount - tour.bookings.Count;
