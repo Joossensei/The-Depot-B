@@ -35,6 +35,7 @@ namespace ReservationSystem;
             {
                 using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
                 {
+                    System.IO.File.ReadAllLines(@"C:\Users\Public\TestFolder\WriteLines2.txt");
                     string json = reader.ReadToEnd();
                     List<Tour> Tour = JsonConvert.DeserializeObject<List<Tour>>(json);
                     return Tour ?? new List<Tour>();
