@@ -74,3 +74,12 @@ D:/depot/The-Depot-B/obj/Debug/net6.0/ref/project_depotv1.dll
 /Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.dll
 /Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/refint/project_depotv1.dll
 /Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.pdb
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.deps.json
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.runtimeconfig.json
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.dll
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/project_depotv1.pdb
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.csproj.CopyComplete
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/project_depotv1.genruntimeconfig.cache
+/Users/danillovankesteren/Documents/GitHub/The-Depot-B/obj/Debug/net6.0/ref/project_depotv1.dll

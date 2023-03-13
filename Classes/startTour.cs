@@ -1,9 +1,10 @@
 using ReservationSystem;
 
+namespace startTour;
+
 public static class startTour {
     public static void selectTour()
     {
-        // if(code == ""){
         List<Action> actions = new List<Action> {
             new() {
                 text = "Selecteer welke rondleiding je wilt starten",
@@ -14,12 +15,6 @@ public static class startTour {
                 hasExtraBreak = true
             }
         };
-        // }
-        // else{
-        //     ProgramManger.errors.Add("Oops u heeft geen rechten om dit uit te voerren");
-        // }
-        };
-        
         
         ProgramManger.start(actions);
 
