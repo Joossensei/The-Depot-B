@@ -1,10 +1,11 @@
 using System;
 using Newtonsoft.Json;
-namespace ReservationSystem;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-    class jsonManager
+
+namespace ReservationSystem;
+    public class jsonManager
     
     {
         public static List<string> LoadEntryTickets()
@@ -38,8 +39,8 @@ using System.Text.Json.Serialization;
                 using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
                 {
                     string json = reader.ReadToEnd();
-                    List<Tour> Tour = JsonConvert.DeserializeObject<List<Tour>>(json);
-                    return Tour ?? new List<Tour>();
+                    List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
+                    return tours ?? new List<Tour>();
                 }
             }
             catch (FileNotFoundException)
@@ -48,9 +49,9 @@ using System.Text.Json.Serialization;
                 return new List<Tour>();
             }
         }
-        public  void writeToJson(List<Tour> tours, string fileName)
+        public void writeToJson(List<Tour> tours, string fileName)
         {
-            string json = JsonSerializer.Serialize(tours);
+            string json = JsonConvert.SerializeObject(tours);
             File.WriteAllText(fileName, json);
         }
     }    

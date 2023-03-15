@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Globalization;
 
 namespace ReservationSystem
@@ -14,7 +15,8 @@ namespace ReservationSystem
         DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
         //Some test data for the tours
-        static Tour[] tours =
+        /*static Tour[] tours =*/
+        static List<Tour> tours = new List<Tour>
         {
 
 
@@ -26,8 +28,11 @@ namespace ReservationSystem
             },
             new(){
                 dateTime = new DateTime(now.Year, now.Month, now.Day, now.AddHours(1).Hour, 0, 0)
-            }
+            },
+
         };
+
+        
         //v1 tours Pieter
         /*new (){
             dateTime = DateTime.Now
@@ -45,11 +50,45 @@ namespace ReservationSystem
 
         static void Main(string[] args)
         {
+            // Get the current date and time
+            DateTime now = DateTime.Now;
+
+            // Set the opening and closing times for the restaurant
+            DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
+            DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
+
+            // Create a list to store the tours
+            List<Tour> tours = new List<Tour>();
+
+            // Set the tour duration to 20 minutes
+            int tourDuration = 20;
+
+            // Start time for the first tour
+            DateTime startTime = openingTime;
+
+            // Create tours until closing time
+
+            while (startTime.AddMinutes(tourDuration) <= closingTime)
+            {
+                // Create a new tour with the current start time
+                Tour tour = new Tour { dateTime = startTime };
+
+                // Add the tour to the list of tours
+                tours.Add(tour);
+
+                // Increment the start time for the next tour
+                startTime = startTime.AddMinutes(tourDuration);
+            }
+
+            // Write the list of tours to a JSON file
+            var manager = new jsonManager();
+            manager.writeToJson(tours, @"JsonFiles\tours.json");
+            
             // Load entry tickets from JSON file
             List<string> entryTickets = jsonManager.LoadEntryTickets();
 
-
-
+            // load tours from JSON file
+            List<Tour> alltours = jsonManager.LoadTours();
 
             // staring the program    
             ProgramManger.start(getStartScreen());
@@ -133,7 +172,8 @@ namespace ReservationSystem
             List<Action> actions = new();
 
             foreach (var tour in tours)
-            {
+            {   
+
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = tour.maxBookingCount - tour.bookings.Count;
                 bool isFull = freePlaces == 0;
