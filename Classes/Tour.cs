@@ -45,7 +45,6 @@ public class Tour{
         
     }
 }
-
 public class Booking{
     public string userId;
     public Guid tourId;

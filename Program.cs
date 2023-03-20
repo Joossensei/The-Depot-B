@@ -10,100 +10,24 @@ namespace ReservationSystem
         // Get the current date and time
         public static DateTime now = DateTime.Now;
 
-        // Set the opening and closing times for the restaurant
+        // Set the opening and closing times for the Depot
         DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
         DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
         //Some test data for the tours
-
-            //v1 tours Pieter
-            /*new (){
-                dateTime = DateTime.Now
-            },
-            new(){
-                dateTime = DateTime.Now.AddMinutes(20)
-            },
-            new(){
-                dateTime = DateTime.Now.AddMinutes(40)
-            },
-            new(){
-                dateTime = DateTime.Now.AddMinutes(60)
-            }
-        };*/
-        /*static Tour[] tours =*/
-        static List<Tour> tours = new List<Tour>
-        {
-
-
-            new (){
-            dateTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 20, 0)
-            },
-            new(){
-                dateTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 40, 0)
-            },
-            new(){
-                dateTime = new DateTime(now.Year, now.Month, now.Day, now.AddHours(1).Hour, 0, 0)
-            },
-
-        };
-
-        
-        //v1 tours Pieter
-        /*new (){
-            dateTime = DateTime.Now
-        },
-        new(){
-            dateTime = DateTime.Now.AddMinutes(20)
-        },
-        new(){
-            dateTime = DateTime.Now.AddMinutes(40)
-        },
-        new(){
-            dateTime = DateTime.Now.AddMinutes(60)
-        }
-    };*/
+        static List<Tour> tours = new List<Tour> { };
 
         static void Main(string[] args)
         {
-            // Get the current date and time
-            DateTime now = DateTime.Now;
 
-            // Set the opening and closing times for the restaurant
-            DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
-            DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
+            //make all the tour for today
+            Tour.writeAllTours();
 
-            // Create a list to store the tours
-            List<Tour> tours = new List<Tour>();
-
-            // Set the tour duration to 20 minutes
-            int tourDuration = 20;
-
-            // Start time for the first tour
-            DateTime startTime = openingTime;
-
-            // Create tours until closing time
-
-            while (startTime.AddMinutes(tourDuration) <= closingTime)
-            {
-                // Create a new tour with the current start time
-                Tour tour = new Tour { dateTime = startTime };
-
-                // Add the tour to the list of tours
-                tours.Add(tour);
-
-                // Increment the start time for the next tour
-                startTime = startTime.AddMinutes(tourDuration);
-            }
-
-            // Write the list of tours to a JSON file
-            var manager = new jsonManager();
-            manager.writeToJson(tours, @"JsonFiles\tours.json");
-            
             // Load entry tickets from JSON file
             List<string> entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
-            List<Tour> alltours = jsonManager.LoadTours();
+            tours = jsonManager.LoadTours();
 
             // staring the program    
             ProgramManger.start(getStartScreen());
@@ -131,7 +55,7 @@ namespace ReservationSystem
                  new (){},
                  new (){
                     validRoles = new Role[]{Role.Customer},
-                    text = "Registratie controleren",
+                    text = "Reserveringen controleren",
                     onAction = line => {
                         ProgramManger.setActions(new(){
                             new(){
@@ -182,14 +106,12 @@ namespace ReservationSystem
             return actions;
         }
 
-        static List<Action> getTours()
+        static List<Action> getTours(bool hasActions = true)
         {
             List<Action> actions = new();
-            Tours myTours = new Tours();
-            Tour[] tours = myTours.GetTours();
 
             foreach (var tour in tours)
-            {   
+            {
 
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = tour.maxBookingCount - tour.bookings.Count;
@@ -200,10 +122,11 @@ namespace ReservationSystem
                     new()
                     {
                         text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
-                        onAction = line =>
+                        onAction = hasActions ? line =>
                         {
                             ProgramManger.setActions(getTour(tour));
                         }
+                        : null
                     }
                 );
             }
@@ -229,7 +152,7 @@ namespace ReservationSystem
                 },
                 new (){
                     validRoles = new Role[]{Role.Customer},
-                    text = "Rondleiding boeken",
+                    text = "Rondleiding reserveren",
                     onAction = line => {
                         makeReservation.ReserveTour(Console.ReadLine(), tour);
                 }
@@ -264,7 +187,7 @@ namespace ReservationSystem
             };
 
             //Add tours from today
-            actions.AddRange(getTours());
+            actions.AddRange(getTours(hasActions: false));
 
             //Add other statistics
             actions.AddRange(new List<Action>(){

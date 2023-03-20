@@ -63,9 +63,11 @@ class makeReservation
 
             foreach (var checkTour in jsonManager.LoadTours())
             {
+
+                Console.WriteLine("Test\n"+checkTour.id+"\n"+tour.id+"\n\n\n");
+
                 if (checkTour.id == tour.id)
                 {
-                    Console.WriteLine("Test");
 
                     if (checkTour.bookings.Count >= 13)
                     {
@@ -83,9 +85,7 @@ class makeReservation
                     }
                 }
                 else
-                {
-
-                }
+                { }
 
 
                 tours.Add(checkTour);
