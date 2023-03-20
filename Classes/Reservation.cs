@@ -15,7 +15,12 @@ namespace ReservationSystem
             // entryTickets.Add("12");
             if(entryTickets.Contains(tickets)){
                 Console.WriteLine("Uw ticket is geldig");
-                // if(tours.bookings.Contains(line)){
+                //jsonmaniger . get tours
+                //for loop
+                //if currant tour . booking contains line
+                //als dat zo is voeg tour curront tour toe aan tour currusertour
+                //
+                // if(bookings.Contains(line)){
                 //     Console.WriteLine("U heeft een boeking");
                 //     // Console.WriteLine($"Uw rondleiding begint om {tours.dateTime}"); 
                 // }else{
