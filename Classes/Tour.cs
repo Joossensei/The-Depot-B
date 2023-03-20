@@ -9,40 +9,53 @@ public class Tour{
     public List<Booking> bookings = new();
 
     public static void  writeAllTours(){
-      
-        // Get the current date and time
-        DateTime now = DateTime.Now;
+       bool hasFoundToday = false;
+       List<Tour> tours = ReservationSystem.jsonManager.LoadTours();
+       DateTime today = DateTime.Now;
+       today = new DateTime(today.Year, today.Month, today.Day);
 
-        // Set the opening and closing times for the Depot
-        DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
-        DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
-        // Create a list to store the tours
-        List<Tour> tours = new List<Tour>();
+      foreach(Tour tour in tours){
+        if(new DateTime(tour.dateTime.Year, tour.dateTime.Month,tour.dateTime.Day) == today){
+            {
+            hasFoundToday = true;
+            break;
+            }
+        }   
 
-        // Set the tour duration to 20 minutes
-        int tourDuration = 20;
+        if(hasFoundToday){
+            // Get the current date and time
+            DateTime now = DateTime.Now;
 
-        // Start time for the first tour
-        DateTime startTime = openingTime;
+            // Set the opening and closing times for the Depot
+            DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
+            DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
-        // Create tours until closing time
+            // Set the tour duration to 20 minutes
+            int tourDuration = 20;
 
-        while (startTime.AddMinutes(tourDuration) <= closingTime)
-        {
-            // Create a new tour with the current start time
-            Tour tour = new Tour { dateTime = startTime };
+            // Start time for the first tour
+            DateTime startTime = openingTime;
 
-            // Add the tour to the list of tours
-            tours.Add(tour);
+            // Create tours until closing time
 
-            // Increment the start time for the next tour
-            startTime = startTime.AddMinutes(tourDuration);
+            while (startTime.AddMinutes(tourDuration) <= closingTime)
+            {
+                // Create a new tour with the current start time
+                Tour tourToday = new Tour { dateTime = startTime };
+
+                // Add the tour to the list of tours
+                tours.Add(tourToday);
+
+                // Increment the start time for the next tour
+                startTime = startTime.AddMinutes(tourDuration);
+            }
+            // Write the list of tours to a JSON file
+            var manager = new ReservationSystem.jsonManager();
+            manager.writeToJson(tours, @"JsonFiles\tours.json");
         }
-        // Write the list of tours to a JSON file
-        var manager = new ReservationSystem.jsonManager();
-        manager.writeToJson(tours, @"JsonFiles\tours.json");
         
+        }
     }
 }
 
