@@ -63,9 +63,6 @@ class makeReservation
 
             foreach (var checkTour in jsonManager.LoadTours())
             {
-
-                Console.WriteLine("Test\n"+checkTour.id+"\n"+tour.id+"\n\n\n");
-
                 if (checkTour.id == tour.id)
                 {
 
@@ -91,6 +88,23 @@ class makeReservation
                 tours.Add(checkTour);
                 var manager = new ReservationSystem.jsonManager();
                 manager.writeToJson(tours, @"JsonFiles/tours.json");
+
+                actions = new List<Action> {
+                    new() {
+                    text = "Nog een reservatie",
+                    hasExtraBreak = false,
+                    onAction = line => {
+                        makeReservation.ReserveTour(Console.ReadLine(), tour);
+                    }
+                    },
+                    new() {
+                    text = "Terug naar start",
+                    hasExtraBreak = false,
+                    onAction = line => {
+                        ProgramManger.setActions(Program.getStartScreen());
+                    }
+                    }
+                };
             }
         }
 

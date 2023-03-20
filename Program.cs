@@ -34,7 +34,7 @@ namespace ReservationSystem
         }
 
         //Function to get the home screen elements the start screen
-        static List<Action> getStartScreen()
+        public static List<Action> getStartScreen()
         {
             List<Action> actions = new List<Action>{
                 new (){
