@@ -99,11 +99,7 @@ namespace ReservationSystem;
             }
             }
         }
-        public void writeBookingsJson(List<Booking> list, string fileName)
-        {
-            string json = JsonConvert.SerializeObject(list);
-            File.WriteAllText(fileName, json);
-        }
+        
         public void writeToJson(List<Tour> tours, string fileName)
         {
             string json = JsonConvert.SerializeObject(tours);
