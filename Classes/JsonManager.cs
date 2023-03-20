@@ -56,7 +56,7 @@ namespace ReservationSystem;
         {
             try
             {
-                using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
+                using (StreamReader reader = new StreamReader(@"JsonFiles/tours.json"))
                 {
                     string json = reader.ReadToEnd();
                     List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);

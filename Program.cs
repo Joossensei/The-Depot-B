@@ -231,7 +231,7 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Customer},
                     text = "Rondleiding boeken",
                     onAction = line => {
-                        ProgramManger.setActions(new());
+                        makeReservation.ReserveTour(Console.ReadLine(), tour);
                 }
                 },
                 new (){
