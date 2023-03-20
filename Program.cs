@@ -90,10 +90,18 @@ namespace ReservationSystem
             
             // load tours from JSON file
             List<Tour> alltours = jsonManager.LoadTours();
+            List<Booking> allBookings = new List<Booking>();
+            foreach(var tour in alltours)
+            {
+                var booking = new Booking
+                {
+                    tourId = tour.id,
+                    occupationStatus = OccupationStatus.Joined
+                };
+                allBookings.Add(booking);
+            }
 
-            // foreach(var tour in alltours){
-            //     manager.writeToJson(tour.bookings, @"JsonFiles/bookings.json");
-            // };
+            manager.writeBookingsJson(allBookings, @"JsonFiles/bookings.json");
 
             // Console.WriteLine(alltours[1].bookings[]);
 
