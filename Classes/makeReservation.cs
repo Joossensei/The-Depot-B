@@ -3,7 +3,7 @@ namespace ReservationSystem;
 class makeReservation
 {
 
-    public static void invalidReservation(string reason, Tour tour)
+    public static void invalidReservation(string reason, Tour tour, List<Tour> tours)
     {
 
         List<Action> actions = new List<Action>
@@ -17,7 +17,7 @@ class makeReservation
             text = "Nog eens proberen",
             hasExtraBreak = false,
             onAction = line => {
-                makeReservation.ReserveTour(Console.ReadLine(), tour);
+                makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
             }
             },
             new() {
@@ -32,7 +32,7 @@ class makeReservation
         ProgramManger.start(actions);
     }
 
-    public static void ReserveTour(string ticketID, Tour tour)
+    public static void ReserveTour(string ticketID, Tour tour, List<Tour> tours)
     {
         List<Action> actions = new List<Action>
         {
@@ -52,23 +52,23 @@ class makeReservation
 
         if (validTicket == false)
         {
-            invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour);
+            invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour, tours);
         }
         else
         {
 
             //Als de code wel goed is, check dan of er nog plek is in deze tour
 
-            List<Tour> tours = new List<Tour>();
+            List<Tour> tempTours = new List<Tour>();
 
-            foreach (var checkTour in jsonManager.LoadTours())
+            foreach (var checkTour in tours)
             {
                 if (checkTour.id == tour.id)
                 {
 
                     if (checkTour.bookings.Count >= 13)
                     {
-                        invalidReservation("Deze tour zit helaas al vol", tour);
+                        invalidReservation("Deze tour zit helaas al vol", tour, tours);
                     }
                     else
                     {
@@ -85,7 +85,7 @@ class makeReservation
                 { }
 
 
-                tours.Add(checkTour);
+                tempTours.Add(checkTour);
                 var manager = new ReservationSystem.jsonManager();
                 manager.writeToJson(tours, @"JsonFiles/tours.json");
 
@@ -94,7 +94,7 @@ class makeReservation
                     text = "Nog een reservatie",
                     hasExtraBreak = false,
                     onAction = line => {
-                        makeReservation.ReserveTour(Console.ReadLine(), tour);
+                        makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
                     }
                     },
                     new() {
