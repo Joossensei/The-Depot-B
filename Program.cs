@@ -81,22 +81,41 @@ namespace ReservationSystem
             }
 
             // Write the list of tours to a JSON file
-            var manager = new jsonManager();
-            manager.writeToJson(tours, @"JsonFiles\tours.json");
+            jsonManager manager = new jsonManager();
+            manager.writeToJson(tours, @"JsonFiles/tours.json");
+            
             
             // Load entry tickets from JSON file
             List<string> entryTickets = jsonManager.LoadEntryTickets();
-
+            
             // load tours from JSON file
             List<Tour> alltours = jsonManager.LoadTours();
+            List<Booking> allBookings = new List<Booking>();
+            foreach(var tour in alltours)
+            {
+                var booking = new Booking
+                {
+                    tourId = tour.id,
+                    occupationStatus = OccupationStatus.Joined
+                };
+                allBookings.Add(booking);
+            }
+
+            manager.writeBookingsJson(allBookings, @"JsonFiles/bookings.json");
+
+            // Console.WriteLine(alltours[1].bookings[]);
 
             // staring the program    
             ProgramManger.start(getStartScreen());
         }
 
         //Function to get the home screen elements the start screen
-        static List<Action> getStartScreen()
+        public static List<Action> getStartScreen()
         {
+            // jsonManager manager = new jsonManager();
+            // List<string> entryTickets = jsonManager.LoadEntryTickets();
+            // List<Tour> alltours = jsonManager.LoadTours();
+
             List<Action> actions = new List<Action>{
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
@@ -120,10 +139,17 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(new(){
                             new(){
-                                text = "Enter value any value"
+                                text = "Voer uw ticketnummer in"
                             }
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
+                            // entryTickets.Add("12");
+                            // entryTickets.ForEach(delegate(string entryTickets) {
+                            //     Console.WriteLine(entryTickets);
+                            // });
+                            Reservation.tourRes(line);
+                            
+                            
                         });
                     }
                 },
@@ -210,20 +236,21 @@ namespace ReservationSystem
                     text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()}\n{(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")}",
                     hasExtraBreak = true,
                 },
-                new (){
-                    validRoles = new Role[]{Role.Customer},
-                    text = "Rondleiding boeken",
-                    onAction = line => {
-                        ProgramManger.setActions(new());
-                }
-                },
-                new (){
-                    validRoles = new Role[]{Role.Admin,Role.Guide},
-                    text = "Rondleiding starten",
-                    onAction = line => {
-                        startTour.startTour.selectTour();
-                    }
-                },
+                // new (){
+                //     validRoles = new Role[]{Role.Customer},
+                //     text = "Rondleiding boeken",
+                //     onAction = line => {
+                //         ProgramManger.setActions(new());
+                // }
+                // },
+                // new (){
+                //     validRoles = new Role[]{Role.Admin,Role.Guide},
+                //     text = "Rondleiding starten",
+                //     onAction = line => {
+                //         startTour.startTour.selectTour();
+                //     }
+                // },
+                
                 new (){
                     text = "Terug naar start",
                     onAction = line => {
