@@ -21,10 +21,10 @@ class makeReservation
             }
             },
             new() {
-            text = "Teruggaan naar hoofdmenu",
+            text = "Terug naar start",
             hasExtraBreak = false,
             onAction = line => {
-                //ProgramManger.setActions(getStartScreen());
+                ProgramManger.setActions(Program.getStartScreen());
             }
             }
         };
@@ -65,7 +65,7 @@ class makeReservation
             {
                 if (checkTour.id == tour.id)
                 {
-
+                    //Dit moet nog controleren of deze bookings niet geannuleerd zijn
                     if (checkTour.bookings.Count >= 13)
                     {
                         invalidReservation("Deze tour zit helaas al vol", tour, tours);
