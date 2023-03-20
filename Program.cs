@@ -63,6 +63,13 @@ namespace ReservationSystem
                             }
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
+                            // entryTickets.Add("12");
+                            // entryTickets.ForEach(delegate(string entryTickets) {
+                            //     Console.WriteLine(entryTickets);
+                            // });
+                            Reservation.tourRes(line);
+                            
+                            
                         });
                     }
                 },
@@ -161,7 +168,7 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
                     onAction = line => {
-                        startTour.startTour.selectTour();
+                        startTour.startTour.start(tour);
                     }
                 },
                 new (){
