@@ -1,15 +1,18 @@
 using System;
 using Newtonsoft.Json;
-namespace ReservationSystem;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-    class jsonManager
+
+namespace ReservationSystem;
+    public class jsonManager
     
     {
         public static List<string> LoadEntryTickets()
         {
             try 
             {
-                using(StreamReader reader = new StreamReader(@"JsonFiles\entryTickets.json"))
+                using(StreamReader reader = new StreamReader(@"JsonFiles/entryTickets.json"))
                 {
                     string json = reader.ReadToEnd();
                     List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
@@ -26,7 +29,7 @@ namespace ReservationSystem;
             {
                 try 
                 {
-                    using(StreamReader reader = new StreamReader(@"..\..\..\JsonFiles\entryTickets.json"))
+                    using(StreamReader reader = new StreamReader(@"../../../JsonFiles/entryTickets.json"))
                     {
                         string json = reader.ReadToEnd();
                         List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
@@ -49,8 +52,27 @@ namespace ReservationSystem;
             }
         }
 
-        /*public static List<string> ReadEntryTickets()
+        public static List<Tour> LoadTours()
         {
-
-        }*/
+            try
+            {
+                using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
+                {
+                    string json = reader.ReadToEnd();
+                    List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
+                    return tours ?? new List<Tour>();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("No reservations found");
+                return new List<Tour>();
+            }
+        }
+        public void writeToJson(List<Tour> tours, string fileName)
+        {
+            string json = JsonConvert.SerializeObject(tours);
+            File.WriteAllText(fileName, json);
+        }
     }    
+

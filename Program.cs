@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Globalization;
 
 namespace ReservationSystem
 {
     class Program
     {
-        
+
         // Get the current date and time
         public static DateTime now = DateTime.Now;
 
@@ -29,15 +30,81 @@ namespace ReservationSystem
                 dateTime = DateTime.Now.AddMinutes(60)
             }
         };*/
+        /*static Tour[] tours =*/
+        static List<Tour> tours = new List<Tour>
+        {
+
+
+            new (){
+            dateTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 20, 0)
+            },
+            new(){
+                dateTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 40, 0)
+            },
+            new(){
+                dateTime = new DateTime(now.Year, now.Month, now.Day, now.AddHours(1).Hour, 0, 0)
+            },
+
+        };
+
+        
+        //v1 tours Pieter
+        /*new (){
+            dateTime = DateTime.Now
+        },
+        new(){
+            dateTime = DateTime.Now.AddMinutes(20)
+        },
+        new(){
+            dateTime = DateTime.Now.AddMinutes(40)
+        },
+        new(){
+            dateTime = DateTime.Now.AddMinutes(60)
+        }
+    };*/
 
         static void Main(string[] args)
         {
+            // Get the current date and time
+            DateTime now = DateTime.Now;
+
+            // Set the opening and closing times for the restaurant
+            DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
+            DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
+
+            // Create a list to store the tours
+            List<Tour> tours = new List<Tour>();
+
+            // Set the tour duration to 20 minutes
+            int tourDuration = 20;
+
+            // Start time for the first tour
+            DateTime startTime = openingTime;
+
+            // Create tours until closing time
+
+            while (startTime.AddMinutes(tourDuration) <= closingTime)
+            {
+                // Create a new tour with the current start time
+                Tour tour = new Tour { dateTime = startTime };
+
+                // Add the tour to the list of tours
+                tours.Add(tour);
+
+                // Increment the start time for the next tour
+                startTime = startTime.AddMinutes(tourDuration);
+            }
+
+            // Write the list of tours to a JSON file
+            var manager = new jsonManager();
+            manager.writeToJson(tours, @"JsonFiles\tours.json");
+            
             // Load entry tickets from JSON file
             List<string> entryTickets = jsonManager.LoadEntryTickets();
-            
 
+            // load tours from JSON file
+            List<Tour> alltours = jsonManager.LoadTours();
 
-            
             // staring the program    
             ProgramManger.start(getStartScreen());
         }
@@ -63,6 +130,7 @@ namespace ReservationSystem
             actions.AddRange(new List<Action>(){
                  new (){},
                  new (){
+                    validRoles = new Role[]{Role.Customer},
                     text = "Registratie controleren",
                     onAction = line => {
                         ProgramManger.setActions(new(){
@@ -75,9 +143,38 @@ namespace ReservationSystem
                     }
                 },
                 new (){
+                    validRoles = new Role[]{Role.Admin},
                     text = "Statistieken inzien",
                     onAction = line => {
                         ProgramManger.setActions(getStatistics());
+                    }
+                },
+                new (){
+                    validRoles = new Role[]{Role.Admin,Role.Guide},
+                    text = "Uitloggen",
+                    onAction = line => {
+                        ProgramManger.userRole = Role.Customer;
+                        ProgramManger.setActions(getStartScreen());
+                    }
+                },
+                new (){
+                    validRoles = new Role[]{Role.Customer},
+                    text = "Personeel login",
+                    onAction = line => {
+                        ProgramManger.setActions(new List<Action>{
+                            new(){
+                                text = "Voer je unieke code in of scan je badge om in te loggen"
+                            }
+                        }, (line)=>{
+                            if(line == "admin"){
+                                ProgramManger.userRole = Role.Admin;
+                                ProgramManger.setActions(getStartScreen());
+                            }
+                            else if(line == "guide"){
+                                ProgramManger.userRole = Role.Guide;
+                                ProgramManger.setActions(getStartScreen());
+                            }
+                        });
                     }
                 },
             });
@@ -92,7 +189,8 @@ namespace ReservationSystem
             Tour[] tours = myTours.GetTours();
 
             foreach (var tour in tours)
-            {
+            {   
+
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = tour.maxBookingCount - tour.bookings.Count;
                 bool isFull = freePlaces == 0;
@@ -130,14 +228,18 @@ namespace ReservationSystem
                     hasExtraBreak = true,
                 },
                 new (){
+                    validRoles = new Role[]{Role.Customer},
                     text = "Rondleiding boeken",
                     onAction = line => {
                         ProgramManger.setActions(new());
                 }
                 },
                 new (){
+                    validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
-                    onAction = line => {}
+                    onAction = line => {
+                        startTour.startTour.selectTour();
+                    }
                 },
                 new (){
                     text = "Terug naar start",
@@ -188,7 +290,7 @@ namespace ReservationSystem
 
             return actions;
         }
-    
+
 
     }
 }

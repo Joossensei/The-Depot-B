@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 *.v2
 .vs/project_depotv1/DesignTimeBuild/.dtbcache.v2
+
+.idea

@@ -7,6 +7,7 @@ public class Tour{
     public int maxBookingCount = 13;
 
     public List<Booking> bookings = new();
+
 }
 
 public class Booking{
@@ -21,3 +22,5 @@ public enum OccupationStatus{
     Canceled,
     Visited
 }
+
+
