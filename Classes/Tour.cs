@@ -6,7 +6,7 @@ public class Tour{
 
     public int maxBookingCount = 13;
 
-    public List<Booking> bookings = new();
+    public List<string> bookings = new();
 
 }
 
