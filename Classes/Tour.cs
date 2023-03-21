@@ -1,4 +1,5 @@
-public class Tour{
+public class Tour
+{
     public Guid id = Guid.NewGuid();
     public DateTime dateTime;
 
@@ -8,66 +9,87 @@ public class Tour{
 
     public List<Booking> bookings = new();
 
-    public static void  writeAllTours(){
-       bool hasFoundToday = false;
-       List<Tour> tours = ReservationSystem.jsonManager.LoadTours();
-       DateTime today = DateTime.Now;
-       today = new DateTime(today.Year, today.Month, today.Day);
+    public static void writeAllTours()
+    {
+        bool hasFoundToday = false;
+        List<Tour> tours = ReservationSystem.jsonManager.LoadTours();
+        DateTime today = DateTime.Now;
+        today = new DateTime(today.Year, today.Month, today.Day);
 
 
-      foreach(Tour tour in tours){
-        if(new DateTime(tour.dateTime.Year, tour.dateTime.Month,tour.dateTime.Day) == today){
+        foreach (Tour tour in tours)
+        {
+            if (new DateTime(tour.dateTime.Year, tour.dateTime.Month, tour.dateTime.Day) == today)
             {
-            hasFoundToday = true;
-            break;
+                {
+                    hasFoundToday = true;
+                    break;
+                }
             }
-        }   
 
-        if(hasFoundToday){
-            // Get the current date and time
-            DateTime now = DateTime.Now;
-
-            // Set the opening and closing times for the Depot
-            DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
-            DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
-
-            // Set the tour duration to 20 minutes
-            int tourDuration = 20;
-
-            // Start time for the first tour
-            DateTime startTime = openingTime;
-
-            // Create tours until closing time
-
-            while (startTime.AddMinutes(tourDuration) <= closingTime)
+            if (hasFoundToday)
             {
-                // Create a new tour with the current start time
-                Tour tourToday = new Tour { dateTime = startTime };
+                // Get the current date and time
+                DateTime now = DateTime.Now;
 
-                // Add the tour to the list of tours
-                tours.Add(tourToday);
+                // Set the opening and closing times for the Depot
+                DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
+                DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
-                // Increment the start time for the next tour
-                startTime = startTime.AddMinutes(tourDuration);
+                // Set the tour duration to 20 minutes
+                int tourDuration = 20;
+
+                // Start time for the first tour
+                DateTime startTime = openingTime;
+
+                // Create tours until closing time
+
+                while (startTime.AddMinutes(tourDuration) <= closingTime)
+                {
+                    // Create a new tour with the current start time
+                    Tour tourToday = new Tour { dateTime = startTime };
+
+                    // Add the tour to the list of tours
+                    tours.Add(tourToday);
+
+                    // Increment the start time for the next tour
+                    startTime = startTime.AddMinutes(tourDuration);
+                }
+                // Write the list of tours to a JSON file
+                var manager = new ReservationSystem.jsonManager();
+                manager.writeToJson(tours, @"JsonFiles\tours.json");
             }
-            // Write the list of tours to a JSON file
-            var manager = new ReservationSystem.jsonManager();
-            manager.writeToJson(tours, @"JsonFiles\tours.json");
-        }
         }
     }
+
+    static public int tourFreePlaces(Tour tour)
+    {
+        int freePlaces = 13;
+
+        foreach (var booking in tour.bookings)
+        {
+            if (booking.occupationStatus == OccupationStatus.Joined)
+            {
+                freePlaces--;
+            }
+        }
+
+        return freePlaces;
+    }
+
 }
-public class Booking{
+public class Booking
+{
     public string userId;
     public Guid tourId;
     public DateTime createData;
     public OccupationStatus occupationStatus = OccupationStatus.Joined;
 }
 
-public enum OccupationStatus{
+public enum OccupationStatus
+{
     Joined,
     Canceled,
     Visited
 }
-    	
-           
+

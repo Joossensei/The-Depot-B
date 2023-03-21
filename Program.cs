@@ -115,7 +115,7 @@ namespace ReservationSystem
 
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = tour.maxBookingCount - tour.bookings.Count;
-                bool isFull = freePlaces == 0;
+                bool isFull = Tour.tourFreePlaces(tour) == 0;
 
                 //Adding the action items
                 actions.Add(
