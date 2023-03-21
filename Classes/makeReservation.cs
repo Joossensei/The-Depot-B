@@ -35,84 +35,89 @@ class makeReservation
 
     public static void ReserveTour(string ticketID, Tour tour, List<Tour> tours)
     {
-        List<Action> actions = new List<Action>
+
+        if (Tour.tourFreePlaces(tour) > 0)
         {
 
-        };
-
-        bool validTicket = false;
-
-        List<string> entryTickets = jsonManager.LoadEntryTickets();
-        foreach (var ticket in entryTickets)
-        {
-            if (ticket == ticketID)
+            List<Action> actions = new List<Action>
             {
-                validTicket = true;
-            }
-        }
 
-        if (validTicket == false)
-        {
-            invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour, tours);
-        }
-        else
-        {
+            };
 
-            //If the ticket is valid, check if the user already has a reservation gebruiker niet al een reservatie heeft
-            bool hasReservation = false;
-            foreach (var checkTour in tours)
+            bool validTicket = false;
+
+            List<string> entryTickets = jsonManager.LoadEntryTickets();
+            foreach (var ticket in entryTickets)
             {
-                foreach (var reservation in checkTour.bookings)
+                if (ticket == ticketID)
                 {
-                    if ((reservation.userId == ticketID) && (reservation.occupationStatus == OccupationStatus.Joined))
-                    {
-                        hasReservation = true;
-
-                        Action extraAction = new()
-                        {
-                            text = "Huidige reservering annuleren en voor deze tour inschrijven",
-                            hasExtraBreak = false,
-                            onAction = line =>
-                            {
-                                changeReservations.moveReservation(tour, checkTour, reservation, tours, ticketID);
-                            }
-                        };
-
-                        invalidReservation($"U heeft al een reservatie staan ({checkTour.dateTime})", tour, tours, extraAction);
-                    }
+                    validTicket = true;
                 }
             }
 
-            if (hasReservation == false)
+            if (validTicket == false)
             {
+                invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour, tours);
+            }
+            else
+            {
+
+                //If the ticket is valid, check if the user already has a reservation gebruiker niet al een reservering heeft
+                bool hasReservation = false;
                 foreach (var checkTour in tours)
                 {
-                    if (checkTour.id == tour.id)
+                    foreach (var reservation in checkTour.bookings)
                     {
-                        if (Tour.tourFreePlaces(tour) == 0)
+                        if ((reservation.userId == ticketID) && (reservation.occupationStatus == OccupationStatus.Joined))
                         {
-                            invalidReservation("Deze tour zit helaas al vol", tour, tours);
-                        }
-                        else
-                        {
-                            //Add the booking/reservation to the current tour
-                            checkTour.bookings.Add(new Booking
+                            hasReservation = true;
+
+                            Action extraAction = new()
                             {
-                                userId = ticketID,
-                                tourId = tour.id,
-                                createData = DateTime.Now,
-                                occupationStatus = OccupationStatus.Joined
-                            });
+                                text = "Huidige reservering annuleren en voor deze tour inschrijven",
+                                hasExtraBreak = false,
+                                onAction = line =>
+                                {
+                                    changeReservations.moveReservation(tour, checkTour, reservation, tours, ticketID);
+                                }
+                            };
+
+                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime})", tour, tours, extraAction);
                         }
                     }
                 }
-            }
-            var manager = new ReservationSystem.jsonManager();
-            manager.writeToJson(tours, @"JsonFiles/tours.json");
 
-            actions = new List<Action> {
+                if (hasReservation == false)
+                {
+                    foreach (var checkTour in tours)
+                    {
+                        if (checkTour.id == tour.id)
+                        {
+                            if (Tour.tourFreePlaces(tour) == 0)
+                            {   
+                                //Just to dubble check
+                                invalidReservation("Deze tour zit helaas al vol", tour, tours);
+                            }
+                            else
+                            {
+                                //Add the booking/reservation to the current tour
+                                checkTour.bookings.Add(new Booking
+                                {
+                                    userId = ticketID,
+                                    tourId = tour.id,
+                                    createData = DateTime.Now,
+                                    occupationStatus = OccupationStatus.Joined
+                                });
+                            }
+                        }
+                    }
+                }
+                var manager = new ReservationSystem.jsonManager();
+                manager.writeToJson(tours, @"JsonFiles/tours.json");
+
+                actions = new List<Action> {
                     new() {
-                    text = $"Nog een reservatie maken voor deze tour ({tour.dateTime})",
+                    text = $"Nog een reservering maken voor deze tour ({tour.dateTime})",
                     hasExtraBreak = false,
                     onAction = line => {
                         makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
@@ -126,9 +131,12 @@ class makeReservation
                     }
                     }
                 };
-        }
+            }
 
-        ProgramManger.start(actions);
+            ProgramManger.start(actions);
+        }else {
+            invalidReservation("Deze tour zit helaas al vol", tour, tours);
+        }
     }
 }
 
