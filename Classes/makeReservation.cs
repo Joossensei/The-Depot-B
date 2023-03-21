@@ -64,7 +64,7 @@ class makeReservation
             {
                 foreach (var booking in checkTour.bookings)
                 {
-                    if (booking.userId == ticketID)
+                    if ((booking.userId == ticketID) && (booking.occupationStatus == OccupationStatus.Joined))
                     {
                         hasReservation = true;
 

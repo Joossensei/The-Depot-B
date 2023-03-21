@@ -11,12 +11,20 @@ public class changeReservations
         {
             if (checkTour.id == tour.id)
             {
-                checkTour.bookings.Remove(reservation);
+                foreach (Booking checkReservation in checkTour.bookings) {
+                    if (checkReservation.userId == reservation.userId) {
+                        checkReservation.occupationStatus = OccupationStatus.Canceled;
+                    }
+                }
             }
 
             tempTours.Add(checkTour);
         }
         var manager = new ReservationSystem.jsonManager();
         manager.writeToJson(tours, @"JsonFiles/tours.json");
+    }
+
+    public static void moveReservation(Tour newTour, Tour oldTour, List<Tour> tours) {
+
     }
 };
