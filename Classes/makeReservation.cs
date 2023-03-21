@@ -73,8 +73,8 @@ class makeReservation
                             text = "Huidige reservering annuleren en voor deze tour inschrijven",
                             hasExtraBreak = false,
                             onAction = line =>
-                            {
-                                //changeReservations.changeReservation(Console.ReadLine(), tour, tours);
+                            {                                       //Pass the tour for which the user has a reservation
+                                changeReservations.cancelReservation(checkTour, booking, tours);
                             }
                         };
 
@@ -85,8 +85,6 @@ class makeReservation
 
             if (hasReservation == false)
             {
-                List<Tour> tempTours = new List<Tour>();
-
                 foreach (var checkTour in tours)
                 {
                     if (checkTour.id == tour.id)
@@ -107,13 +105,8 @@ class makeReservation
                             });
                         }
                     }
-
-                    //Always add the current tour to the new JSON...
-                    tempTours.Add(checkTour);
-
                 }
             }
-            //... but write the JSON only once
             var manager = new ReservationSystem.jsonManager();
             manager.writeToJson(tours, @"JsonFiles/tours.json");
 
