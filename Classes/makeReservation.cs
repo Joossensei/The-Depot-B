@@ -62,9 +62,9 @@ class makeReservation
             bool hasReservation = false;
             foreach (var checkTour in tours)
             {
-                foreach (var booking in checkTour.bookings)
+                foreach (var reservation in checkTour.bookings)
                 {
-                    if ((booking.userId == ticketID) && (booking.occupationStatus == OccupationStatus.Joined))
+                    if ((reservation.userId == ticketID) && (reservation.occupationStatus == OccupationStatus.Joined))
                     {
                         hasReservation = true;
 
@@ -73,8 +73,8 @@ class makeReservation
                             text = "Huidige reservering annuleren en voor deze tour inschrijven",
                             hasExtraBreak = false,
                             onAction = line =>
-                            {                                       //Pass the tour for which the user has a reservation
-                                changeReservations.cancelReservation(checkTour, booking, tours);
+                            {
+                                changeReservations.moveReservation(tour, checkTour, reservation, tours, ticketID);
                             }
                         };
 
@@ -112,7 +112,7 @@ class makeReservation
 
             actions = new List<Action> {
                     new() {
-                    text = "Nog een reservatie maken",
+                    text = $"Nog een reservatie maken voor deze tour ({tour.dateTime})",
                     hasExtraBreak = false,
                     onAction = line => {
                         makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
