@@ -114,8 +114,8 @@ namespace ReservationSystem
             {
 
                 //Getting the free places from the tour and checking if it is full
-                int freePlaces = tour.maxBookingCount - tour.bookings.Count;
-                bool isFull = Tour.tourFreePlaces(tour) == 0;
+                int freePlaces = Tour.tourFreePlaces(tour);
+                bool isFull = freePlaces == 0;
 
                 //Adding the action items
                 actions.Add(
@@ -137,7 +137,7 @@ namespace ReservationSystem
         static List<Action> getTour(Tour tour)
         {
             //Getting the free places from the tour and checking if it is full
-            int freePlaces = tour.maxBookingCount - tour.bookings.Count;
+            int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
 
             return new(){

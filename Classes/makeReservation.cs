@@ -3,16 +3,12 @@ namespace ReservationSystem;
 class makeReservation
 {
 
-    public static void invalidReservation(string reason, Tour tour, List<Tour> tours)
+    //General function if the reservation is invalid or fails to prevent duplicate code
+    public static void invalidReservation(string reason, Tour tour, List<Tour> tours, Action extraAction = default)
     {
 
-        List<Action> actions = new List<Action>
-        {
-
-        };
-
         Console.WriteLine(reason);
-        actions = new List<Action> {
+        List<Action> actions = new List<Action> {
             new() {
             text = "Nog eens proberen",
             hasExtraBreak = false,
@@ -28,6 +24,11 @@ class makeReservation
             }
             }
         };
+
+        if (extraAction != default)
+        {
+            actions.Add(extraAction);
+        }
 
         ProgramManger.start(actions);
     }
@@ -57,41 +58,68 @@ class makeReservation
         else
         {
 
-            //Als de code wel goed is, check dan of er nog plek is in deze tour
-
-            List<Tour> tempTours = new List<Tour>();
-
+            //If the ticket is valid, check if the user already has a reservation gebruiker niet al een reservatie heeft
+            bool hasReservation = false;
             foreach (var checkTour in tours)
             {
-                if (checkTour.id == tour.id)
+                foreach (var booking in checkTour.bookings)
                 {
-                    //Dit moet nog controleren of deze bookings niet geannuleerd zijn
-                    if (checkTour.bookings.Count >= 13)
+                    if (booking.userId == ticketID)
                     {
-                        invalidReservation("Deze tour zit helaas al vol", tour, tours);
-                    }
-                    else
-                    {
-                        checkTour.bookings.Add(new Booking
+                        hasReservation = true;
+
+                        Action extraAction = new()
                         {
-                            userId = ticketID,
-                            tourId = tour.id,
-                            createData = DateTime.Now,
-                            occupationStatus = OccupationStatus.Joined
-                        });
+                            text = "Huidige reservering annuleren en voor deze tour inschrijven",
+                            hasExtraBreak = false,
+                            onAction = line =>
+                            {
+                                //changeReservations.changeReservation(Console.ReadLine(), tour, tours);
+                            }
+                        };
+
+                        invalidReservation($"U heeft al een reservatie staan ({checkTour.dateTime})", tour, tours, extraAction);
                     }
                 }
-                else
-                { }
+            }
 
+            if (hasReservation == false)
+            {
+                List<Tour> tempTours = new List<Tour>();
 
-                tempTours.Add(checkTour);
-                var manager = new ReservationSystem.jsonManager();
-                manager.writeToJson(tours, @"JsonFiles/tours.json");
+                foreach (var checkTour in tours)
+                {
+                    if (checkTour.id == tour.id)
+                    {
+                        if (Tour.tourFreePlaces(tour) == 0)
+                        {
+                            invalidReservation("Deze tour zit helaas al vol", tour, tours);
+                        }
+                        else
+                        {
+                            //Add the booking/reservation to the current tour
+                            checkTour.bookings.Add(new Booking
+                            {
+                                userId = ticketID,
+                                tourId = tour.id,
+                                createData = DateTime.Now,
+                                occupationStatus = OccupationStatus.Joined
+                            });
+                        }
+                    }
 
-                actions = new List<Action> {
+                    //Always add the current tour to the new JSON...
+                    tempTours.Add(checkTour);
+
+                }
+            }
+            //... but write the JSON only once
+            var manager = new ReservationSystem.jsonManager();
+            manager.writeToJson(tours, @"JsonFiles/tours.json");
+
+            actions = new List<Action> {
                     new() {
-                    text = "Nog een reservatie",
+                    text = "Nog een reservatie maken",
                     hasExtraBreak = false,
                     onAction = line => {
                         makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
@@ -105,7 +133,6 @@ class makeReservation
                     }
                     }
                 };
-            }
         }
 
         ProgramManger.start(actions);
