@@ -5,6 +5,8 @@ public class Tour
 
     public int tourDuration = 20;
 
+    public bool tourStarted = false;
+
     public int maxBookingCount = 13;
 
     public List<Booking> bookings = new();

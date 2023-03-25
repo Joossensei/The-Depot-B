@@ -6,6 +6,9 @@ public class startTour
 {
     public static void start(Tour tour, int amntStarted)
     {
+        List<Tour> tours = Program.tours;
+
+
         ProgramManger.setActions(new List<Action>
         {
             new()
@@ -70,6 +73,11 @@ public class startTour
                     {
                         if (line == "guide")
                         {
+
+                            tour.tourStarted= true;
+                            var manager = new jsonManager();
+                            manager.writeToJson(tours, @"JsonFiles/tours.json");
+
                             ProgramManger.setActions(new List<Action>()
                             {
                                 new()
