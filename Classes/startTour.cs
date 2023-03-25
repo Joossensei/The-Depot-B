@@ -32,4 +32,4 @@ public static class startTour {
     // Checken of iedereen er is
 
     // Tour updaten naar started
-// }
+}
