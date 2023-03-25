@@ -8,8 +8,10 @@ class makeReservation
     {
         List<Tour> tours = Program.tours;
 
-        Console.WriteLine(reason);
         List<Action> actions = new List<Action> { };
+        actions.Add(new() {
+            text = reason
+        });
 
         if (tryAgain == true)
         {
