@@ -15,7 +15,7 @@ namespace ReservationSystem
         DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
         //Some test data for the tours
-        static List<Tour> tours = new List<Tour> { };
+        public static List<Tour> tours = new List<Tour> { };
 
         static void Main(string[] args)
         {

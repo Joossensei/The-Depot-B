@@ -95,6 +95,8 @@ public class startTour
 
     private static bool checkCode(string code, List<Booking> bookings)
     {
+        List<Tour> tours = Program.tours;
+
         foreach (var booking in bookings)
         {
             if (booking.userId == code && booking.occupationStatus == OccupationStatus.Joined)
@@ -104,7 +106,9 @@ public class startTour
                     case OccupationStatus.Joined:
                     {
                         booking.occupationStatus = OccupationStatus.Visited;
-                        return true;
+                        var manager = new ReservationSystem.jsonManager();
+                        manager.writeToJson(tours, @"JsonFiles/tours.json");
+                        return true;                        
                     }
                     case OccupationStatus.Canceled:
                     {
