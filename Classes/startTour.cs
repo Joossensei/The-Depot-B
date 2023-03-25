@@ -1,6 +1,6 @@
-using ReservationSystem;
+// using ReservationSystem;
 
-namespace startTour;
+// namespace startTour;
 
 public static class startTour {
     public static void selectTour()
@@ -32,4 +32,4 @@ public static class startTour {
     // Checken of iedereen er is
 
     // Tour updaten naar started
-}
+// }
