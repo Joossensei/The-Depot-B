@@ -54,5 +54,5 @@ namespace ReservationSystem
             }
             
         }
-        }
+}
         
