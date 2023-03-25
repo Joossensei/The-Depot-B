@@ -12,7 +12,8 @@ namespace ReservationSystem;
         {
             try 
             {
-                using(StreamReader reader = new StreamReader(@"JsonFiles\entryTickets.json"))
+
+                using(StreamReader reader = new StreamReader(Path.GetFullPath(@"JsonFiles/entryTickets.json")))
                 {
                     string json = reader.ReadToEnd();
                     List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
@@ -25,11 +26,12 @@ namespace ReservationSystem;
                 }
 
             }
+
             catch (Exception)
             {
                 try 
                 {
-                    using(StreamReader reader = new StreamReader(@"..\..\..\JsonFiles\entryTickets.json"))
+                    using(StreamReader reader = new StreamReader( @"../../../JsonFiles/entryTickets.json"))
                     {
                         string json = reader.ReadToEnd();
                         List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
@@ -42,12 +44,13 @@ namespace ReservationSystem;
                     }
 
                 }
-                catch (FileNotFoundException)
+                catch (Exception)
                 {
 
                     try 
                 {
                     using(StreamReader reader = new StreamReader(@"JsonFiles/entryTickets.json"))
+
                     {
                         string json = reader.ReadToEnd();
                         List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
@@ -67,23 +70,13 @@ namespace ReservationSystem;
                 }
                     
                 }
+
             }
         }
 
         public static List<Tour> LoadTours()
         {
             try
-            {
-                using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
-                {
-                    string json = reader.ReadToEnd();
-                    List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
-                    return tours ?? new List<Tour>();
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                try
             {
                 using (StreamReader reader = new StreamReader(@"JsonFiles/tours.json"))
                 {
@@ -92,21 +85,36 @@ namespace ReservationSystem;
                     return tours ?? new List<Tour>();
                 }
             }
-            catch (FileNotFoundException)
+            catch (Exception)
             {
-                Console.WriteLine("No reservations found");
-                return new List<Tour>();
-            }
+                try
+                {
+                    using (StreamReader reader = new StreamReader(@"../../../JsonFiles/tours.json"))
+                    {
+                        string json = reader.ReadToEnd();
+                        List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
+                        return tours ?? new List<Tour>();
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("No reservations found");
+                    return new List<Tour>();
+                }
             }
         }
-        public void writeBookingsJson(List<Booking> list, string fileName)
-        {
-            string json = JsonConvert.SerializeObject(list);
-            File.WriteAllText(fileName, json);
-        }
+        
         public void writeToJson(List<Tour> tours, string fileName)
         {
             string json = JsonConvert.SerializeObject(tours);
-            File.WriteAllText(fileName, json);
+            try
+            {
+                File.WriteAllText(fileName, json);
+            }
+            catch (Exception)
+            {
+                File.WriteAllText("../../../" + fileName, json);
+            }
         }
     }    
+
