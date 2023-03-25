@@ -2,34 +2,89 @@ using ReservationSystem;
 
 namespace startTour;
 
-public static class startTour {
-    public static void selectTour()
+public class startTour
+{
+    public static void start(Tour tour, int amntStarted)
     {
-        List<Action> actions = new List<Action> {
-            new() {
-                text = "Selecteer welke rondleiding je wilt starten",
-                hasExtraBreak = true
-            },
-            new() {
-                text = $"Beschikbare rondleidingen ({DateTime.Now.ToShortDateString()})",
-                hasExtraBreak = true
+        ProgramManger.setActions(new List<Action>
+        {
+            new()
+            {
+                text = "Code scannen [1] \n Rondleiding starten [2]",
+                onAction = line =>
+                {
+                    if (line == "1") {
+                        if (checkCode(line, tour.bookings)) {
+                            if (amntStarted >= tour.maxBookingCount) {
+                                ProgramManger.setActions(new List<Action> {
+                                    new() {
+                                        text = "Wilt u de tour starten? (Scan uw code)",
+                                        onAction = line => {
+                                            if (line == "guide") {
+                                                Console.WriteLine("Tour is gestart!");
+                                                ProgramManger.setActions(Program.getStartScreen());
+                                            }
+                                            else {
+                                                start(tour, amntStarted);
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                amntStarted += 1;
+                                start(tour, amntStarted);
+                            }
+                        }
+                    } else {
+                        ProgramManger.setActions(new List<Action> {
+                            new() {
+                                text = "Wilt u de tour starten? (Scan uw code)",
+                                onAction = line => {
+                                    if (line == "guide") {
+                                        Console.WriteLine("Tour is gestart!");
+                                        ProgramManger.setActions(Program.getStartScreen());
+                                    }
+                                    else {
+                                        start(tour, amntStarted);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
             }
-        };
-        
-        ProgramManger.start(actions);
-
-        // foreach (Tour tour in getTour) {
-        //     actions.Add(
-        //         new() {
-        //             text = "Selecteer welke rondleiding je wilt starten",
-        //         }
-        //     );
-        // }
+        });
     }
-    
-    // Vragen of iedereen zn barcode scant
 
-    // Checken of iedereen er is
-
-    // Tour updaten naar started
+    private static bool checkCode(string code, List<Booking> bookings)
+    {
+        foreach (var booking in bookings)
+        {
+            if (booking.userId == code && booking.occupationStatus == OccupationStatus.Joined)
+            {
+                switch (booking.occupationStatus)
+                {
+                    case OccupationStatus.Joined:
+                    {
+                        booking.occupationStatus = OccupationStatus.Visited;
+                        return true;
+                    }
+                    case OccupationStatus.Canceled:
+                    {
+                        Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
+                        return false;
+                    }
+                    case OccupationStatus.Visited:
+                    {
+                        Console.WriteLine("U heeft deze rondleiding al bezocht!");
+                        return false;
+                    }
+                }
+                
+            }
+        }
+        
+        return false;
+    }
 }
