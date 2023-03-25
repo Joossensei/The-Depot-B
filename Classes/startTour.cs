@@ -97,30 +97,30 @@ public class startTour
     {
         List<Tour> tours = Program.tours;
 
-        foreach (var booking in bookings)
+        foreach (var booking in bookings.Where(booking => booking.userId == code && booking.occupationStatus == OccupationStatus.Joined))
         {
-            if (booking.userId == code && booking.occupationStatus == OccupationStatus.Joined)
+            switch (booking.occupationStatus)
             {
-                switch (booking.occupationStatus)
+                case OccupationStatus.Joined:
                 {
-                    case OccupationStatus.Joined:
-                    {
-                        booking.occupationStatus = OccupationStatus.Visited;
-                        var manager = new ReservationSystem.jsonManager();
-                        manager.writeToJson(tours, @"JsonFiles/tours.json");
-                        return true;                        
-                    }
-                    case OccupationStatus.Canceled:
-                    {
-                        Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
-                        return false;
-                    }
-                    case OccupationStatus.Visited:
-                    {
-                        Console.WriteLine("U heeft deze rondleiding al bezocht!");
-                        return false;
-                    }
+                    booking.occupationStatus = OccupationStatus.Visited;
+                    var manager = new jsonManager();
+                    manager.writeToJson(tours, @"JsonFiles/tours.json");
+                    return true;                        
                 }
+                case OccupationStatus.Canceled:
+                {
+                    Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
+                    return false;
+                }
+                case OccupationStatus.Visited:
+                {
+                    Console.WriteLine("U heeft deze rondleiding al bezocht!");
+                    return false;
+                }
+                default:
+                    Console.WriteLine("Er ging iets fout probeer het nog een keer!");
+                    return false;
             }
         }
 
