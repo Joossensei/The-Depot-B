@@ -5,7 +5,51 @@ public class statisticScreen
     public static List<Action> getStatistics()
     {
         List<Tour> tours = Program.tours;
-        int totalVisitors = jsonManager.LoadEntryTickets().Count();
+        List<Action> actions = new() { };
+        foreach (Tour tour in tours)
+        {
+            int totalBooked = 0;
+            int totalCancelled = 0;
+            int totalJoined = 0;
+            int totalVisited = 0;
+
+            foreach (Booking reservation in tour.bookings)
+            {
+                totalBooked++;
+
+                switch (reservation.occupationStatus)
+                {
+                    case OccupationStatus.Canceled:
+                        totalCancelled++;
+                        break;
+                    case OccupationStatus.Joined:
+                        totalJoined++;
+                        break;
+                    case OccupationStatus.Visited:
+                        totalVisited++;
+                        break;
+                }
+            }
+            if (totalBooked <= 3) {
+                actions.Add(new() {
+                    text = $"De tour om {tour.dateTime} is maar {totalBooked}x geboekt"
+                });
+            }
+
+            if (totalCancelled >= 5) {
+                actions.Add(new() {
+                    text = $"De tour om {tour.dateTime} is {totalCancelled}x geanulleerd"
+                });
+            }
+
+            if (totalJoined >= 8 && totalVisited <= 4) {
+                actions.Add(new() {
+                    text = $"De tour om {tour.dateTime} is {totalJoined}x gereserveerd en slechts {totalVisited}x bezocht"
+                });
+            }
+        };
+
+        /*int totalVisitors = jsonManager.LoadEntryTickets().Count();
         int totalReservations = 0;
         int cancelledReservations = 0;
         int joinedReservations = 0;
@@ -29,9 +73,9 @@ public class statisticScreen
                         break;
                 }
             }
-        }
+        }*/
 
-        List<Action> actions = new(){
+        actions.AddRange(new List<Action>(){
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
@@ -39,20 +83,6 @@ public class statisticScreen
                 new (){
                     text = $"Rondleidingen ({DateTime.Now.ToShortDateString()})",
                     hasExtraBreak = true
-                }
-            };
-
-
-
-        //Add other statistics
-        actions.AddRange(new List<Action>(){
-                new (){ text = $"\nBezoekers: {totalVisitors}",},
-                new (){ text = $"Rondleiding boekingen: {totalReservations}",},
-                new (){ text = $"Rondleiding aanwezigen: {visitedReservations}",},
-                new (){ text = $"Rondleiding afwezigen: {joinedReservations}",},
-                new (){
-                    text = $"Annuleringen: {cancelledReservations}",
-                    hasExtraBreak = true,
                 },
                 new (){
                     text = "Statistieken periode",
