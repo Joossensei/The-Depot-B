@@ -36,6 +36,7 @@ namespace ReservationSystem
         //Function to get the home screen elements the start screen
         public static List<Action> getStartScreen()
         {
+
             List<Action> actions = new List<Action>{
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
@@ -63,9 +64,19 @@ namespace ReservationSystem
                             }
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
+                            List<Action> actions = Reservation.tourRes(line); 
+                            actions.Add( new(){
+                                    text = "Terug naar start",
+                                   
+                                    onAction = line => {
+                                        ProgramManger.setActions(Program.getStartScreen());
+                                    }
+                                }
+                            );  
+                            ProgramManger.setActions(actions);                        
                         });
-                    }
-                },
+                    },      
+                 },
                 new (){
                     validRoles = new Role[]{Role.Admin},
                     text = "Statistieken inzien",
@@ -161,7 +172,7 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
                     onAction = line => {
-                        startTour.startTour.selectTour();
+                        startTour.selectTour();
                     }
                 },
                 new (){

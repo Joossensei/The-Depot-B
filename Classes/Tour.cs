@@ -85,6 +85,7 @@ public class Booking
     public Guid tourId;
     public DateTime createData;
     public OccupationStatus occupationStatus = OccupationStatus.Joined;
+    
 }
 
 public enum OccupationStatus
