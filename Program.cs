@@ -34,7 +34,7 @@ namespace ReservationSystem
         }
 
         //Function to get the home screen elements the start screen
-        static List<Action> getStartScreen()
+        public static List<Action> getStartScreen()
         {
             List<Action> actions = new List<Action>{
                 new (){
@@ -191,6 +191,7 @@ namespace ReservationSystem
                     text = $"Rondleidingen ({DateTime.Now.ToShortDateString()})",
                     hasExtraBreak = true
                 }
+                
             };
 
             //Add tours from today
@@ -215,6 +216,12 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(getStartScreen());
                     }
+                },
+                new (){
+                    text = "getStatistics",
+                    onAction = line => {
+                        ProgramManger.setActions(Statistics.getData());
+                    },
                 },
             });
 
