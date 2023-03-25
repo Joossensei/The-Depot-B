@@ -10,48 +10,74 @@ public class startTour
         {
             new()
             {
-                text = "Code scannen [1] \n Rondleiding starten [2]",
+                text = "Code scannen",
                 onAction = line =>
                 {
-                    if (line == "1") {
-                        if (checkCode(line, tour.bookings)) {
-                            if (amntStarted >= tour.maxBookingCount) {
-                                ProgramManger.setActions(new List<Action> {
-                                    new() {
-                                        text = "Wilt u de tour starten? (Scan uw code)",
-                                        onAction = line => {
-                                            if (line == "guide") {
-                                                Console.WriteLine("Tour is gestart!");
-                                                ProgramManger.setActions(Program.getStartScreen());
-                                            }
-                                            else {
-                                                start(tour, amntStarted);
-                                            }
+                    if (checkCode(line, tour.bookings))
+                    {
+                        if (amntStarted >= tour.maxBookingCount)
+                        {
+                            ProgramManger.setActions(new List<Action>
+                            {
+                                new()
+                                {
+                                    text = "Wilt u de tour starten? (Scan uw code)",
+                                    onAction = line =>
+                                    {
+                                        if (line == "guide")
+                                        {
+                                            Console.WriteLine("Tour is gestart!");
+                                            ProgramManger.setActions(Program.getStartScreen());
+                                        }
+                                        else
+                                        {
+                                            start(tour, amntStarted);
                                         }
                                     }
-                                });
-                            }
-                            else {
-                                amntStarted += 1;
-                                start(tour, amntStarted);
-                            }
+                                }
+                            });
                         }
-                    } else {
-                        ProgramManger.setActions(new List<Action> {
-                            new() {
-                                text = "Wilt u de tour starten? (Scan uw code)",
-                                onAction = line => {
-                                    if (line == "guide") {
-                                        Console.WriteLine("Tour is gestart!");
+                        else
+                        {
+                            amntStarted += 1;
+                            start(tour, amntStarted);
+                        }
+                    }
+                }
+            },
+            new()
+            {
+                text = "Wilt u de tour starten?",
+                onAction = line =>
+                {
+                    ProgramManger.setActions(new List<Action>()
+                    {
+                        new ()
+                        {
+                            text = "Scan uw unieke code",
+                        }
+                    }, (line) =>
+                    {
+                        if (line == "guide")
+                        {
+                            ProgramManger.setActions(new List<Action>()
+                            {
+                                new()
+                                {
+                                    text = "Tour is gestart! \n   Terug naar start",
+                                    onAction = line =>
+                                    {
                                         ProgramManger.setActions(Program.getStartScreen());
-                                    }
-                                    else {
-                                        start(tour, amntStarted);
+
                                     }
                                 }
-                            }
-                        });
-                    }
+                            });
+                        }
+                        else
+                        {
+                            start(tour, amntStarted);
+                        }    
+                    });
                 }
             }
         });
@@ -81,10 +107,9 @@ public class startTour
                         return false;
                     }
                 }
-                
             }
         }
-        
+
         return false;
     }
 }
