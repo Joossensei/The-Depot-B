@@ -13,36 +13,46 @@ public class startTour
                 text = "Code scannen",
                 onAction = line =>
                 {
-                    if (checkCode(line, tour.bookings))
+                    ProgramManger.setActions(new List<Action>()
                     {
-                        if (amntStarted >= tour.maxBookingCount)
+                        new ()
                         {
-                            ProgramManger.setActions(new List<Action>
+                            text = "Scan uw unieke code"
+                        }
+                    }, line => {
+                        if (checkCode(line, tour.bookings))
+                        {
+                            if (amntStarted >= tour.maxBookingCount)
                             {
-                                new()
+                                ProgramManger.setActions(new List<Action>
                                 {
-                                    text = "Wilt u de tour starten? (Scan uw code)",
-                                    onAction = line =>
+                                    new()
                                     {
-                                        if (line == "guide")
+                                        text = "Wilt u de tour starten? (Scan uw code)",
+                                        onAction = line =>
                                         {
-                                            Console.WriteLine("Tour is gestart!");
-                                            ProgramManger.setActions(Program.getStartScreen());
-                                        }
-                                        else
-                                        {
-                                            start(tour, amntStarted);
+                                            if (line == "guide")
+                                            {
+                                                Console.WriteLine("Tour is gestart!");
+                                                ProgramManger.setActions(Program.getStartScreen());
+                                            }
+                                            else
+                                            {
+                                                start(tour, amntStarted);
+                                            }
                                         }
                                     }
-                                }
-                            });
-                        }
-                        else
-                        {
-                            amntStarted += 1;
+                                });
+                            }
+                            else
+                            {
+                                amntStarted += 1;
+                                start(tour, amntStarted);
+                            }
+                        } else {
                             start(tour, amntStarted);
                         }
-                    }
+                    });
                 }
             },
             new()
