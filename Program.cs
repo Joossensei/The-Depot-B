@@ -112,9 +112,6 @@ namespace ReservationSystem
         //Function to get the home screen elements the start screen
         public static List<Action> getStartScreen()
         {
-            // jsonManager manager = new jsonManager();
-            // List<string> entryTickets = jsonManager.LoadEntryTickets();
-            // List<Tour> alltours = jsonManager.LoadTours();
 
             List<Action> actions = new List<Action>{
                 new (){
@@ -143,10 +140,19 @@ namespace ReservationSystem
                             }
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
-                            Reservation.tourRes(line);
+                            List<Action> actions = Reservation.tourRes(line); 
+                            actions.Add( new(){
+                                    text = "Terug naar start",
+                                   
+                                    onAction = line => {
+                                        ProgramManger.setActions(Program.getStartScreen());
+                                    }
+                                }
+                            );  
+                            ProgramManger.setActions(actions);                        
                         });
-                    }
-                },
+                    },      
+                 },
                 new (){
                     validRoles = new Role[]{Role.Admin},
                     text = "Statistieken inzien",
