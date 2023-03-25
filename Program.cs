@@ -15,7 +15,7 @@ namespace ReservationSystem
         DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
         //Some test data for the tours
-        static List<Tour> tours = new List<Tour> { };
+        public static List<Tour> tours = new List<Tour> { };
 
         static void Main(string[] args)
         {
@@ -115,7 +115,7 @@ namespace ReservationSystem
 
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = Tour.tourFreePlaces(tour);
-                bool isFull = freePlaces == 0;
+                bool isFull = freePlaces <= 0;
 
                 //Adding the action items
                 actions.Add(
@@ -140,6 +140,25 @@ namespace ReservationSystem
             int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
 
+            //Attempt to get a ticketID and make a reservation
+            if (ProgramManger.userRole == Role.Customer && !isFull)
+            {
+                Console.WriteLine($"Scan nu uw ticket om deze tour te boeken ({tour.dateTime})");
+                string ticketID = ProgramManger.readLine();
+                if (ticketID != "")
+                {
+                    if (makeReservation.checkTicketValidity(ticketID))
+                    {
+                        makeReservation.ReserveTour(ticketID, tour);
+                        return new() { };
+                    }
+                    else
+                    {
+                        Console.WriteLine("Dit ticket is niet correct");
+                    }
+                }
+            }
+
             return new(){
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
@@ -154,7 +173,8 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Customer},
                     text = "Rondleiding reserveren",
                     onAction = line => {
-                        makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+                        Console.WriteLine("Scan nu uw code:");
+                        makeReservation.ReserveTour(ProgramManger.readLine(), tour);
                 }
                 },
                 new (){

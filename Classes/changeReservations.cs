@@ -2,9 +2,10 @@ namespace ReservationSystem;
 
 public class changeReservations
 {
-    public static void cancelReservation(Tour tour, List<Tour> tours, Booking reservation, bool showOptions = false)
+    public static void cancelReservation(Tour tour, Booking reservation, bool showOptions = false)
     {
 
+        List<Tour> tours = Program.tours;
         List<Tour> tempTours = new List<Tour> { };
 
         foreach (Tour checkTour in tours)
@@ -35,7 +36,17 @@ public class changeReservations
                     text = "Nog een annulering maken",
                     hasExtraBreak = false,
                     onAction = line => {
-                        //changeReservations.cancelReservation(tour: tour, tours: tours);
+                        Console.WriteLine("Scan uw code om te annuleren");
+                        string ticketID = ProgramManger.readLine();
+                        Booking newCancellationReservation = new();
+                        bool newCancellationReservationStatus = false;
+                        foreach (Booking reservation in tour.bookings)
+                        {
+                            if(reservation.userId == ticketID) newCancellationReservation = reservation; newCancellationReservationStatus=true;
+                        }
+                        if(newCancellationReservationStatus == true){
+                            changeReservations.cancelReservation(tour: tour, reservation: newCancellationReservation);
+                        }
                     }
                     },
                     new() {
@@ -50,13 +61,13 @@ public class changeReservations
         };
     }
 
-    public static void moveReservation(Tour newTour, Tour oldTour, Booking reservation, List<Tour> tours, string ticketID)
+    public static void moveReservation(Tour newTour, Tour oldTour, Booking reservation, string ticketID)
     {
 
         //First we need to cancel the current reservation
-        cancelReservation(oldTour, tours, reservation);
+        cancelReservation(oldTour, reservation);
         //Then we easily make a new one
-        makeReservation.ReserveTour(ticketID, newTour, tours);
+        makeReservation.ReserveTour(ticketID, newTour);
 
     }
 };
