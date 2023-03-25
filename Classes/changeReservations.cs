@@ -36,7 +36,17 @@ public class changeReservations
                     text = "Nog een annulering maken",
                     hasExtraBreak = false,
                     onAction = line => {
-                        //changeReservations.cancelReservation(tour: tour, tours: tours);
+                        Console.WriteLine("Scan uw code om te annuleren");
+                        string ticketID = ProgramManger.readLine();
+                        Booking newCancellationReservation = new();
+                        bool newCancellationReservationStatus = false;
+                        foreach (Booking reservation in tour.bookings)
+                        {
+                            if(reservation.userId == ticketID) newCancellationReservation = reservation; newCancellationReservationStatus=true;
+                        }
+                        if(newCancellationReservationStatus == true){
+                            changeReservations.cancelReservation(tour: tour, reservation: newCancellationReservation);
+                        }
                     }
                     },
                     new() {

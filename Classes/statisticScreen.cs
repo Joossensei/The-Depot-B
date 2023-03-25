@@ -4,6 +4,10 @@ public class statisticScreen
 {
     public static List<Action> getStatistics()
     {
+
+
+        
+
         List<Action> actions = new(){
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
