@@ -4,8 +4,10 @@ class makeReservation
 {
 
     //General function if the reservation is invalid or fails to prevent duplicate code
-    public static void invalidReservation(string reason, Tour tour, List<Tour> tours, Action extraAction = default)
+    public static void invalidReservation(string reason, Tour tour, Action extraAction = default)
     {
+
+        List<Tour> tours = Program.tours;
 
         Console.WriteLine(reason);
         List<Action> actions = new List<Action> {
@@ -13,7 +15,7 @@ class makeReservation
             text = "Nog eens proberen",
             hasExtraBreak = false,
             onAction = line => {
-                makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+                makeReservation.ReserveTour(Console.ReadLine(), tour);
             }
             },
             new() {
@@ -33,8 +35,9 @@ class makeReservation
         ProgramManger.start(actions);
     }
 
-    public static void ReserveTour(string ticketID, Tour tour, List<Tour> tours)
+    public static void ReserveTour(string ticketID, Tour tour)
     {
+        List<Tour> tours = Program.tours;
 
         if (Tour.tourFreePlaces(tour) > 0)
         {
@@ -57,7 +60,7 @@ class makeReservation
 
             if (validTicket == false)
             {
-                invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour, tours);
+                invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour);
             }
             else
             {
@@ -78,11 +81,11 @@ class makeReservation
                                 hasExtraBreak = false,
                                 onAction = line =>
                                 {
-                                    changeReservations.moveReservation(tour, checkTour, reservation, tours, ticketID);
+                                    changeReservations.moveReservation(tour, checkTour, reservation, ticketID);
                                 }
                             };
 
-                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime})", tour, tours, extraAction);
+                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime})", tour, extraAction);
                         }
                     }
                 }
@@ -96,7 +99,7 @@ class makeReservation
                             if (Tour.tourFreePlaces(tour) == 0)
                             {   
                                 //Just to dubble check
-                                invalidReservation("Deze tour zit helaas al vol", tour, tours);
+                                invalidReservation("Deze tour zit helaas al vol", tour);
                             }
                             else
                             {
@@ -120,7 +123,7 @@ class makeReservation
                     text = $"Nog een reservering maken voor deze tour ({tour.dateTime})",
                     hasExtraBreak = false,
                     onAction = line => {
-                        makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+                        makeReservation.ReserveTour(Console.ReadLine(), tour);
                     }
                     },
                     new() {
@@ -135,7 +138,7 @@ class makeReservation
 
             ProgramManger.start(actions);
         }else {
-            invalidReservation("Deze tour zit helaas al vol", tour, tours);
+            invalidReservation("Deze tour zit helaas al vol", tour);
         }
     }
 }
