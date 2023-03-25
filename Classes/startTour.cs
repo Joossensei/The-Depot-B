@@ -13,7 +13,7 @@ public class startTour
                 new () {
                     text = "Voer uw unieke code in",
                     onAction = line => {
-                        if (checkCode(line, tour.bookings) /*&& count < tour.maxBookingCount*/) {
+                        if (checkCode(line, tour.bookings)) {
                             start(tour);
                         }
                     }
@@ -25,22 +25,30 @@ public class startTour
     {
         foreach (var booking in bookings)
         {
-            if (booking.)
+            if (booking.userId == code && booking.occupationStatus == OccupationStatus.Joined)
             {
+                switch (booking.occupationStatus)
+                {
+                    case OccupationStatus.Joined:
+                    {
+                        booking.occupationStatus = OccupationStatus.Visited;
+                        return true;
+                    }
+                    case OccupationStatus.Canceled:
+                    {
+                        Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
+                        return false;
+                    }
+                    case OccupationStatus.Visited:
+                    {
+                        Console.WriteLine("U heeft deze rondleiding al bezocht!");
+                        return false;
+                    }
+                }
                 
             }
         }
-        if (bookings.Contains(code))
-        {
-            return true;
-        }
-
+        
         return false;
     }
-    
-    // Vragen of iedereen zn barcode scant
-
-    // Checken of iedereen er is
-
-    // Tour updaten naar started
 }
