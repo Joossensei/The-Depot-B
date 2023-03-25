@@ -63,13 +63,6 @@ namespace ReservationSystem
                             }
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
-                            // entryTickets.Add("12");
-                            // entryTickets.ForEach(delegate(string entryTickets) {
-                            //     Console.WriteLine(entryTickets);
-                            // });
-                            Reservation.tourRes(line);
-                            
-                            
                         });
                     }
                 },
@@ -121,7 +114,7 @@ namespace ReservationSystem
             {
 
                 //Getting the free places from the tour and checking if it is full
-                int freePlaces = tour.maxBookingCount - tour.bookings.Count;
+                int freePlaces = Tour.tourFreePlaces(tour);
                 bool isFull = freePlaces == 0;
 
                 //Adding the action items
@@ -144,7 +137,7 @@ namespace ReservationSystem
         static List<Action> getTour(Tour tour)
         {
             //Getting the free places from the tour and checking if it is full
-            int freePlaces = tour.maxBookingCount - tour.bookings.Count;
+            int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
 
             return new(){
@@ -161,14 +154,14 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Customer},
                     text = "Rondleiding reserveren",
                     onAction = line => {
-                        ProgramManger.setActions(new());
+                        makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
                 }
                 },
                 new (){
                     validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
                     onAction = line => {
-                        startTour.startTour.start(tour);
+                        startTour.startTour.selectTour();
                     }
                 },
                 new (){

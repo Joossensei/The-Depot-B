@@ -12,6 +12,7 @@ namespace ReservationSystem;
         {
             try 
             {
+
                 using(StreamReader reader = new StreamReader(Path.GetFullPath(@"JsonFiles/entryTickets.json")))
                 {
                     string json = reader.ReadToEnd();
@@ -26,6 +27,7 @@ namespace ReservationSystem;
                 }
 
             }
+
             catch (Exception)
             {
                 try 
@@ -49,6 +51,7 @@ namespace ReservationSystem;
                     try 
                 {
                     using(StreamReader reader = new StreamReader(@"JsonFiles/entryTickets.json"))
+
                     {
                         string json = reader.ReadToEnd();
                         List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
@@ -68,6 +71,7 @@ namespace ReservationSystem;
                 }
                     
                 }
+
             }
         }
 
@@ -75,7 +79,7 @@ namespace ReservationSystem;
         {
             try
             {
-                using (StreamReader reader = new StreamReader(@"JsonFiles\tours.json"))
+                using (StreamReader reader = new StreamReader(@"JsonFiles/tours.json"))
                 {
                     string json = reader.ReadToEnd();
                     List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
@@ -114,3 +118,4 @@ namespace ReservationSystem;
             }
         }
     }    
+

@@ -3,18 +3,28 @@ using ReservationSystem;
 namespace startTour;
 
 public static class startTour {
-    public static void start(Tour tour)
+    public static void selectTour()
     {
-        // ProgramManger.setActions(new {
-        //     new Action() {
-        //         text = "",
-        //         onAction = line => {
-        //             if (tour.bookings.Contains()){
-                        
-        //             }
+        List<Action> actions = new List<Action> {
+            new() {
+                text = "Selecteer welke rondleiding je wilt starten",
+                hasExtraBreak = true
+            },
+            new() {
+                text = $"Beschikbare rondleidingen ({DateTime.Now.ToShortDateString()})",
+                hasExtraBreak = true
+            }
+        };
+        
+        ProgramManger.start(actions);
+
+        // foreach (Tour tour in getTour) {
+        //     actions.Add(
+        //         new() {
+        //             text = "Selecteer welke rondleiding je wilt starten",
         //         }
-        //     },
-        // });
+        //     );
+        // }
     }
     
     // Vragen of iedereen zn barcode scant
