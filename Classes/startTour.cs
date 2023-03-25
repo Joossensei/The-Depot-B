@@ -4,21 +4,57 @@ namespace startTour;
 
 public class startTour
 {
-    private int count = 0;
-    public static void start(Tour tour)
+    public static void start(Tour tour, int amntStarted)
     {
-        // count += 1;
-        ProgramManger.setActions(
-            new () {
-                new () {
-                    text = "Voer uw unieke code in",
-                    onAction = line => {
+        ProgramManger.setActions(new List<Action>
+        {
+            new()
+            {
+                text = "Code scannen [1] \n Rondleiding starten [2]",
+                onAction = line =>
+                {
+                    if (line == "1") {
                         if (checkCode(line, tour.bookings)) {
-                            start(tour);
+                            if (amntStarted >= tour.maxBookingCount) {
+                                ProgramManger.setActions(new List<Action> {
+                                    new() {
+                                        text = "Wilt u de tour starten? (Scan uw code)",
+                                        onAction = line => {
+                                            if (line == "guide") {
+                                                Console.WriteLine("Tour is gestart!");
+                                                ProgramManger.setActions(Program.getStartScreen());
+                                            }
+                                            else {
+                                                start(tour, amntStarted);
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                amntStarted += 1;
+                                start(tour, amntStarted);
+                            }
                         }
+                    } else {
+                        ProgramManger.setActions(new List<Action> {
+                            new() {
+                                text = "Wilt u de tour starten? (Scan uw code)",
+                                onAction = line => {
+                                    if (line == "guide") {
+                                        Console.WriteLine("Tour is gestart!");
+                                        ProgramManger.setActions(Program.getStartScreen());
+                                    }
+                                    else {
+                                        start(tour, amntStarted);
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
-            });
+            }
+        });
     }
 
     private static bool checkCode(string code, List<Booking> bookings)

@@ -161,7 +161,7 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
                     onAction = line => {
-                        startTour.startTour.start(tour);
+                        startTour.startTour.start(tour, 0);
                     }
                 },
                 new (){
