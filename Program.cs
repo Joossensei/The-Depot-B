@@ -36,6 +36,7 @@ namespace ReservationSystem
         //Function to get the home screen elements the start screen
         public static List<Action> getStartScreen()
         {
+
             List<Action> actions = new List<Action>{
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
@@ -63,9 +64,19 @@ namespace ReservationSystem
                             }
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
+                            List<Action> actions = Reservation.tourRes(line); 
+                            actions.Add( new(){
+                                    text = "Terug naar start",
+                                   
+                                    onAction = line => {
+                                        ProgramManger.setActions(Program.getStartScreen());
+                                    }
+                                }
+                            );  
+                            ProgramManger.setActions(actions);                        
                         });
-                    }
-                },
+                    },      
+                 },
                 new (){
                     validRoles = new Role[]{Role.Admin},
                     text = "Statistieken inzien",
@@ -115,13 +126,15 @@ namespace ReservationSystem
 
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = Tour.tourFreePlaces(tour);
-                bool isFull = freePlaces <= 0;
+
+                bool isFull = freePlaces == 0;
+                bool isStarted = tour.tourStarted;
 
                 //Adding the action items
                 actions.Add(
                     new()
                     {
-                        text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                        text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
                         onAction = hasActions ? line =>
                         {
                             ProgramManger.setActions(getTour(tour));
@@ -139,58 +152,55 @@ namespace ReservationSystem
             //Getting the free places from the tour and checking if it is full
             int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
+            bool isStarted = tour.tourStarted;
 
-            //Attempt to get a ticketID and make a reservation
-            if (ProgramManger.userRole == Role.Customer && !isFull)
-            {
-                Console.WriteLine($"Scan nu uw ticket om deze tour te boeken ({tour.dateTime})");
-                string ticketID = ProgramManger.readLine();
-                if (ticketID != "")
-                {
-                    if (makeReservation.checkTicketValidity(ticketID))
-                    {
-                        makeReservation.ReserveTour(ticketID, tour);
-                        return new() { };
-                    }
-                    else
-                    {
-                        Console.WriteLine("Dit ticket is niet correct");
-                    }
-                }
-            }
 
-            return new(){
+            List<Action> actions = new List<Action> {
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
                 },
                 new()
                 {
-                    text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()}\n{(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")}",
+                    text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()}\n{(isStarted? "Tour is al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")}",
                     hasExtraBreak = true,
-                },
-                new (){
-                    validRoles = new Role[]{Role.Customer},
-                    text = "Rondleiding reserveren",
-                    onAction = line => {
-                        Console.WriteLine("Scan nu uw code:");
-                        makeReservation.ReserveTour(ProgramManger.readLine(), tour);
+
                 }
-                },
-                new (){
+            };
+
+            if(isStarted == false) {
+                if(isFull == false) {
+                    actions.Add(
+                        new (){
+                        validRoles = new Role[]{Role.Customer},
+                        text = "Rondleiding reserveren",
+                        onAction = line => {
+                            makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+                        }
+                    }
+                    );
+                };
+                actions.Add(
+                    new (){
                     validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
                     onAction = line => {
-                        startTour.startTour.selectTour();
+                        startTour.startTour.start(tour, 0);
                     }
-                },
+                }
+                );
+            }
+
+            actions.Add(
                 new (){
                     text = "Terug naar start",
                     onAction = line => {
                         ProgramManger.setActions(getStartScreen());
                     }
-                },
-            };
+                }
+            );
+            
+            return actions;
         }
 
         static List<Action> getStatistics()
