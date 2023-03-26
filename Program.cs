@@ -126,6 +126,7 @@ namespace ReservationSystem
 
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = Tour.tourFreePlaces(tour);
+
                 bool isFull = freePlaces == 0;
                 bool isStarted = tour.tourStarted;
 
@@ -163,6 +164,7 @@ namespace ReservationSystem
                 {
                     text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()}\n{(isStarted? "Tour is al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")}",
                     hasExtraBreak = true,
+
                 }
             };
 
