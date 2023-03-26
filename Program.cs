@@ -154,6 +154,24 @@ namespace ReservationSystem
             bool isFull = freePlaces == 0;
             bool isStarted = tour.tourStarted;
 
+            //Attempt to get a ticketID and make a reservation
+            if (ProgramManger.userRole == Role.Customer && !isFull && !isStarted)
+            {
+                Console.WriteLine($"Scan nu uw ticket om deze tour te boeken ({tour.dateTime})");
+                string ticketID = ProgramManger.readLine();
+                if (ticketID != "")
+                {
+                    if (makeReservation.checkTicketValidity(ticketID))
+                    {
+                        makeReservation.ReserveTour(ticketID, tour);
+                        return new() { };
+                    }
+                    else
+                    {
+                        Console.WriteLine("Dit ticket is niet correct");
+                    }
+                }
+            }
 
             List<Action> actions = new List<Action> {
                 new (){
@@ -175,7 +193,7 @@ namespace ReservationSystem
                         validRoles = new Role[]{Role.Customer},
                         text = "Rondleiding reserveren",
                         onAction = line => {
-                            makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+                            makeReservation.ReserveTour(ProgramManger.readLine(), tour);
                         }
                     }
                     );
