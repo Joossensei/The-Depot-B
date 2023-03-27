@@ -154,9 +154,22 @@ namespace ReservationSystem
             int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
             bool isStarted = tour.tourStarted;
+            List<Action> actions = new List<Action> {};
 
+            //Attempt to get a ticketID and make a reservation
+            if (ProgramManger.userRole == Role.Customer)
+            {
+                if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                {
+                    actions.Add(new()
+                    {
+                        text = "Dit ticket mag geen reservingen maken",
+                        textType = TextType.Error
+                    });
+                }
+            }
 
-            List<Action> actions = new List<Action> {
+            actions.AddRange( new List<Action> {
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
@@ -167,7 +180,8 @@ namespace ReservationSystem
                     hasExtraBreak = true,
 
                 }
-            };
+            }
+            );
 
             if(isStarted == false) {
                 if(isFull == false) {
@@ -176,7 +190,14 @@ namespace ReservationSystem
                         validRoles = new Role[]{Role.Customer},
                         text = "Rondleiding reserveren",
                         onAction = line => {
-                            makeReservation.ReserveTour(Console.ReadLine(), tour);
+                            if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                            {
+                                actions.Add(new()
+                                {
+                                    text = "Dit ticket mag geen reservingen maken",
+                                    textType = TextType.Error
+                                });
+                            }
                         }
                     }
                     );
@@ -200,7 +221,7 @@ namespace ReservationSystem
                     }
                 }
             );
-            
+
             return actions;
         }
 
