@@ -31,6 +31,10 @@ public class changeReservations
         if (showOptions == true)
         {
             List<Action> actions = new List<Action> {
+                new() {
+                    text = "U heeft de reservering succesvol geanuleerd",
+                    hasExtraBreak = true,
+                    },
                     new() {
                     text = "Nog een annulering maken",
                     hasExtraBreak = false,
@@ -56,7 +60,12 @@ public class changeReservations
         //First we need to cancel the current reservation
         cancelReservation(oldTour, tours, reservation);
         //Then we easily make a new one
+<<<<<<< Updated upstream
         makeReservation.ReserveTour(ticketID, newTour, tours);
+=======
+        makeReservation.ReserveTour(ticketID, newTour);
+        
+>>>>>>> Stashed changes
 
     }
 };

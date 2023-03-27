@@ -117,6 +117,10 @@ class makeReservation
 
                 actions = new List<Action> {
                     new() {
+                    text = $"Uw reservering is gelukt: ({tour.dateTime})",
+                    hasExtraBreak = true,
+                    },
+                    new() {
                     text = $"Nog een reservering maken voor deze tour ({tour.dateTime})",
                     hasExtraBreak = false,
                     onAction = line => {

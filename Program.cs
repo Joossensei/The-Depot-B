@@ -65,14 +65,7 @@ namespace ReservationSystem
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
                             List<Action> actions = Reservation.tourRes(line); 
-                            actions.Add( new(){
-                                    text = "Terug naar start",
-                                   
-                                    onAction = line => {
-                                        ProgramManger.setActions(Program.getStartScreen());
-                                    }
-                                }
-                            );  
+                                 
                             ProgramManger.setActions(actions);                        
                         });
                     },      
@@ -117,7 +110,7 @@ namespace ReservationSystem
             return actions;
         }
 
-        static List<Action> getTours(bool hasActions = true)
+        public static List<Action> getTours(bool hasActions = true)
         {
             List<Action> actions = new();
 

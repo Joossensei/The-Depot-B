@@ -19,7 +19,7 @@ namespace ReservationSystem;
                     List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
                     foreach (string Entryt in entryTickets)
                     {
-                        System.Console.WriteLine(Entryt);
+                        // System.Console.WriteLine(Entryt);
                     }
                     Console.WriteLine(entryTickets);
                     return entryTickets ?? new List<string>();
