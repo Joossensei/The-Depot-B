@@ -10,7 +10,8 @@ class makeReservation
 
         List<Action> actions = new List<Action> { };
         actions.Add(new() {
-            text = reason
+            text = reason,
+            textType = TextType.Error
         });
 
         if (tryAgain == true)
@@ -151,6 +152,10 @@ class makeReservation
                 manager.writeToJson(tours, @"JsonFiles/tours.json");
 
                 actions = new List<Action> {
+                    new() {
+                        text = "Uw reservering is succesvol!",
+                        textType = TextType.Success
+                    },
                     new() {
                     text = $"Nog een reservering maken voor deze tour ({tour.dateTime})",
                     hasExtraBreak = false,

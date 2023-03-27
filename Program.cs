@@ -162,7 +162,8 @@ namespace ReservationSystem
                 {
                     actions.Add(new()
                     {
-                        text = "Dit ticket mag geen reservingen maken"
+                        text = "Dit ticket mag geen reservingen maken",
+                        textType = TextType.Error
                     });
                 }
             }
@@ -192,7 +193,8 @@ namespace ReservationSystem
                             {
                                 actions.Add(new()
                                 {
-                                    text = "Dit ticket mag geen reservingen maken"
+                                    text = "Dit ticket mag geen reservingen maken",
+                                    textType = TextType.Error
                                 });
                             }
                         }
