@@ -156,12 +156,15 @@ namespace ReservationSystem
             List<Action> actions = new List<Action> {};
 
             //Attempt to get a ticketID and make a reservation
-            if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+            if (ProgramManger.userRole == Role.Customer)
             {
-                actions.Add(new()
+                if (!makeReservation.getUsersTicketAndMakeReservation(tour))
                 {
-                    text = "Dit ticket mag geen reservingen maken"
-                });
+                    actions.Add(new()
+                    {
+                        text = "Dit ticket mag geen reservingen maken"
+                    });
+                }
             }
 
             actions.AddRange( new List<Action> {
