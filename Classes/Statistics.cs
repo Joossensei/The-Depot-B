@@ -66,17 +66,20 @@ namespace ReservationSystem
             }
 
             var result = Data.Where(c => c.dateTime >= d1 && c.dateTime <= d2);
-
-            int totalBookings = 0;
+            
+            // Remove /* to show all tour in result 
+            /*int totalBookings = 0;
             foreach (var d in result)
             {
                 Console.WriteLine(d.dateTime);
-            }
-            Console.WriteLine( $"\nRondleidingen tussen {d1.ToShortDateString()} en {d2.ToShortDateString()}. Totaal aantal rondleidingen: {result.Count()}.");
+            }*/
+
+            Console.WriteLine( $"\nRondleidingen van {d1.ToShortDateString()} tot {d2.ToShortDateString()}. Totaal aantal rondleidingen: {result.Count()}.");
             // fake information about bookings.
             Console.WriteLine($"\nGeboekte rondleidingen tussen {d1.ToShortDateString()} en {d2.ToShortDateString()}: 157  ");
             Console.WriteLine($"Maximaal aantal bookingen voor de rondleidingen({result.Count()}) zijn {result.Count()*13}");
-            System.Console.WriteLine($"Bezoeker hebben voor deze periode {result.Count()*7} rondleidingen geboekt.");
+            Console.WriteLine($"Bezoeker hebben voor deze periode {result.Count()*7} rondleidingen geboekt.");
+            Console.WriteLine($"Rondleingen dat het meeste is geboekt voor deze periode: rondleiding van 13:00");
             /* test for displaying results
             foreach (var t in result)
             {
