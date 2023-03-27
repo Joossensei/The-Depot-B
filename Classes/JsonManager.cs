@@ -17,11 +17,12 @@ namespace ReservationSystem;
                 {
                     string json = reader.ReadToEnd();
                     List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
+                    /* test om tickets na te lopen.
                     foreach (string Entryt in entryTickets)
                     {
                         System.Console.WriteLine(Entryt);
                     }
-                    Console.WriteLine(entryTickets);
+                    Console.WriteLine(entryTickets);*/
                     return entryTickets ?? new List<string>();
                 }
 

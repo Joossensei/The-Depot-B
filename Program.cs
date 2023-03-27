@@ -233,6 +233,7 @@ namespace ReservationSystem
                     text = $"Rondleidingen ({DateTime.Now.ToShortDateString()})",
                     hasExtraBreak = true
                 }
+                
             };
 
             //Add tours from today
@@ -257,6 +258,12 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(getStartScreen());
                     }
+                },
+                new (){
+                    text = "getStatistics",
+                    onAction = line => {
+                        ProgramManger.setActions(Statistics.getData());
+                    },
                 },
             });
 
