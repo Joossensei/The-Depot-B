@@ -16,7 +16,7 @@ namespace ReservationSystem
 
         //Some test data for the tours
         public static List<Tour> tours = new List<Tour> { };
-
+        public static List<Tour> tourstoday = new List<Tour> { };
         static void Main(string[] args)
         {
 
@@ -27,6 +27,7 @@ namespace ReservationSystem
             List<string> entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
+            tourstoday = jsonManager.LoadToursToday();
             tours = jsonManager.LoadTours();
 
             // staring the program    
@@ -114,7 +115,7 @@ namespace ReservationSystem
         {
             List<Action> actions = new();
 
-            foreach (var tour in tours)
+            foreach (var tour in tourstoday)
             {
 
                 //Getting the free places from the tour and checking if it is full
@@ -146,9 +147,22 @@ namespace ReservationSystem
             int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
             bool isStarted = tour.tourStarted;
+            List<Action> actions = new List<Action> {};
 
+            //Attempt to get a ticketID and make a reservation
+            if (ProgramManger.userRole == Role.Customer)
+            {
+                if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                {
+                    actions.Add(new()
+                    {
+                        text = "Dit ticket mag geen reservingen maken",
+                        textType = TextType.Error
+                    });
+                }
+            }
 
-            List<Action> actions = new List<Action> {
+            actions.AddRange( new List<Action> {
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
@@ -159,7 +173,8 @@ namespace ReservationSystem
                     hasExtraBreak = true,
 
                 }
-            };
+            }
+            );
 
             if(isStarted == false) {
                 if(isFull == false) {
@@ -168,7 +183,14 @@ namespace ReservationSystem
                         validRoles = new Role[]{Role.Customer},
                         text = "Rondleiding reserveren",
                         onAction = line => {
-                            makeReservation.ReserveTour(Console.ReadLine(), tour);
+                            if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                            {
+                                actions.Add(new()
+                                {
+                                    text = "Dit ticket mag geen reservingen maken",
+                                    textType = TextType.Error
+                                });
+                            }
                         }
                     }
                     );
@@ -192,7 +214,7 @@ namespace ReservationSystem
                     }
                 }
             );
-            
+
             return actions;
         }
 
@@ -225,7 +247,8 @@ namespace ReservationSystem
                 },
                 new (){
                     text = "Statistieken periode",
-                    onAction = line => {}
+                    onAction = line => {ProgramManger.setActions(Statistics.getData());
+                    },
                 },
                 new (){
                     text = "Terug naar start",
@@ -233,12 +256,13 @@ namespace ReservationSystem
                         ProgramManger.setActions(getStartScreen());
                     }
                 },
-                new (){
-                    text = "getStatistics",
+                // for debugging remove /*
+                /*new (){
+                    text = "Rondleidingen filteren op datum",
                     onAction = line => {
                         ProgramManger.setActions(Statistics.getData());
                     },
-                },
+                }*/
             });
 
             return actions;

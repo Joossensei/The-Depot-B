@@ -24,7 +24,7 @@ public static class ProgramManger
 
     public static void start(List<Action>? actions)
     {
-        //Adding start options
+        Console.ForegroundColor = ConsoleColor.White;
         if (actions != null)
         {
             setActions(actions);
@@ -82,10 +82,18 @@ public static class ProgramManger
                 //Checking if the actions has an action id
                 if (action.id != null)
                 {
-                    Console.Write(action.id + ": ");
+                    styleWrite(action.id + ": ", ConsoleColor.DarkBlue);
                 }
 
-                Console.WriteLine(action.text + (action.hasExtraBreak ? "\n" : ""));
+                styleWriteLine(
+                    action.text + (action.hasExtraBreak ? "\n" : ""), action.textType switch
+                    {
+                        TextType.Normal => ConsoleColor.White,
+                        TextType.Error => ConsoleColor.Red,
+                        TextType.Success => ConsoleColor.Green,
+                        _ => ConsoleColor.White
+                    }
+                );
             }
         }
     }
@@ -116,7 +124,7 @@ public static class ProgramManger
 
     private static void renderLine()
     {
-        Console.WriteLine("------------------------------------------------------------");
+        styleWriteLine("------------------------------------------------------------", ConsoleColor.DarkBlue);
     }
 
     private static void renderErrors()
@@ -126,16 +134,24 @@ public static class ProgramManger
             Console.WriteLine("");
             foreach (var error in errors)
             {
-                Console.WriteLine($"Error: {error}");
+                styleWriteLine($"Error: {error}", ConsoleColor.Red);
             }
             errors.Clear();
         }
     }
 
-    public static T readJson<T>(string fileLocation)
+    public static void styleWrite(string value, ConsoleColor color)
     {
-        string text = System.IO.File.ReadAllText(fileLocation);
-        return JsonConvert.DeserializeObject<T>(text);
+        ConsoleColor oldColor = Console.ForegroundColor;
+
+        Console.ForegroundColor = color;
+        Console.Write(value);
+        Console.ForegroundColor = oldColor;
+    }
+
+    public static void styleWriteLine(string value, ConsoleColor color)
+    {
+        styleWrite(value + "\n", color);
     }
 }
 
@@ -146,6 +162,8 @@ public class Action
 
     public System.Action<string>? onAction;
 
+    public TextType textType = TextType.Normal;
+
     public int? id { get; private set; }
 
     public Role[] validRoles = new Role[] { Role.Admin, Role.Customer, Role.Guide };
@@ -155,6 +173,14 @@ public class Action
         this.id = id;
     }
 }
+
+public enum TextType
+{
+    Normal,
+    Error,
+    Success,
+}
+
 
 public enum Role
 {
