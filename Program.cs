@@ -16,7 +16,7 @@ namespace ReservationSystem
 
         //Some test data for the tours
         public static List<Tour> tours = new List<Tour> { };
-
+        public static List<Tour> tourstoday = new List<Tour> { };
         static void Main(string[] args)
         {
 
@@ -27,6 +27,7 @@ namespace ReservationSystem
             List<string> entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
+            tourstoday = jsonManager.LoadToursToday();
             tours = jsonManager.LoadTours();
 
             // staring the program    
@@ -114,7 +115,7 @@ namespace ReservationSystem
         {
             List<Action> actions = new();
 
-            foreach (var tour in tours)
+            foreach (var tour in tourstoday)
             {
 
                 //Getting the free places from the tour and checking if it is full
@@ -225,7 +226,8 @@ namespace ReservationSystem
                 },
                 new (){
                     text = "Statistieken periode",
-                    onAction = line => {}
+                    onAction = line => {ProgramManger.setActions(Statistics.getData());
+                    },
                 },
                 new (){
                     text = "Terug naar start",
@@ -233,12 +235,13 @@ namespace ReservationSystem
                         ProgramManger.setActions(getStartScreen());
                     }
                 },
-                new (){
-                    text = "getStatistics",
+                // for debugging remove /*
+                /*new (){
+                    text = "Rondleidingen filteren op datum",
                     onAction = line => {
                         ProgramManger.setActions(Statistics.getData());
                     },
-                },
+                }*/
             });
 
             return actions;

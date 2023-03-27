@@ -11,7 +11,8 @@ public class Tour
 
     public List<Booking> bookings = new();
 
-    public static void writeAllTours()
+    //v1 write all tours
+    /*public static void writeAllTours()
     {
         bool hasFoundToday = false;
         List<Tour> tours = ReservationSystem.jsonManager.LoadTours();
@@ -29,7 +30,7 @@ public class Tour
                 }
             }
 
-            if (hasFoundToday)
+            if (!hasFoundToday)
             {
                 // Get the current date and time
                 DateTime now = DateTime.Now;
@@ -62,7 +63,56 @@ public class Tour
                 manager.writeToJson(tours, @"JsonFiles\tours.json");
             }
         }
+    }*/
+    public static void writeAllTours()
+    {
+        List<Tour> tours = ReservationSystem.jsonManager.LoadTours();
+        DateTime today = DateTime.Now.Date;
+        bool hasFoundToday = false;
+
+        foreach (Tour tour in tours)
+        {
+            if (tour.dateTime.Date == today)
+            {
+                hasFoundToday = true;
+                break;
+            }
+        }
+
+        if (!hasFoundToday)
+        {
+            // Get the current date and time
+            DateTime now = DateTime.Now;
+
+            // Set the opening and closing times for the Depot
+            DateTime openingTime = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0);
+            DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
+
+            // Set the tour duration to 20 minutes
+            int tourDuration = 20;
+
+            // Start time for the first tour
+            DateTime startTime = openingTime;
+
+            // Create tours until closing time
+            while (startTime.AddMinutes(tourDuration) <= closingTime)
+            {
+                // Create a new tour with the current start time
+                Tour tourToday = new Tour { dateTime = startTime };
+
+                // Add the tour to the list of tours
+                tours.Add(tourToday);
+
+                // Increment the start time for the next tour
+                startTime = startTime.AddMinutes(tourDuration);
+            }
+
+            // Write the list of tours to a JSON file
+            var manager = new ReservationSystem.jsonManager();
+            manager.writeToJson(tours, @"JsonFiles\tours.json");
+        }
     }
+
 
     static public int tourFreePlaces(Tour tour)
     {
