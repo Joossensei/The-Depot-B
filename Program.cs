@@ -56,7 +56,7 @@ namespace ReservationSystem
             actions.AddRange(new List<Action>(){
                  new (){},
                  new (){
-                    validRoles = new Role[]{Role.Customer},
+                    validRoles = new Role[]{Role.Bezoeker},
                     text = "Reserveringen controleren",
                     onAction = line => {
                         ProgramManger.setActions(new(){
@@ -72,22 +72,22 @@ namespace ReservationSystem
                     },      
                  },
                 new (){
-                    validRoles = new Role[]{Role.Admin},
+                    validRoles = new Role[]{Role.Afdelingshoofd},
                     text = "Statistieken inzien",
                     onAction = line => {
                         ProgramManger.setActions(getStatistics());
                     }
                 },
                 new (){
-                    validRoles = new Role[]{Role.Admin,Role.Guide},
+                    validRoles = new Role[]{Role.Afdelingshoofd,Role.Gids},
                     text = "Uitloggen",
                     onAction = line => {
-                        ProgramManger.userRole = Role.Customer;
+                        ProgramManger.userRole = Role.Bezoeker;
                         ProgramManger.setActions(getStartScreen());
                     }
                 },
                 new (){
-                    validRoles = new Role[]{Role.Customer},
+                    validRoles = new Role[]{Role.Bezoeker},
                     text = "Personeel login",
                     onAction = line => {
                         ProgramManger.setActions(new List<Action>{
@@ -96,11 +96,11 @@ namespace ReservationSystem
                             }
                         }, (line)=>{
                             if(line == "admin"){
-                                ProgramManger.userRole = Role.Admin;
+                                ProgramManger.userRole = Role.Afdelingshoofd;
                                 ProgramManger.setActions(getStartScreen());
                             }
                             else if(line == "guide"){
-                                ProgramManger.userRole = Role.Guide;
+                                ProgramManger.userRole = Role.Gids;
                                 ProgramManger.setActions(getStartScreen());
                             }
                         });
@@ -150,7 +150,7 @@ namespace ReservationSystem
             List<Action> actions = new List<Action> {};
 
             //Attempt to get a ticketID and make a reservation
-            if (ProgramManger.userRole == Role.Customer)
+            if (ProgramManger.userRole == Role.Bezoeker)
             {
                 if (!makeReservation.getUsersTicketAndMakeReservation(tour))
                 {
@@ -180,7 +180,7 @@ namespace ReservationSystem
                 if(isFull == false) {
                     actions.Add(
                         new (){
-                        validRoles = new Role[]{Role.Customer},
+                        validRoles = new Role[]{Role.Bezoeker},
                         text = "Rondleiding reserveren",
                         onAction = line => {
                             if (!makeReservation.getUsersTicketAndMakeReservation(tour))
@@ -197,7 +197,7 @@ namespace ReservationSystem
                 };
                 actions.Add(
                     new (){
-                    validRoles = new Role[]{Role.Admin,Role.Guide},
+                    validRoles = new Role[]{Role.Afdelingshoofd,Role.Gids},
                     text = "Rondleiding starten",
                     onAction = line => {
                         startTour.startTour.start(tour, 0);

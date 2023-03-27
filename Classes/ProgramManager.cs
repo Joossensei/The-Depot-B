@@ -7,7 +7,7 @@ public static class ProgramManger
     public static System.Action<string>? onOtherValue;
     public static List<string> errors = new();
 
-    public static Role userRole = Role.Customer;
+    public static Role userRole = Role.Bezoeker;
 
     public static string readLine()
     {
@@ -166,7 +166,7 @@ public class Action
 
     public int? id { get; private set; }
 
-    public Role[] validRoles = new Role[] { Role.Admin, Role.Customer, Role.Guide };
+    public Role[] validRoles = new Role[] { Role.Afdelingshoofd, Role.Bezoeker, Role.Gids };
 
     public void setActionId(int id)
     {
@@ -184,7 +184,7 @@ public enum TextType
 
 public enum Role
 {
-    Customer,
-    Guide,
-    Admin
+    Bezoeker,
+    Gids,
+    Afdelingshoofd
 }

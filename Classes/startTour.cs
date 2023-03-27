@@ -34,7 +34,7 @@ public class startTour
                                         text = "Wilt u de tour starten? (Scan uw code)",
                                         onAction = line =>
                                         {
-                                            if (line == "guide")
+                                            if (line == "gids")
                                             {
                                                 Console.WriteLine("Tour is gestart!");
                                                 ProgramManger.setActions(Program.getStartScreen());
@@ -71,7 +71,7 @@ public class startTour
                         }
                     }, (line) =>
                     {
-                        if (line == "guide")
+                        if (line == "gids")
                         {
 
                             tour.tourStarted= true;
