@@ -9,7 +9,7 @@ namespace ReservationSystem
         public static List<Action> tourRes(string tickets){
             jsonManager manager = new jsonManager();
             List<string> entryTickets = jsonManager.LoadEntryTickets();
-            List<Tour> alltours = jsonManager.LoadTours(DateTime.Today);
+            List<Tour> alltours = jsonManager.LoadTours();
             // var text = "";
 
         List<Action> probeer = new List<Action>();

@@ -304,7 +304,7 @@
         "bookings": []
     },
     {
-        "id": "71682271-caab-491c-8661-7a4562621584",
+        "id": "d476b372-84d8-471e-8039-540aa7c775e8",
         "dateTime": "2023-03-27T11:00:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -312,7 +312,7 @@
         "bookings": []
     },
     {
-        "id": "652a11b2-2f08-4875-8b5c-f45bfdee824c",
+        "id": "18ed2703-3cb6-4644-bde5-0272192b81b4",
         "dateTime": "2023-03-27T11:20:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -320,7 +320,7 @@
         "bookings": []
     },
     {
-        "id": "3938b085-6676-4139-b858-b51493eb84e9",
+        "id": "5e0dbe5d-46fb-4380-908b-b00937502681",
         "dateTime": "2023-03-27T11:40:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -328,7 +328,7 @@
         "bookings": []
     },
     {
-        "id": "94fc47f1-272f-40d9-8f87-6adf156bdee0",
+        "id": "69733f1f-a90e-4344-822e-4e5d17bebff6",
         "dateTime": "2023-03-27T12:00:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -336,7 +336,7 @@
         "bookings": []
     },
     {
-        "id": "8cf33dcd-518e-4bf0-b988-61a50b2d51ef",
+        "id": "52ed4f20-a5c2-4c19-9fcb-451f09efcfa0",
         "dateTime": "2023-03-27T12:20:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -344,7 +344,7 @@
         "bookings": []
     },
     {
-        "id": "16000f57-fcf3-4981-8438-bc8e273e0f72",
+        "id": "96998066-d863-423c-a191-1abc44979e81",
         "dateTime": "2023-03-27T12:40:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -352,7 +352,7 @@
         "bookings": []
     },
     {
-        "id": "8722f8dd-74f5-4db1-a06c-8b128300b73a",
+        "id": "833703a2-29bf-4056-851f-9137c90e226d",
         "dateTime": "2023-03-27T13:00:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -360,7 +360,7 @@
         "bookings": []
     },
     {
-        "id": "d5ecf021-a208-4075-8a2a-fba714b607de",
+        "id": "885f1a9b-df74-4cfd-a4d7-78835a57168b",
         "dateTime": "2023-03-27T13:20:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -368,7 +368,7 @@
         "bookings": []
     },
     {
-        "id": "7725fd02-cad1-4588-97a3-acb86a9a2881",
+        "id": "cc5ad959-5cb9-46fc-bae9-a657ed8cdb20",
         "dateTime": "2023-03-27T13:40:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -376,7 +376,7 @@
         "bookings": []
     },
     {
-        "id": "e2d44161-7ce1-4bce-b67f-1ec4c0123410",
+        "id": "ede4ffa4-f5ba-409f-9165-6e575274e53d",
         "dateTime": "2023-03-27T14:00:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -384,7 +384,7 @@
         "bookings": []
     },
     {
-        "id": "811a3963-1e96-4a81-85d6-44c4b1537193",
+        "id": "ada54937-1ddb-4cf1-9be6-237c312c8e19",
         "dateTime": "2023-03-27T14:20:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -392,7 +392,7 @@
         "bookings": []
     },
     {
-        "id": "2dc2996b-53c7-4f1d-b261-834059222eb8",
+        "id": "9cf29c0e-9774-4678-9432-e13586bac009",
         "dateTime": "2023-03-27T14:40:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -400,7 +400,7 @@
         "bookings": []
     },
     {
-        "id": "97418b4b-a99b-4377-a871-04b2141c9cc7",
+        "id": "d4f9d319-3ab6-4be5-8abb-74026e453150",
         "dateTime": "2023-03-27T15:00:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -408,7 +408,7 @@
         "bookings": []
     },
     {
-        "id": "c6b056b2-0e8b-4cb5-a3e5-98ffc7f881c7",
+        "id": "6fa1b9f5-4a76-4a82-815c-affbbeceb52c",
         "dateTime": "2023-03-27T15:20:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -416,7 +416,7 @@
         "bookings": []
     },
     {
-        "id": "fce98b0e-100a-4aab-9d37-379d03ea183f",
+        "id": "e2af93f3-4532-46f5-9146-8dfceff4d2c4",
         "dateTime": "2023-03-27T15:40:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -424,7 +424,7 @@
         "bookings": []
     },
     {
-        "id": "3d6d2f4a-9399-4380-9820-04ac6db42684",
+        "id": "1b6ae0c9-8701-4042-af8e-52a9083ef8da",
         "dateTime": "2023-03-27T16:00:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -432,7 +432,7 @@
         "bookings": []
     },
     {
-        "id": "2eb09c72-542a-41b6-8712-879ff963507c",
+        "id": "5b2f3bef-2f60-4843-84a3-959f5037a1dc",
         "dateTime": "2023-03-27T16:20:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -440,7 +440,7 @@
         "bookings": []
     },
     {
-        "id": "b840431f-c484-4c40-a8d9-afd596b65828",
+        "id": "0c45d093-11ab-47f8-9045-91fc592fea9a",
         "dateTime": "2023-03-27T16:40:00",
         "tourDuration": 20,
         "tourStarted": false,
@@ -448,11 +448,18 @@
         "bookings": []
     },
     {
-        "id": "d29f5f11-554b-4b15-b1b4-52fcca520e7c",
+        "id": "20e92535-087f-4ab4-8290-0ded0d09ce4e",
         "dateTime": "2023-03-27T17:00:00",
         "tourDuration": 20,
         "tourStarted": false,
         "maxBookingCount": 13,
-        "bookings": []
+        "bookings": [
+            {
+                "userId": "1",
+                "tourId": "20e92535-087f-4ab4-8290-0ded0d09ce4e",
+                "createData": "2023-03-27T16:47:35.0698597+02:00",
+                "occupationStatus": 0
+            }
+        ]
     }
 ]

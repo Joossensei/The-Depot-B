@@ -16,7 +16,7 @@ namespace ReservationSystem
 
         //Some test data for the tours
         public static List<Tour> tours = new List<Tour> { };
-
+        public static List<Tour> tourstoday = new List<Tour> { };
         static void Main(string[] args)
         {
 
@@ -27,7 +27,8 @@ namespace ReservationSystem
             List<string> entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
-            tours = jsonManager.LoadTours(DateTime.Today);
+            tourstoday = jsonManager.LoadToursToday();
+            tours = jsonManager.LoadTours();
 
             // staring the program    
             ProgramManger.start(getStartScreen());
@@ -121,7 +122,7 @@ namespace ReservationSystem
         {
             List<Action> actions = new();
 
-            foreach (var tour in tours)
+            foreach (var tour in tourstoday)
             {
 
                 //Getting the free places from the tour and checking if it is full

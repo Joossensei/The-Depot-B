@@ -75,7 +75,49 @@ namespace ReservationSystem;
             }
         }
 
-        public static List<Tour> LoadTours(DateTime date)
+        // load data for today
+        public static List<Tour> LoadToursToday()
+        {
+            DateTime today = DateTime.Now;
+            try
+            {
+                using (StreamReader reader = new StreamReader(@"JsonFiles/tours.json"))
+                {
+                    string json = reader.ReadToEnd();
+                    List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
+                    
+                    // Filter tours based on date and time remove // 
+                    //tours = tours.Where(t => t.dateTime.Date == today.Date && t.dateTime.TimeOfDay >= today.TimeOfDay).ToList();
+                    
+                    // filter tour based on day
+                    tours = tours.Where(t => t.dateTime.Date == today.Date ).ToList();
+                    
+                    return tours ?? new List<Tour>();
+                }
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    using (StreamReader reader = new StreamReader(@"../../../JsonFiles/tours.json"))
+                    {
+                        string json = reader.ReadToEnd();
+                        List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
+                        // Filter tours based on date and time
+                        tours = tours.Where(t => t.dateTime.Date == today.Date && t.dateTime.TimeOfDay >= today.TimeOfDay).ToList();
+                        return tours ?? new List<Tour>();
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("No reservations found");
+                    return new List<Tour>();
+                }
+            }
+        }
+
+        
+        public static List<Tour> LoadTours()
         {
             try
             {
@@ -83,8 +125,6 @@ namespace ReservationSystem;
                 {
                     string json = reader.ReadToEnd();
                     List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
-                    // Filter tours based on date
-                    tours = tours.Where(t => t.dateTime.Date == date.Date).ToList();
                     return tours ?? new List<Tour>();
                 }
             }
@@ -106,17 +146,18 @@ namespace ReservationSystem;
                 }
             }
         }
-        
         public void writeToJson(List<Tour> tours, string fileName)
         {
             string json = JsonConvert.SerializeObject(tours);
             try
             {
                 File.WriteAllText(fileName, json);
+                //File.AppendAllText(fileName, json);
             }
             catch (Exception)
             {
                 File.WriteAllText("../../../" + fileName, json);
+                //File.AppendAllText("../../../" + fileName, json);
             }
         }
 
