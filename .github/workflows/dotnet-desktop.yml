@@ -76,6 +76,9 @@ jobs:
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
+  
+    - name: Install dependencies
+      run: dotnet add package Newtonsoft.Json --version 12.0.1
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
