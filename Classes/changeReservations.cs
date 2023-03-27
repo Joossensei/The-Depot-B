@@ -32,6 +32,10 @@ public class changeReservations
         if (showOptions == true)
         {
             List<Action> actions = new List<Action> {
+                new() {
+                    text = "U heeft de reservering succesvol geanuleerd",
+                    hasExtraBreak = true,
+                    },
                     new() {
                     text = "Nog een annulering maken",
                     hasExtraBreak = false,

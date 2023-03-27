@@ -20,7 +20,7 @@ namespace ReservationSystem;
                     /* test om tickets na te lopen.
                     foreach (string Entryt in entryTickets)
                     {
-                        System.Console.WriteLine(Entryt);
+                        // System.Console.WriteLine(Entryt);
                     }
                     Console.WriteLine(entryTickets);*/
                     return entryTickets ?? new List<string>();

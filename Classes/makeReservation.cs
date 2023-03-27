@@ -153,7 +153,8 @@ class makeReservation
 
                 actions = new List<Action> {
                     new() {
-                        text = "Uw reservering is succesvol!",
+                        text = $"Uw reservering is gelukt: ({tour.dateTime})",
+                        hasExtraBreak = true,
                         textType = TextType.Success
                     },
                     new() {
