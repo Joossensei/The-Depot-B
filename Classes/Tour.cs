@@ -14,7 +14,7 @@ public class Tour
     public static void writeAllTours()
     {
         bool hasFoundToday = false;
-        List<Tour> tours = ReservationSystem.jsonManager.LoadTours();
+        List<Tour> tours = ReservationSystem.jsonManager.LoadTours(DateTime.Today);
         DateTime today = DateTime.Now;
         today = new DateTime(today.Year, today.Month, today.Day);
 

@@ -9,7 +9,7 @@ namespace ReservationSystem
 {
     public class Statistics
     {
-        public static readonly List<Tour> Data = jsonManager.LoadTours();
+        public static readonly List<Tour> Data = jsonManager.LoadData();
 
         public static List<Action> getData()
         {
@@ -33,7 +33,7 @@ namespace ReservationSystem
             {
                 new()
                 {
-                    text = "Filteren op datum",
+                    text = "Datums invoeren",
                     onAction = line =>
                     {
                         ProgramManger.setActions(RangeDatum());
@@ -45,20 +45,20 @@ namespace ReservationSystem
                     onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }
                 }
             });
-
+           
             return actions;
         }
 
         private static List<Action> RangeDatum()
         {
-            Console.WriteLine("Voer begin datum in als yyyy/mm/dd bv 2023/12/31\n");
+            Console.WriteLine("Voer begin datum in als dd/mm/yyyy. Voorbeeld: 31/12/2023\n");
             DateTime d1;
             while (!DateTime.TryParse(Console.ReadLine(), out d1))
             {
                 Console.WriteLine("Ongeldige datum, probeer opnieuw.");
             }
 
-            Console.WriteLine("Voer eind datum in als yyyy/mm/dd bv 2023/12/31\n");
+            Console.WriteLine("Voer eind datum in als dd/mm/yyyy. Voorbeeld: 31/12/2023\n");
             DateTime d2;
             while (!DateTime.TryParse(Console.ReadLine(), out d2))
             {
@@ -72,18 +72,23 @@ namespace ReservationSystem
             {
                 Console.WriteLine(d.dateTime);
             }
-
+            Console.WriteLine( $"\nRondleidingen tussen {d1.ToShortDateString()} en {d2.ToShortDateString()}. Totaal aantal rondleidingen: {result.Count()}.");
+            // fake information about bookings.
+            Console.WriteLine($"\nGeboekte rondleidingen tussen {d1.ToShortDateString()} en {d2.ToShortDateString()}: 157  ");
+            Console.WriteLine($"Maximaal aantal bookingen voor de rondleidingen({result.Count()}) zijn {result.Count()*13}");
+            System.Console.WriteLine($"Bezoeker hebben voor deze periode {result.Count()*7} rondleidingen geboekt.");
+            /* test for displaying results
             foreach (var t in result)
             {
                 totalBookings += t.bookings.Count();
                 Console.WriteLine(totalBookings);
-            }
+            }*/
 
             List<Action> actions = new()
             {
                 new() {text = "Voer een actie uit door het nummer voor de actie in te voeren.", hasExtraBreak = true},
-                new() {text = $"Totaal aantal rondleidingen tot nu toe {Data.Count}", hasExtraBreak = true},
-                new() {text = "Terug naar start", onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }}
+                new() {text = "Terug naar start", onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }},
+                new() {text = "Terug naar vorige scherm", onAction = line => { ProgramManger.setActions(getData()); }}
             };
 
             return actions;

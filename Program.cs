@@ -27,7 +27,7 @@ namespace ReservationSystem
             List<string> entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
-            tours = jsonManager.LoadTours();
+            tours = jsonManager.LoadTours(DateTime.Today);
 
             // staring the program    
             ProgramManger.start(getStartScreen());
@@ -232,7 +232,8 @@ namespace ReservationSystem
                 },
                 new (){
                     text = "Statistieken periode",
-                    onAction = line => {}
+                    onAction = line => {ProgramManger.setActions(Statistics.getData());
+                    },
                 },
                 new (){
                     text = "Terug naar start",
@@ -240,12 +241,13 @@ namespace ReservationSystem
                         ProgramManger.setActions(getStartScreen());
                     }
                 },
-                new (){
-                    text = "getStatistics",
+                // for debugging remove /*
+                /*new (){
+                    text = "Rondleidingen filteren op datum",
                     onAction = line => {
                         ProgramManger.setActions(Statistics.getData());
                     },
-                },
+                }*/
             });
 
             return actions;
