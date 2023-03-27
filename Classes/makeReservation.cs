@@ -4,38 +4,72 @@ class makeReservation
 {
 
     //General function if the reservation is invalid or fails to prevent duplicate code
-    public static void invalidReservation(string reason, Tour tour, List<Tour> tours, Action extraAction = default)
+    private static void invalidReservation(string reason, Tour tour, Action extraAction = default, bool tryAgain = true)
     {
+        List<Tour> tours = Program.tours;
 
-        Console.WriteLine(reason);
-        List<Action> actions = new List<Action> {
-            new() {
-            text = "Nog eens proberen",
-            hasExtraBreak = false,
-            onAction = line => {
-                makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+        List<Action> actions = new List<Action> { };
+        actions.Add(new() {
+            text = reason
+        });
+
+        if (tryAgain == true)
+        {
+            actions.Add(
+            new()
+            {
+                text = "Nog eens proberen",
+                hasExtraBreak = false,
+                onAction = line =>
+                {
+                    makeReservation.ReserveTour(ProgramManger.readLine(), tour);
+
+                }
             }
-            },
-            new() {
-            text = "Terug naar start",
-            hasExtraBreak = false,
-            onAction = line => {
-                ProgramManger.setActions(Program.getStartScreen());
-            }
-            }
-        };
+            );
+        }
 
         if (extraAction != default)
         {
             actions.Add(extraAction);
         }
 
+        //Always add a return to home as last item on the list
+        actions.Add(
+            new()
+            {
+                text = "Terug naar start",
+                hasExtraBreak = false,
+                onAction = line =>
+                {
+                    ProgramManger.setActions(Program.getStartScreen());
+
+                }
+            }
+        );
+
         ProgramManger.start(actions);
     }
 
-    public static void ReserveTour(string ticketID, Tour tour, List<Tour> tours)
-    {
 
+    public static bool checkTicketValidity(string ticketID)
+    {
+        bool validTicket = false;
+
+        List<string> entryTickets = jsonManager.LoadEntryTickets();
+        foreach (var ticket in entryTickets)
+        {
+            if (ticket == ticketID)
+            {
+                validTicket = true;
+            }
+        }
+        return validTicket;
+    }
+
+    public static void ReserveTour(string ticketID, Tour tour)
+    {
+        List<Tour> tours = Program.tours;
         if (Tour.tourFreePlaces(tour) > 0)
         {
 
@@ -44,31 +78,26 @@ class makeReservation
 
             };
 
-            bool validTicket = false;
-
-            List<string> entryTickets = jsonManager.LoadEntryTickets();
-            foreach (var ticket in entryTickets)
-            {
-                if (ticket == ticketID)
-                {
-                    validTicket = true;
-                }
-            }
+            bool validTicket = checkTicketValidity(ticketID);
 
             if (validTicket == false)
             {
-                invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour, tours);
+                invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour);
             }
             else
             {
 
-                //If the ticket is valid, check if the user already has a reservation gebruiker niet al een reservering heeft
+                //If the ticket is valid, check if the user already has a reservation
                 bool hasReservation = false;
                 foreach (var checkTour in tours)
                 {
                     foreach (var reservation in checkTour.bookings)
                     {
-                        if ((reservation.userId == ticketID) && (reservation.occupationStatus == OccupationStatus.Joined))
+                        if ((reservation.userId == ticketID) && (reservation.occupationStatus != OccupationStatus.Canceled) && checkTour.id == tour.id)
+                        {   //IF current loop's ticket is the same as scanned ticket & current loop's ticket is not cancelled & loop's tour is the same as requested tour, it means the user already has a reservation for this tour
+                            invalidReservation($"U heeft al een reservering voor deze rondleiding", tour, tryAgain: false);
+                        }
+                        else if ((reservation.userId == ticketID) && (reservation.occupationStatus == OccupationStatus.Joined))
                         {
                             hasReservation = true;
 
@@ -78,11 +107,11 @@ class makeReservation
                                 hasExtraBreak = false,
                                 onAction = line =>
                                 {
-                                    changeReservations.moveReservation(tour, checkTour, reservation, tours, ticketID);
+                                    changeReservations.moveReservation(tour, checkTour, reservation, ticketID);
                                 }
                             };
 
-                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime})", tour, tours, extraAction);
+                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime})", tour, extraAction, false);
                         }
                     }
                 }
@@ -94,9 +123,9 @@ class makeReservation
                         if (checkTour.id == tour.id)
                         {
                             if (Tour.tourFreePlaces(tour) == 0)
-                            {   
+                            {
                                 //Just to dubble check
-                                invalidReservation("Deze tour zit helaas al vol", tour, tours);
+                                invalidReservation("Deze tour zit helaas al vol", tour);
                             }
                             else
                             {
@@ -119,12 +148,13 @@ class makeReservation
                     new() {
                     text = $"Uw reservering is gelukt: ({tour.dateTime})",
                     hasExtraBreak = true,
+                    // textType = TextTtpe.Success
                     },
                     new() {
                     text = $"Nog een reservering maken voor deze tour ({tour.dateTime})",
                     hasExtraBreak = false,
                     onAction = line => {
-                        makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+                        makeReservation.ReserveTour(ProgramManger.readLine(), tour);
                     }
                     },
                     new() {
@@ -138,8 +168,10 @@ class makeReservation
             }
 
             ProgramManger.start(actions);
-        }else {
-            invalidReservation("Deze tour zit helaas al vol", tour, tours);
+        }
+        else
+        {
+            invalidReservation("Deze tour zit helaas al vol", tour, tryAgain: false);
         }
     }
 }

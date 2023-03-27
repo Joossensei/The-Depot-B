@@ -15,7 +15,7 @@ namespace ReservationSystem
         DateTime closingTime = new DateTime(now.Year, now.Month, now.Day, 17, 30, 0);
 
         //Some test data for the tours
-        static List<Tour> tours = new List<Tour> { };
+        public static List<Tour> tours = new List<Tour> { };
 
         static void Main(string[] args)
         {
@@ -119,13 +119,15 @@ namespace ReservationSystem
 
                 //Getting the free places from the tour and checking if it is full
                 int freePlaces = Tour.tourFreePlaces(tour);
+
                 bool isFull = freePlaces == 0;
+                bool isStarted = tour.tourStarted;
 
                 //Adding the action items
                 actions.Add(
                     new()
                     {
-                        text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                        text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
                         onAction = hasActions ? line =>
                         {
                             ProgramManger.setActions(getTour(tour));
@@ -143,38 +145,55 @@ namespace ReservationSystem
             //Getting the free places from the tour and checking if it is full
             int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
+            bool isStarted = tour.tourStarted;
 
-            return new(){
+
+            List<Action> actions = new List<Action> {
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
                 },
                 new()
                 {
-                    text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()}\n{(isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")}",
+                    text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()}\n{(isStarted? "Tour is al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")}",
                     hasExtraBreak = true,
-                },
-                new (){
-                    validRoles = new Role[]{Role.Customer},
-                    text = "Rondleiding reserveren",
-                    onAction = line => {
-                        makeReservation.ReserveTour(Console.ReadLine(), tour, tours);
+
                 }
-                },
-                new (){
+            };
+
+            if(isStarted == false) {
+                if(isFull == false) {
+                    actions.Add(
+                        new (){
+                        validRoles = new Role[]{Role.Customer},
+                        text = "Rondleiding reserveren",
+                        onAction = line => {
+                            makeReservation.ReserveTour(Console.ReadLine(), tour);
+                        }
+                    }
+                    );
+                };
+                actions.Add(
+                    new (){
                     validRoles = new Role[]{Role.Admin,Role.Guide},
                     text = "Rondleiding starten",
                     onAction = line => {
-                        startTour.selectTour();
+                        startTour.startTour.start(tour, 0);
                     }
-                },
+                }
+                );
+            }
+
+            actions.Add(
                 new (){
                     text = "Terug naar start",
                     onAction = line => {
                         ProgramManger.setActions(getStartScreen());
                     }
-                },
-            };
+                }
+            );
+            
+            return actions;
         }
 
         static List<Action> getStatistics()
@@ -188,6 +207,7 @@ namespace ReservationSystem
                     text = $"Rondleidingen ({DateTime.Now.ToShortDateString()})",
                     hasExtraBreak = true
                 }
+                
             };
 
             //Add tours from today
@@ -212,6 +232,12 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(getStartScreen());
                     }
+                },
+                new (){
+                    text = "getStatistics",
+                    onAction = line => {
+                        ProgramManger.setActions(Statistics.getData());
+                    },
                 },
             });
 
