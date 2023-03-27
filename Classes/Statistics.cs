@@ -51,14 +51,14 @@ namespace ReservationSystem
 
         private static List<Action> RangeDatum()
         {
-            Console.WriteLine("Voer begin datum in als yyyy/mm/dd bv 20231231\n");
+            Console.WriteLine("Voer begin datum in als yyyy/mm/dd bv 2023/12/31\n");
             DateTime d1;
             while (!DateTime.TryParse(Console.ReadLine(), out d1))
             {
                 Console.WriteLine("Ongeldige datum, probeer opnieuw.");
             }
 
-            Console.WriteLine("Voer eind datum in als yyyy/mm/dd bv 20231231\n");
+            Console.WriteLine("Voer eind datum in als yyyy/mm/dd bv 2023/12/31\n");
             DateTime d2;
             while (!DateTime.TryParse(Console.ReadLine(), out d2))
             {
