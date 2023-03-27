@@ -153,27 +153,18 @@ namespace ReservationSystem
             int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
             bool isStarted = tour.tourStarted;
+            List<Action> actions = new List<Action> {};
 
             //Attempt to get a ticketID and make a reservation
-            if (ProgramManger.userRole == Role.Customer && !isFull && !isStarted)
+            if (!makeReservation.getUsersTicketAndMakeReservation(tour))
             {
-                Console.WriteLine($"Scan nu uw ticket om deze tour te boeken ({tour.dateTime})");
-                string ticketID = ProgramManger.readLine();
-                if (ticketID != "")
+                actions.Add(new()
                 {
-                    if (makeReservation.checkTicketValidity(ticketID))
-                    {
-                        makeReservation.ReserveTour(ticketID, tour);
-                        return new() { };
-                    }
-                    else
-                    {
-                        Console.WriteLine("Dit ticket is niet correct");
-                    }
-                }
+                    text = "Dit ticket mag geen reservingen maken"
+                });
             }
 
-            List<Action> actions = new List<Action> {
+            actions.AddRange( new List<Action> {
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
@@ -184,7 +175,8 @@ namespace ReservationSystem
                     hasExtraBreak = true,
 
                 }
-            };
+            }
+            );
 
             if(isStarted == false) {
                 if(isFull == false) {
@@ -193,7 +185,13 @@ namespace ReservationSystem
                         validRoles = new Role[]{Role.Customer},
                         text = "Rondleiding reserveren",
                         onAction = line => {
-                            makeReservation.ReserveTour(ProgramManger.readLine(), tour);
+                            if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                            {
+                                actions.Add(new()
+                                {
+                                    text = "Dit ticket mag geen reservingen maken"
+                                });
+                            }
                         }
                     }
                     );
@@ -217,7 +215,7 @@ namespace ReservationSystem
                     }
                 }
             );
-            
+
             return actions;
         }
 
