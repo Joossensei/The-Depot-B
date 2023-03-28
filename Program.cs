@@ -17,6 +17,8 @@ namespace ReservationSystem
         //Some test data for the tours
         public static List<Tour> tours = new List<Tour> { };
         public static List<Tour> tourstoday = new List<Tour> { };
+        public static List<string> entryTickets = new List<string>();
+
         static void Main(string[] args)
         {
 
@@ -24,7 +26,7 @@ namespace ReservationSystem
             Tour.writeAllTours();
 
             // Load entry tickets from JSON file
-            List<string> entryTickets = jsonManager.LoadEntryTickets();
+            entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
             tourstoday = jsonManager.LoadToursToday();
@@ -65,11 +67,11 @@ namespace ReservationSystem
                             }
                         }, line =>{
                             Console.WriteLine($"Value: {line} has been enterd");
-                            List<Action> actions = Reservation.tourRes(line); 
-                                 
-                            ProgramManger.setActions(actions);                        
+                            List<Action> actions = Reservation.tourRes(line);
+
+                            ProgramManger.setActions(actions);
                         });
-                    },      
+                    },
                  },
                 new (){
                     validRoles = new Role[]{Role.Afdelingshoofd},
@@ -95,13 +97,24 @@ namespace ReservationSystem
                                 text = "Voer je unieke code in of scan je badge om in te loggen"
                             }
                         }, (line)=>{
-                            if(line == "admin"){
-                                ProgramManger.userRole = Role.Afdelingshoofd;
-                                ProgramManger.setActions(getStartScreen());
+                            //Checking if the unique code exists
+                            if(entryTickets.Contains(line)){
+                                //Checking if the code is for an Afdelingshoofd
+                                if(line.Contains('a')){
+                                    ProgramManger.userRole = Role.Afdelingshoofd;
+                                    ProgramManger.setActions(getStartScreen());
+                                }
+                                //Else check if the code is for an Gids
+                                else if(line.Contains('g')){
+                                    ProgramManger.userRole = Role.Gids;
+                                    ProgramManger.setActions(getStartScreen());
+                                }
+                                else{
+                                    ProgramManger.errors.Add("Gebruikers kunnen niet inloggen");
+                                }
                             }
-                            else if(line == "guide"){
-                                ProgramManger.userRole = Role.Gids;
-                                ProgramManger.setActions(getStartScreen());
+                            else{
+                                ProgramManger.errors.Add("Unieke code niet gevonden");
                             }
                         });
                     }
@@ -129,6 +142,7 @@ namespace ReservationSystem
                     new()
                     {
                         text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                        textType = isFull || isStarted ? TextType.Error : TextType.Normal,
                         onAction = hasActions ? line =>
                         {
                             ProgramManger.setActions(getTour(tour));
@@ -147,7 +161,7 @@ namespace ReservationSystem
             int freePlaces = Tour.tourFreePlaces(tour);
             bool isFull = freePlaces == 0;
             bool isStarted = tour.tourStarted;
-            List<Action> actions = new List<Action> {};
+            List<Action> actions = new List<Action> { };
 
             //Attempt to get a ticketID and make a reservation
             if (ProgramManger.userRole == Role.Bezoeker)
@@ -162,7 +176,7 @@ namespace ReservationSystem
                 }
             }
 
-            actions.AddRange( new List<Action> {
+            actions.AddRange(new List<Action> {
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
@@ -176,40 +190,48 @@ namespace ReservationSystem
             }
             );
 
-            if(isStarted == false) {
-                if(isFull == false) {
+            if (isStarted == false)
+            {
+                if (isFull == false)
+                {
                     actions.Add(
-                        new (){
-                        validRoles = new Role[]{Role.Bezoeker},
-                        text = "Rondleiding reserveren",
-                        onAction = line => {
-                            if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                        new()
+                        {
+                            validRoles = new Role[] { Role.Bezoeker },
+                            text = "Rondleiding reserveren",
+                            onAction = line =>
                             {
-                                actions.Add(new()
+                                if (!makeReservation.getUsersTicketAndMakeReservation(tour))
                                 {
-                                    text = "Dit ticket mag geen reservingen maken",
-                                    textType = TextType.Error
-                                });
+                                    actions.Add(new()
+                                    {
+                                        text = "Dit ticket mag geen reservingen maken",
+                                        textType = TextType.Error
+                                    });
+                                }
                             }
                         }
-                    }
                     );
                 };
                 actions.Add(
-                    new (){
-                    validRoles = new Role[]{Role.Afdelingshoofd,Role.Gids},
-                    text = "Rondleiding starten",
-                    onAction = line => {
-                        startTour.startTour.start(tour, 0);
+                    new()
+                    {
+                        validRoles = new Role[] { Role.Afdelingshoofd, Role.Gids },
+                        text = "Rondleiding starten",
+                        onAction = line =>
+                        {
+                            startTour.startTour.start(tour, 0);
+                        }
                     }
-                }
                 );
             }
 
             actions.Add(
-                new (){
+                new()
+                {
                     text = "Terug naar start",
-                    onAction = line => {
+                    onAction = line =>
+                    {
                         ProgramManger.setActions(getStartScreen());
                     }
                 }
@@ -229,7 +251,7 @@ namespace ReservationSystem
                     text = $"Rondleidingen ({DateTime.Now.ToShortDateString()})",
                     hasExtraBreak = true
                 }
-                
+
             };
 
             //Add tours from today
@@ -267,7 +289,5 @@ namespace ReservationSystem
 
             return actions;
         }
-
-
     }
 }
