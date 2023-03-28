@@ -19,6 +19,8 @@ namespace ReservationSystem
         public static List<Tour> tourstoday = new List<Tour> { };
         public static List<string> entryTickets = new List<string>();
 
+        public static List<string> employeCodes = new() { "g1", "g2", "g3", "a1" };
+
         static void Main(string[] args)
         {
 
@@ -98,7 +100,7 @@ namespace ReservationSystem
                             }
                         }, (line)=>{
                             //Checking if the unique code exists
-                            if(entryTickets.Contains(line)){
+                            if(employeCodes.Contains(line) || entryTickets.Contains(line)){
                                 //Checking if the code is for an Afdelingshoofd
                                 if(line.Contains('a')){
                                     ProgramManger.userRole = Role.Afdelingshoofd;
