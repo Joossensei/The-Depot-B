@@ -118,7 +118,7 @@ namespace ReservationSystem
                             else{
                                 ProgramManger.errors.Add("Unieke code niet gevonden");
                             }
-                        });
+                        }, isPassword: true);
                     }
                 },
             });

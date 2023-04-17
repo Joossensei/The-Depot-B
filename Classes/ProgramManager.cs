@@ -7,17 +7,52 @@ public static class ProgramManger
     public static System.Action<string>? onOtherValue;
     public static List<string> errors = new();
 
+    public static bool isPassword;
+
     public static Role userRole = Role.Bezoeker;
 
     public static string readLine()
     {
-        string line = Console.ReadLine() ?? "";
+        string line = "";
+
+        if (isPassword)
+            line = readPassword();
+        else
+            line = Console.ReadLine() ?? "";
+
 
         if (line == "exit")
         {
             isActive = false;
             Console.WriteLine("Programma successvol gesloten.");
         }
+
+        return line;
+    }
+
+    private static string readPassword()
+    {
+        string line = "";
+        ConsoleKey key;
+        do
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+            key = keyInfo.Key;
+
+            if (key == ConsoleKey.Backspace && line.Length > 0)
+            {
+                Console.Write("\b \b");
+                line = line[0..^1];
+            }
+            else if (!char.IsControl(keyInfo.KeyChar))
+            {
+                Console.Write("*");
+                line += keyInfo.KeyChar;
+            }
+        }
+        // Stops Receving Keys Once Enter is Pressed
+        while (key != ConsoleKey.Enter);
+        Console.Write("\n");
 
         return line;
     }
@@ -53,7 +88,7 @@ public static class ProgramManger
         }
     }
 
-    public static void setActions(List<Action> actions, System.Action<string>? onOtherValue = null)
+    public static void setActions(List<Action> actions, System.Action<string>? onOtherValue = null, bool isPassword = false)
     {
         //Adding an id to the actions that can run an action
         int currentId = 1;
@@ -67,8 +102,10 @@ public static class ProgramManger
                 currentId++;
             }
         }
+
         ProgramManger.actions = actions;
         ProgramManger.onOtherValue = onOtherValue;
+        ProgramManger.isPassword = isPassword;
     }
 
     private static void renderActions(List<Action> actions)
