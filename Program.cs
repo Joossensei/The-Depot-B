@@ -65,10 +65,10 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(new(){
                             new(){
-                                text = "Enter value any value"
+                                text = "Vul uw ticket in:"
                             }
                         }, line =>{
-                            Console.WriteLine($"Value: {line} has been enterd");
+                            Console.WriteLine($"Ticket: {line} is ingevuld.");
                             List<Action> actions = Reservation.tourRes(line);
 
                             ProgramManger.setActions(actions);
