@@ -6,10 +6,13 @@ class makeReservation
     //General function if the reservation is invalid or fails to prevent duplicate code
     private static void invalidReservation(string reason, Tour tour, Action extraAction = default, bool tryAgain = true)
     {
-        List<Tour> tours = Program.tours;
+        List<Tour> tours = Program.tourstoday;
 
-        Console.WriteLine(reason);
         List<Action> actions = new List<Action> { };
+        actions.Add(new() {
+            text = reason,
+            textType = TextType.Error
+        });
 
         if (tryAgain == true)
         {
@@ -20,7 +23,13 @@ class makeReservation
                 hasExtraBreak = false,
                 onAction = line =>
                 {
-                    makeReservation.ReserveTour(ProgramManger.readLine(), tour);
+                    if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                    {
+                        actions.Add(new()
+                        {
+                            text = "Dit ticket mag geen reservingen maken"
+                        });
+                    }
 
                 }
             }
@@ -67,7 +76,7 @@ class makeReservation
 
     public static void ReserveTour(string ticketID, Tour tour)
     {
-        List<Tour> tours = Program.tours;
+        List<Tour> tours = Program.tourstoday;
         if (Tour.tourFreePlaces(tour) > 0)
         {
 
@@ -144,10 +153,21 @@ class makeReservation
 
                 actions = new List<Action> {
                     new() {
+                        text = $"Uw reservering is gelukt: ({tour.dateTime})",
+                        hasExtraBreak = true,
+                        textType = TextType.Success
+                    },
+                    new() {
                     text = $"Nog een reservering maken voor deze tour ({tour.dateTime})",
                     hasExtraBreak = false,
                     onAction = line => {
-                        makeReservation.ReserveTour(ProgramManger.readLine(), tour);
+                        if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                        {
+                            actions.Add(new()
+                            {
+                                text = "Dit ticket mag geen reservingen maken"
+                            });
+                        }
                     }
                     },
                     new() {
@@ -167,5 +187,29 @@ class makeReservation
             invalidReservation("Deze tour zit helaas al vol", tour, tryAgain: false);
         }
     }
-}
 
+    public static bool getUsersTicketAndMakeReservation(Tour tour)
+    {
+
+        Console.WriteLine($"Scan nu uw ticket om deze tour te boeken ({tour.dateTime})");
+        string ticketID = ProgramManger.readLine();
+        if (ticketID != "")
+        {
+            if (makeReservation.checkTicketValidity(ticketID))
+            {
+                makeReservation.ReserveTour(ticketID, tour);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+}
