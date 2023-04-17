@@ -109,7 +109,7 @@ public class Tour
 
             // Write the list of tours to a JSON file
             var manager = new ReservationSystem.jsonManager();
-            manager.writeToJson(tours, @"JsonFiles\tours.json");
+            manager.writeToJson(tours, @"JsonFiles/tours.json");
         }
     }
 
