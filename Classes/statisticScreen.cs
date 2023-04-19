@@ -6,6 +6,7 @@ public class statisticScreen
     {
         List<Tour> tours = Program.tours;
         List<Action> actions = new() { };
+        /*
         foreach (Tour tour in tours)
         {
             int totalBooked = 0;
@@ -49,11 +50,11 @@ public class statisticScreen
             }
         };
 
-        /*int totalVisitors = jsonManager.LoadEntryTickets().Count();
+        int totalVisitors = jsonManager.LoadEntryTickets().Count();
         int totalReservations = 0;
         int cancelledReservations = 0;
         int joinedReservations = 0;
-        int visitedReservations = 0;
+        int visitedReservations = 0;/*
         foreach (Tour tour in tours)
         {
             foreach (Booking reservation in tour.bookings)
@@ -74,6 +75,31 @@ public class statisticScreen
                 }
             }
         }*/
+
+        //Tours.count - 1, because you cant calucate the next tour if there is no next tour
+        bool skipNext = false;
+
+        for (int i = 0; i < (tours.Count - 1); i++)
+        {
+            if (skipNext == true)
+            {
+                skipNext = false;
+                continue;
+            }
+
+            Tour currentTour = tours[i];
+
+            if (Tour.tourFreePlaces(currentTour) >= 9 && Tour.tourFreePlaces(tours[i+1]) >= 9)
+            {
+
+                actions.Add(new()
+                {
+                    text = $"De tour van {currentTour.dateTime} kan worden samengevoegd met {tours[i + 1].dateTime}",
+                });
+                skipNext = true;
+
+            }
+        }
 
         actions.AddRange(new List<Action>(){
                 new (){

@@ -244,6 +244,8 @@ namespace ReservationSystem
 
         static List<Action> getStatistics()
         {
+            return statisticScreen.getStatistics();
+            /*
             List<Action> actions = new(){
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
@@ -286,10 +288,11 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(Statistics.getData());
                     },
-                }*/
+                }
             });
 
             return actions;
+            */
         }
     }
 }
