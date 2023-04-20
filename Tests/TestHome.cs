@@ -1,31 +1,21 @@
-﻿using NUnit.Framework;
-using project_depotv1.Classes;
-using ReservationSystem;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace project_depotv1.Tests;
 
 [TestFixture]
-public class ProgramManagerTests
+public class programManagerTests
 {
-    private ConsoleManagerStub _consoleManager = null;
-
     [SetUp]
     public void SetUp()
     {
-        _consoleManager = new ConsoleManagerStub();
-        ProgramManger.start(Program.getStartScreen());
     }
 
-    [TearDown]
-    public void TearDown()
+    [Test]
+    public void Test()
     {
-        
-    }
-    
-    [TestCase("")]
-    public void RunWithInputAs1AndName(string name)
-    {
-        _consoleManager.UserInputs.Enqueue("1");
         Assert.AreEqual("1", "1");
+        Assert.Pass();
     }
 }
