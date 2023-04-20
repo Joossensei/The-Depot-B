@@ -46,7 +46,7 @@ jobs:
   build:
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Release]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -76,12 +76,6 @@ jobs:
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
-  
-    - name: Install JSON parser
-      run: dotnet add package Newtonsoft.Json --version 13.0.2
-    
-    - name: Install NUnit --version 3.13.3
-      run: dotnet add package NUnit
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
