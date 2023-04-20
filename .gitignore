@@ -420,3 +420,4 @@ obj/Debug/net6.0/project_depotv1.genruntimeconfig.cache
 obj/Debug/net6.0/project_depotv1.pdb
 obj/Debug/net6.0/ref/project_depotv1.dll
 obj/Debug/net6.0/refint/project_depotv1.dll
+JsonFiles/tours.json
