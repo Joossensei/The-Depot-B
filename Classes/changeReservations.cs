@@ -4,8 +4,8 @@ public class changeReservations
 {
     public static void cancelReservation(Tour tour, Booking reservation, bool showOptions = false)
     {
-        List<Tour> tours = Program.tours;
 
+        List<Tour> tours = Program.tourstoday;
         List<Tour> tempTours = new List<Tour> { };
 
         foreach (Tour checkTour in tours)
@@ -68,7 +68,6 @@ public class changeReservations
     public static void moveReservation(Tour newTour, Tour oldTour, Booking reservation, string ticketID)
     {
 
-        List<Tour> tours = Program.tours;
         //First we need to cancel the current reservation
         cancelReservation(oldTour, reservation);
         //Then we easily make a new one
