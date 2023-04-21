@@ -1,5 +1,5 @@
 public class statisticValues
 {
-    public static int minReservations = 4;
-
+    public static int minReservationsThreshold = 4;
+    public static int maxReservationsThreshold=11;
 }

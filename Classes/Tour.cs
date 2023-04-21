@@ -116,8 +116,7 @@ public class Tour
 
     static public int tourFreePlaces(Tour tour)
     {
-        // Ideally, this gets pulled from maxBookingCount
-        int freePlaces = 13;
+        int freePlaces = tour.maxBookingCount;
 
         foreach (var booking in tour.bookings)
         {

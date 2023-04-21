@@ -7,34 +7,73 @@ public class statisticScreen
         List<Tour> tours = Program.tours;
         List<Action> actions = new() { };
 
+        //Dictionary<Tour (The first tour), Tour (The tour that is supposed be merged with the first Tour)>
+        var emtpyTours = new Dictionary<Tour, Tour> { };
+        var fullTours = new Dictionary<Tour, Tour> { };
+
         bool skipNext = false;
 
         //Tours.count - 1, because you cant calucate the next tour if there is no next tour
         for (int i = 0; i < (tours.Count - 1); i++)
         {
-            if (skipNext == true || tours[i+1].dateTime.ToString("HH:mm") == "11:00")
+            if (skipNext == true || tours[i + 1].dateTime.ToString("HH:mm") == "11:00")
             {
                 skipNext = false;
                 continue;
             }
 
-            Tour currentTour = tours[i];
+            int minimumFreePlaces = (tours[i].maxBookingCount - statisticValues.minReservationsThreshold);
+            int maximumFreePlaces = (tours[i].maxBookingCount - statisticValues.maxReservationsThreshold);
 
-            int minimumFreePlaces = (currentTour.maxBookingCount - statisticValues.minReservations);
-
-            if (Tour.tourFreePlaces(currentTour) >=  minimumFreePlaces && Tour.tourFreePlaces(tours[i + 1]) >=  minimumFreePlaces)
+            if ((Tour.tourFreePlaces(tours[i]) > minimumFreePlaces) && (Tour.tourFreePlaces(tours[i + 1]) > minimumFreePlaces))
             {
+                emtpyTours.Add(tours[i], tours[i + 1]);
+                skipNext = true;
+
+            }
+            else if ((Tour.tourFreePlaces(tours[i]) <= maximumFreePlaces) && (Tour.tourFreePlaces(tours[i + 1]) <= maximumFreePlaces))
+            {
+                fullTours.Add(tours[i], tours[i + 1]);
+            }
+        }
+
+        if (emtpyTours.Count > 0)
+        {
+            actions.Add(new()
+            {
+                text = "De volgende rondleidingen kunnen worden samengevoegd, want deze hebben allemaal weinig aanmeldingen:"
+            });
+            foreach (KeyValuePair<Tour, Tour> entry in emtpyTours)
+            {
+                Tour firstTour = entry.Key;
+                Tour secondTour = entry.Value;
 
                 actions.Add(new()
                 {
-                    text = $"De tour op {currentTour.dateTime.ToString("dddd HH:mm")} samenvoegen met {tours[i + 1].dateTime.ToString("HH:mm")} i.v.m weinig aanmeldingen (> {minimumFreePlaces})",
+                    text = $"De rondleiding {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")} samenvoegen",
                 });
-                skipNext = true;
-
-            }else if(1 == 1){
-
             }
         }
+
+
+        if (fullTours.Count > 0)
+        {
+            actions.Add(new()
+            {
+                text = "Tussen de volgende rondleidingen kan er een extra worden toegevoegd, want deze hebben allemaal veel aanmeldingen:"
+            });
+            foreach (KeyValuePair<Tour, Tour> entry in fullTours)
+            {
+                Tour firstTour = entry.Key;
+                Tour secondTour = entry.Value;
+
+                actions.Add(new()
+                {
+                    text = $"Extra rondleiding tussen {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")}",
+                });
+            }
+        }
+
 
         actions.AddRange(new List<Action>(){
                 new() {
