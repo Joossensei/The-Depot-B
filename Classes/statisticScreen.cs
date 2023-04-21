@@ -7,7 +7,8 @@ public class statisticScreen
         List<Tour> tours = Program.tours;
         List<Action> actions = new() { };
 
-        //Dictionary<Tour (The first tour), Tour (The tour that is supposed be merged with the first Tour)>
+        // Dictionary<Tour (The first tour), Tour (The tour that is supposed be merged with the first Tour)>
+        // This is used to keep track of all tours with recommendations
         var emtpyTours = new Dictionary<Tour, Tour> { };
         var fullTours = new Dictionary<Tour, Tour> { };
 
@@ -16,6 +17,8 @@ public class statisticScreen
         //Tours.count - 1, because you cant calucate the next tour if there is no next tour
         for (int i = 0; i < (tours.Count - 1); i++)
         {
+            /* skipNext is set when 1 tour and the next tour both are empty or full to prevent the next tour being processed again 
+            tours[i + 1].dateTime.ToString("HH:mm") == "11:00" checks if the next tour is the next time to prevent tours over multiple days being merged */
             if (skipNext == true || tours[i + 1].dateTime.ToString("HH:mm") == "11:00")
             {
                 skipNext = false;
@@ -34,9 +37,12 @@ public class statisticScreen
             else if ((Tour.tourFreePlaces(tours[i]) <= maximumFreePlaces) && (Tour.tourFreePlaces(tours[i + 1]) <= maximumFreePlaces))
             {
                 fullTours.Add(tours[i], tours[i + 1]);
+                skipNext = true;
             }
         }
 
+
+        //This foreach is not placed in the (else)if above, so it is possible to seperate the tour merges and extra tours
         if (emtpyTours.Count > 0)
         {
             actions.Add(new()
@@ -90,6 +96,7 @@ public class statisticScreen
                     }
                 },
             });
+
 
         return actions;
     }
