@@ -7,7 +7,7 @@ public class startTour
     public static void start(Tour tour, int amntStarted)
     {
         List<Tour> tours = Program.tours;
-
+        int placesBooked = Tour.tourAmountBookings(tour);
 
         ProgramManger.setActions(new List<Action>
         {
@@ -25,6 +25,7 @@ public class startTour
                     }, line => {
                         if (checkCode(line, tour.bookings))
                         {
+                            Console.WriteLine("U bent aangemeld voor de rondleiding");
                             if (amntStarted >= tour.maxBookingCount)
                             {
                                 ProgramManger.setActions(new List<Action>
@@ -50,9 +51,12 @@ public class startTour
                             else
                             {
                                 amntStarted += 1;
+                                
+                                Console.WriteLine($"{amntStarted} van de {placesBooked} reserveringen zijn aangemeld.");
                                 start(tour, amntStarted);
                             }
                         } else {
+                            Console.WriteLine($"Sorry ingevulde code is niet gereserveerd voor deze tour");
                             start(tour, amntStarted);
                         }
                     });
