@@ -222,7 +222,7 @@ namespace ReservationSystem
                         text = "Rondleiding starten",
                         onAction = line =>
                         {
-                            startTour.startTour.start(tour, 0);
+                            startTour.start(tour, 0);
                         }
                     }
                 );

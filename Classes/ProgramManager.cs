@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 
+namespace ReservationSystem;
 public static class ProgramManger
 {
     public static bool isActive = true;
@@ -10,6 +11,8 @@ public static class ProgramManger
     public static bool isPassword;
 
     public static Role userRole = Role.Bezoeker;
+
+    static bool actionStarted = false;
 
     public static string readLine()
     {
@@ -108,7 +111,8 @@ public static class ProgramManger
         ProgramManger.isPassword = isPassword;
     }
 
-    private static void renderActions(List<Action> actions)
+
+    public static void renderActions(List<Action> actions)
     {
         //Looping through the actions and rendering them
         foreach (var action in actions)
@@ -133,6 +137,14 @@ public static class ProgramManger
                 );
             }
         }
+        Task.Delay(new TimeSpan(0, 0, 10)).ContinueWith(task =>
+        {
+            if (actionStarted == false)
+            {
+                actionStarted = true;
+                ProgramManger.start(Program.getStartScreen());
+            }
+        });
     }
 
     private static void validateActions(string line)
