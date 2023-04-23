@@ -52,7 +52,7 @@ public class startTour
                             {
                                 amntStarted += 1;
                                 
-                                Console.WriteLine($"{amntStarted} van de {placesBooked} reserveringen zijn aangemeld");
+                                Console.WriteLine($"{amntStarted} van de {placesBooked} reserveringen zijn aangemeld.");
                                 start(tour, amntStarted);
                             }
                         } else {
