@@ -109,7 +109,7 @@ public class Tour
 
             // Write the list of tours to a JSON file
             var manager = new ReservationSystem.jsonManager();
-            manager.writeToJson(tours, @"JsonFiles\tours.json");
+            manager.writeToJson(tours, @"JsonFiles/tours.json");
         }
     }
 
@@ -128,6 +128,22 @@ public class Tour
         }
 
         return freePlaces;
+    }
+
+    static public int tourAmountBookings(Tour tour)
+    {
+        // Ideally, this gets pulled from maxBookingCount
+        int placesTaken = 0;
+
+        foreach (var booking in tour.bookings)
+        {
+            if (booking.occupationStatus == OccupationStatus.Joined || booking.occupationStatus == OccupationStatus.Visited)
+            {
+                placesTaken++;
+            }
+        }
+
+        return placesTaken;
     }
 
 }
