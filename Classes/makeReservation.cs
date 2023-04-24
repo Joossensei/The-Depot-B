@@ -192,7 +192,8 @@ class makeReservation
     {
 
         Console.WriteLine($"Scan nu uw ticket om deze tour te boeken ({tour.dateTime})");
-        string ticketID = ProgramManger.readLine();
+       // string ticketID = ProgramManger.readLine();
+       string ticketID = "b1";
         if (ticketID != "")
         {
             if (makeReservation.checkTicketValidity(ticketID))

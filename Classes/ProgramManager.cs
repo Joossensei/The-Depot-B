@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-
 namespace ReservationSystem;
 public static class ProgramManger
 {
@@ -12,27 +10,39 @@ public static class ProgramManger
 
     public static Role userRole = Role.Bezoeker;
 
-    static bool actionStarted = false;
+    static int openedPageCount = 0;
 
-    public static string readLine()
+    static Task<string> readLineTask = null;
+
+    static CancellationTokenSource tokenSource;
+    static CancellationToken token;
+
+
+
+    public static async Task<string> readLine()
     {
-        string line = "";
-
-        if (isPassword)
-            line = readPassword();
-        else
-            line = Console.ReadLine() ?? "";
-
-
-        if (line == "exit")
+        tokenSource = new CancellationTokenSource();
+        token = new CancellationToken();
+        Console.WriteLine("test1");
+        return await Task.Run<String>(async () =>
         {
-            isActive = false;
-            Console.WriteLine("Programma successvol gesloten.");
-        }
+            Console.WriteLine("test2");
 
-        return line;
+            string line = "";
+            if (isPassword)
+                line = readPassword();
+            else
+                line = (await Console.In.ReadLineAsync()) ?? "";
+            if (line == "exit")
+            {
+                isActive = false;
+                Console.WriteLine("Programma successvol gesloten.");
+            }
+            return line;
+        });
+
+
     }
-
     private static string readPassword()
     {
         string line = "";
@@ -60,8 +70,30 @@ public static class ProgramManger
         return line;
     }
 
-    public static void start(List<Action>? actions)
+    public static void delayedReturnToHome(int openedPageCount)
     {
+        Task.Delay(new TimeSpan(0, 0, 5)).ContinueWith(task =>
+        {
+            Console.WriteLine(openedPageCount);
+            Console.WriteLine(ProgramManger.openedPageCount);
+            if (openedPageCount == ProgramManger.openedPageCount)
+            {
+                tokenSource.Cancel();
+
+                ProgramManger.setActions(Program.getStartScreen());
+
+                userRole = Role.Bezoeker;
+            }
+        });
+    }
+
+    public static async void start(List<Action>? actions)
+    {
+
+        tokenSource = new CancellationTokenSource();
+        token = new CancellationToken();
+
+        openedPageCount = 0;
         Console.ForegroundColor = ConsoleColor.White;
         if (actions != null)
         {
@@ -79,8 +111,9 @@ public static class ProgramManger
             renderErrors();
             renderLine();
 
-            //Reading a line
-            var line = readLine();
+            Console.WriteLine("Test1");
+            var line = await readLine();
+            Console.WriteLine("Test");
 
             //Checking if the application has not exitted yet
             if (isActive)
@@ -95,6 +128,8 @@ public static class ProgramManger
     {
         //Adding an id to the actions that can run an action
         int currentId = 1;
+        openedPageCount++;
+        delayedReturnToHome(openedPageCount);
         foreach (var action in actions)
         {
             //Checking id the action has an action function
@@ -137,14 +172,6 @@ public static class ProgramManger
                 );
             }
         }
-        Task.Delay(new TimeSpan(0, 0, 10)).ContinueWith(task =>
-        {
-            if (actionStarted == false)
-            {
-                actionStarted = true;
-                ProgramManger.start(Program.getStartScreen());
-            }
-        });
     }
 
     private static void validateActions(string line)
