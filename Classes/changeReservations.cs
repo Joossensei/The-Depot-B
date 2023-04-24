@@ -41,7 +41,7 @@ public class changeReservations
                     hasExtraBreak = false,
                     onAction = line => {
                         Console.WriteLine("Scan uw code om te annuleren");
-                        string ticketID = "b1";//ProgramManger.readLine();
+                        string ticketID = ProgramManger.readLine();
                         Booking newCancellationReservation = new();
                         bool newCancellationReservationStatus = false;
                         foreach (Booking reservation in tour.bookings)

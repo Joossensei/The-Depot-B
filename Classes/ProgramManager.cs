@@ -106,9 +106,7 @@ public static class ProgramManger
             renderErrors();
             renderLine();
 
-            Console.WriteLine("Test1");
             var line = readLine();
-            Console.WriteLine("Test");
 
             //Checking if the application has not exitted yet
             if (isActive)
