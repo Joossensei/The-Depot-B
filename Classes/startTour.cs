@@ -35,7 +35,7 @@ public class startTour
                                         text = "Wilt u de tour starten? (Scan uw code)",
                                         onAction = line =>
                                         {
-                                            if (line.Contains('g'))
+                                            if (line.Contains('g') && Program.employeCodes.Contains(line))
                                             {
                                                 tour.tourStarted= true;
                                                 var manager = new jsonManager();
@@ -79,7 +79,7 @@ public class startTour
                         }
                     }, (line) =>
                     {
-                        if (line.Contains('g'))
+                        if (line.Contains('g') && Program.employeCodes.Contains(line))
                         {
 
                             tour.tourStarted= true;
