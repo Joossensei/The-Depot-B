@@ -6,7 +6,7 @@ public class startTour
 {
     public static void start(Tour tour, int amntStarted)
     {
-        List<Tour> tours = Program.tours;
+        List<Tour> tours = Program.tourstoday;
         int placesBooked = Tour.tourAmountBookings(tour);
 
         ProgramManger.setActions(new List<Action>
@@ -35,8 +35,12 @@ public class startTour
                                         text = "Wilt u de tour starten? (Scan uw code)",
                                         onAction = line =>
                                         {
-                                            if (line == "gids")
+                                            if (line.Contains('g') && Program.employeCodes.Contains(line))
                                             {
+                                                tour.tourStarted= true;
+                                                var manager = new jsonManager();
+                                                manager.writeToJson(tours, @"JsonFiles/tours.json");
+
                                                 Console.WriteLine("Tour is gestart!");
                                                 ProgramManger.setActions(Program.getStartScreen());
                                             }
@@ -46,12 +50,12 @@ public class startTour
                                             }
                                         }
                                     }
-                                });
+                                },isPassword:true);
                             }
                             else
                             {
                                 amntStarted += 1;
-                                
+
                                 Console.WriteLine($"{amntStarted} van de {placesBooked} reserveringen zijn aangemeld.");
                                 start(tour, amntStarted);
                             }
@@ -75,7 +79,7 @@ public class startTour
                         }
                     }, (line) =>
                     {
-                        if (line == "gids")
+                        if (line.Contains('g') && Program.employeCodes.Contains(line))
                         {
 
                             tour.tourStarted= true;
@@ -83,10 +87,13 @@ public class startTour
                             manager.writeToJson(tours, @"JsonFiles/tours.json");
 
                             ProgramManger.setActions(new List<Action>()
-                            {
+                            {   new() {
+                                text="Tour is gestart!",
+                                textType=TextType.Success
+                            },
                                 new()
                                 {
-                                    text = "Tour is gestart! \n   Terug naar start",
+                                    text = "Terug naar start",
                                     onAction = line =>
                                     {
                                         ProgramManger.setActions(Program.getStartScreen());
@@ -98,8 +105,8 @@ public class startTour
                         else
                         {
                             start(tour, amntStarted);
-                        }    
-                    });
+                        }
+                    },isPassword:true);
                 }
             }
         });
@@ -114,22 +121,22 @@ public class startTour
             switch (booking.occupationStatus)
             {
                 case OccupationStatus.Joined:
-                {
-                    booking.occupationStatus = OccupationStatus.Visited;
-                    var manager = new jsonManager();
-                    manager.writeToJson(tours, @"JsonFiles/tours.json");
-                    return true;                        
-                }
+                    {
+                        booking.occupationStatus = OccupationStatus.Visited;
+                        var manager = new jsonManager();
+                        manager.writeToJson(tours, @"JsonFiles/tours.json");
+                        return true;
+                    }
                 case OccupationStatus.Canceled:
-                {
-                    Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
-                    return false;
-                }
+                    {
+                        Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
+                        return false;
+                    }
                 case OccupationStatus.Visited:
-                {
-                    Console.WriteLine("U heeft deze rondleiding al bezocht!");
-                    return false;
-                }
+                    {
+                        Console.WriteLine("U heeft deze rondleiding al bezocht!");
+                        return false;
+                    }
                 default:
                     Console.WriteLine("Er ging iets fout probeer het nog een keer!");
                     return false;

@@ -104,12 +104,26 @@ namespace ReservationSystem
                                 //Checking if the code is for an Afdelingshoofd
                                 if(line.Contains('a')){
                                     ProgramManger.userRole = Role.Afdelingshoofd;
-                                    ProgramManger.setActions(getStartScreen());
+                                    List<Action> actions = new List<Action> ();
+                                    actions.Add(new(){
+                                        text="Ingelogd als afdelingshoofd",
+                                        textType = TextType.Success
+                                    });
+                                    actions.AddRange(getStartScreen());
+
+                                    ProgramManger.setActions(actions);
                                 }
                                 //Else check if the code is for an Gids
                                 else if(line.Contains('g')){
                                     ProgramManger.userRole = Role.Gids;
-                                    ProgramManger.setActions(getStartScreen());
+                                    List<Action> actions = new List<Action> ();
+                                    actions.Add(new(){
+                                        text="Ingelogd als gids",
+                                        textType = TextType.Success
+                                    });
+                                    actions.AddRange(getStartScreen());
+
+                                    ProgramManger.setActions(actions);
                                 }
                                 else{
                                     ProgramManger.errors.Add("Gebruikers kunnen niet inloggen");
