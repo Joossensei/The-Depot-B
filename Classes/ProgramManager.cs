@@ -1,6 +1,18 @@
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+
 namespace ReservationSystem;
 public static class ProgramManger
 {
+
+    [DllImport("user32.dll")]
+    static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, IntPtr dwExtraInfo);
+
+    const int VK_RETURN = 0x0D;
+    const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
+    const uint KEYEVENTF_KEYUP = 0x0002;
+
     public static bool isActive = true;
     public static List<Action> actions = new();
     public static System.Action<string>? onOtherValue;
@@ -12,34 +24,20 @@ public static class ProgramManger
 
     static int openedPageCount = 0;
 
-    static Task<string> readLineTask = null;
 
-    static CancellationTokenSource tokenSource;
-    static CancellationToken token;
-
-
-
-    public static async Task<string> readLine()
+    public static string readLine()
     {
-        tokenSource = new CancellationTokenSource();
-        token = new CancellationToken();
-        Console.WriteLine("test1");
-        return await Task.Run<String>(async () =>
+        string line = "";
+        if (isPassword)
+            line = readPassword();
+        else
+            line = Console.ReadLine() ?? "";
+        if (line == "exit")
         {
-            Console.WriteLine("test2");
-
-            string line = "";
-            if (isPassword)
-                line = readPassword();
-            else
-                line = (await Console.In.ReadLineAsync()) ?? "";
-            if (line == "exit")
-            {
-                isActive = false;
-                Console.WriteLine("Programma successvol gesloten.");
-            }
-            return line;
-        });
+            isActive = false;
+            Console.WriteLine("Programma successvol gesloten.");
+        }
+        return line;
 
 
     }
@@ -74,11 +72,11 @@ public static class ProgramManger
     {
         Task.Delay(new TimeSpan(0, 0, 5)).ContinueWith(task =>
         {
-            Console.WriteLine(openedPageCount);
-            Console.WriteLine(ProgramManger.openedPageCount);
+
             if (openedPageCount == ProgramManger.openedPageCount)
             {
-                tokenSource.Cancel();
+                Console.WriteLine(openedPageCount);
+                Console.WriteLine(ProgramManger.openedPageCount);
 
                 ProgramManger.setActions(Program.getStartScreen());
 
@@ -89,9 +87,6 @@ public static class ProgramManger
 
     public static async void start(List<Action>? actions)
     {
-
-        tokenSource = new CancellationTokenSource();
-        token = new CancellationToken();
 
         openedPageCount = 0;
         Console.ForegroundColor = ConsoleColor.White;
@@ -112,7 +107,7 @@ public static class ProgramManger
             renderLine();
 
             Console.WriteLine("Test1");
-            var line = await readLine();
+            var line = readLine();
             Console.WriteLine("Test");
 
             //Checking if the application has not exitted yet
