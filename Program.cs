@@ -79,7 +79,7 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Afdelingshoofd},
                     text = "Statistieken inzien",
                     onAction = line => {
-                        ProgramManger.setActions(getStatistics());
+                        ProgramManger.setActions(statisticScreen.getStatistics());
                     }
                 },
                 new (){
@@ -104,12 +104,26 @@ namespace ReservationSystem
                                 //Checking if the code is for an Afdelingshoofd
                                 if(line.Contains('a')){
                                     ProgramManger.userRole = Role.Afdelingshoofd;
-                                    ProgramManger.setActions(getStartScreen());
+                                    List<Action> actions = new List<Action> ();
+                                    actions.Add(new(){
+                                        text="Ingelogd als afdelingshoofd",
+                                        textType = TextType.Success
+                                    });
+                                    actions.AddRange(getStartScreen());
+
+                                    ProgramManger.setActions(actions);
                                 }
                                 //Else check if the code is for an Gids
                                 else if(line.Contains('g')){
                                     ProgramManger.userRole = Role.Gids;
-                                    ProgramManger.setActions(getStartScreen());
+                                    List<Action> actions = new List<Action> ();
+                                    actions.Add(new(){
+                                        text="Ingelogd als gids",
+                                        textType = TextType.Success
+                                    });
+                                    actions.AddRange(getStartScreen());
+
+                                    ProgramManger.setActions(actions);
                                 }
                                 else{
                                     ProgramManger.errors.Add("Gebruikers kunnen niet inloggen");
@@ -240,59 +254,6 @@ namespace ReservationSystem
             );
 
             return actions;
-        }
-
-        static List<Action> getStatistics()
-        {
-            return statisticScreen.getStatistics();
-            /*
-            List<Action> actions = new(){
-                new (){
-                    text = "Voer een actie uit door het nummer voor de actie in te voeren.",
-                    hasExtraBreak = true
-                },
-                new (){
-                    text = $"Rondleidingen ({DateTime.Now.ToShortDateString()})",
-                    hasExtraBreak = true
-                }
-
-            };
-
-            //Add tours from today
-            actions.AddRange(getTours(hasActions: false));
-
-            //Add other statistics
-            actions.AddRange(new List<Action>(){
-                new (){ text = "\nBezoekers: 3242",},
-                new (){ text = "Rondleiding boekingen: 120",},
-                new (){ text = "Rondleiding aanwezigen: 112",},
-                new (){ text = "Rondleiding afwezigen: 8",},
-                new (){
-                    text = "Annuleringen: 34",
-                    hasExtraBreak = true,
-                },
-                new (){
-                    text = "Statistieken periode",
-                    onAction = line => {ProgramManger.setActions(Statistics.getData());
-                    },
-                },
-                new (){
-                    text = "Terug naar start",
-                    onAction = line => {
-                        ProgramManger.setActions(getStartScreen());
-                    }
-                },
-                // for debugging remove /*
-                /*new (){
-                    text = "Rondleidingen filteren op datum",
-                    onAction = line => {
-                        ProgramManger.setActions(Statistics.getData());
-                    },
-                }
-            });
-
-            return actions;
-            */
         }
     }
 }

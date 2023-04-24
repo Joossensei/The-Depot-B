@@ -129,6 +129,22 @@ public class Tour
         return freePlaces;
     }
 
+    static public int tourAmountBookings(Tour tour)
+    {
+        // Ideally, this gets pulled from maxBookingCount
+        int placesTaken = 0;
+
+        foreach (var booking in tour.bookings)
+        {
+            if (booking.occupationStatus == OccupationStatus.Joined || booking.occupationStatus == OccupationStatus.Visited)
+            {
+                placesTaken++;
+            }
+        }
+
+        return placesTaken;
+    }
+
 }
 public class Booking
 {

@@ -16,7 +16,7 @@ namespace ReservationSystem
         List<Action> TourCheckReturn = new List<Action>();
 
             if(entryTickets.Contains(tickets)){
-                TourCheckReturn.Add(new (){text = "Uw ticket is geldig"});
+                TourCheckReturn.Add(new (){text = "Uw ticket is geldig",textType = TextType.Success});
                 
 
                 foreach (var checkTour in alltours)
