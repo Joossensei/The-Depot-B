@@ -47,7 +47,7 @@ public class statisticScreen
         {
             actions.Add(new()
             {
-                text = "De volgende rondleidingen kunnen worden samengevoegd, want deze hebben allemaal weinig aanmeldingen:"
+                text = "De volgende rondleidingen hebben weinig aanmeldingen, dus wij raden aan deze rondleidingen samen te voegen:"
             });
             foreach (KeyValuePair<Tour, Tour> entry in emtpyTours)
             {
@@ -66,7 +66,7 @@ public class statisticScreen
         {
             actions.Add(new()
             {
-                text = "Tussen de volgende rondleidingen kan er een extra worden toegevoegd, want deze hebben allemaal veel aanmeldingen:"
+                text = "De volgende rondleidingen hebben veel aanmeldingen, dus wij raden aan deze rondleidingen toe te voegen:"
             });
             foreach (KeyValuePair<Tour, Tour> entry in fullTours)
             {

@@ -25,6 +25,7 @@ public class startTour
                     }, line => {
                         if (checkCode(line, tour.bookings))
                         {
+                            Console.Beep();
                             Console.WriteLine("U bent aangemeld voor de rondleiding");
                             if (amntStarted >= tour.maxBookingCount)
                             {
@@ -108,7 +109,13 @@ public class startTour
                         }
                     },isPassword:true);
                 }
-            }
+            }, new() {
+                    text = "Terug naar start",
+                    onAction = line =>
+                    {
+                        ProgramManger.setActions(Program.getStartScreen());
+                    }
+                }
         });
     }
 
