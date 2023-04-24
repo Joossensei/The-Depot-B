@@ -24,6 +24,8 @@ public static class ProgramManger
 
     static int openedPageCount = 0;
 
+    static bool resetErrors = false;
+
 
     public static string readLine()
     {
@@ -68,18 +70,26 @@ public static class ProgramManger
         return line;
     }
 
-    public static void delayedReturnToHome(int openedPageCount)
+    public static void delayedReturnToHome()
     {
+        int openedPageCount = ProgramManger.openedPageCount;
+        //Creating a delay of 30 seconds then run an arrow function
         Task.Delay(new TimeSpan(0, 0, 5)).ContinueWith(task =>
         {
-
+            Console.WriteLine(openedPageCount);
+            Console.WriteLine(ProgramManger.openedPageCount);
+            //Checking of the user did not navigate to another page
             if (openedPageCount == ProgramManger.openedPageCount)
             {
-                Console.WriteLine(openedPageCount);
-                Console.WriteLine(ProgramManger.openedPageCount);
+                //Indicating that the errors need to be reset
+                resetErrors = true;
+                //Simulating enter keypress
+                keybd_event(VK_RETURN, 0, KEYEVENTF_EXTENDEDKEY, IntPtr.Zero); // simulate an Enter key press
+                keybd_event(VK_RETURN, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, IntPtr.Zero); // release the Enter key
 
+                //Sending application back to the startscreen
                 ProgramManger.setActions(Program.getStartScreen());
-
+                //Setting the role to a user so you are singed out
                 userRole = Role.Bezoeker;
             }
         });
@@ -87,7 +97,7 @@ public static class ProgramManger
 
     public static async void start(List<Action>? actions)
     {
-
+        //Resetting openedPageCount
         openedPageCount = 0;
         Console.ForegroundColor = ConsoleColor.White;
         if (actions != null)
@@ -98,6 +108,8 @@ public static class ProgramManger
         //The loop of the programm
         while (isActive)
         {
+            //Checking if the screen has been send back to start via auto enter press then reset the error
+            checkResetErrors();
             renderLine();
             //Rendering the current actions
             renderActions(ProgramManger.actions);
@@ -106,9 +118,7 @@ public static class ProgramManger
             renderErrors();
             renderLine();
 
-            Console.WriteLine("Test1");
             var line = readLine();
-            Console.WriteLine("Test");
 
             //Checking if the application has not exitted yet
             if (isActive)
@@ -119,12 +129,23 @@ public static class ProgramManger
         }
     }
 
-    public static void setActions(List<Action> actions, System.Action<string>? onOtherValue = null, bool isPassword = false)
+    private static void checkResetErrors()
+    {
+        if (ProgramManger.resetErrors)
+        {
+            ProgramManger.resetErrors = false;
+            ProgramManger.errors.Clear();
+        }
+    }
+
+    public static void setActions(List<Action> actions, System.Action<string>? onOtherValue = null, bool isPassword = false, bool automaticClose = false)
     {
         //Adding an id to the actions that can run an action
         int currentId = 1;
         openedPageCount++;
-        delayedReturnToHome(openedPageCount);
+        if (automaticClose)
+            ProgramManger.delayedReturnToHome();
+        
         foreach (var action in actions)
         {
             //Checking id the action has an action function
