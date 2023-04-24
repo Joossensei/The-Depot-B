@@ -5,7 +5,7 @@ public class changeReservations
     public static void cancelReservation(Tour tour, Booking reservation, bool showOptions = false)
     {
 
-        List<Tour> tours = Program.tours;
+        List<Tour> tours = Program.tourstoday;
         List<Tour> tempTours = new List<Tour> { };
 
         foreach (Tour checkTour in tours)
