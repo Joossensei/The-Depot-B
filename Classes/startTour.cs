@@ -25,6 +25,7 @@ public class startTour
                     }, line => {
                         if (checkCode(line, tour.bookings))
                         {
+                            Console.Beep();
                             Console.WriteLine("U bent aangemeld voor de rondleiding");
                             if (amntStarted >= tour.maxBookingCount)
                             {
@@ -35,7 +36,7 @@ public class startTour
                                         text = "Wilt u de tour starten? (Scan uw code)",
                                         onAction = line =>
                                         {
-                                            if (line.Contains('g'))
+                                            if (line.Contains('g') && Program.employeCodes.Contains(line))
                                             {
                                                 tour.tourStarted= true;
                                                 var manager = new jsonManager();
@@ -79,7 +80,7 @@ public class startTour
                         }
                     }, (line) =>
                     {
-                        if (line.Contains('g'))
+                        if (line.Contains('g') && Program.employeCodes.Contains(line))
                         {
 
                             tour.tourStarted= true;
@@ -108,7 +109,13 @@ public class startTour
                         }
                     },isPassword:true);
                 }
-            }
+            }, new() {
+                    text = "Terug naar start",
+                    onAction = line =>
+                    {
+                        ProgramManger.setActions(Program.getStartScreen());
+                    }
+                }
         });
     }
 

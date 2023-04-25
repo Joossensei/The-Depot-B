@@ -77,7 +77,7 @@ class makeReservation
     public static void ReserveTour(string ticketID, Tour tour)
     {
         List<Tour> tours = Program.tourstoday;
-        if (Tour.tourFreePlaces(tour) > 0)
+        if (Tour.tourFreePlaces(tour) > 0 || tour.tourStarted == false)
         {
 
             List<Action> actions = new List<Action>

@@ -97,6 +97,13 @@ namespace ReservationSystem
                         ProgramManger.setActions(new List<Action>{
                             new(){
                                 text = "Voer je unieke code in of scan je badge om in te loggen"
+                            },
+                            new() {
+                                text= "Terug naar start",
+                                onAction = line =>
+                                {
+                                    ProgramManger.setActions(getStartScreen());
+                                }
                             }
                         }, (line)=>{
                             //Checking if the unique code exists
