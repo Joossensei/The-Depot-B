@@ -189,7 +189,7 @@ namespace ReservationSystem
             //Attempt to get a ticketID and make a reservation
             if (ProgramManger.userRole == Role.Bezoeker)
             {
-                if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+                if (makeReservation.getUsersTicket(tour) != "")
                 {
                     actions.Add(new()
                     {
@@ -224,14 +224,17 @@ namespace ReservationSystem
                             text = "Rondleiding reserveren",
                             onAction = line =>
                             {
-                                if (!makeReservation.getUsersTicketAndMakeReservation(tour))
+
+                                ProgramManger.setActions(makeReservation.ReserveTour(line, tour));
+
+                               /* if (!makeReservation.getUsersTicketAndMakeReservation(tour))
                                 {
                                     actions.Add(new()
                                     {
                                         text = "Dit ticket mag geen reservingen maken",
                                         textType = TextType.Error
                                     });
-                                }
+                                }*/
                             }
                         }
                     );
