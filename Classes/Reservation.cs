@@ -35,7 +35,7 @@ namespace ReservationSystem
                             tourFound = true;
 
                             TourCheckReturn.Add(new (){text = "De Rondleiding die u heeft geboekt: \n"});
-                            TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString()});
+                            TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString("HH:mm")});
                             TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
                             
                             TourCheckReturn.Add(new(){
@@ -61,7 +61,7 @@ namespace ReservationSystem
                                             actions.Add(
                                                 new()
                                                 {
-                                                    text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                                                    text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} plaatsen vrij")})",
                                                     onAction = line =>
                                                     {
                                                         changeReservations.moveReservation(tour, checkTour, reservation, tickets);
