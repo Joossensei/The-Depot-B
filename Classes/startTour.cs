@@ -9,8 +9,15 @@ public class startTour
         List<Tour> tours = Program.tourstoday;
         int placesBooked = Tour.tourAmountBookings(tour);
 
-        ProgramManger.setActions(new List<Action>
+        bool allowExtraReservations = false;
+
+        if (placesBooked < 4)
         {
+            allowExtraReservations = true;
+        };
+
+
+        List<Action> actions = new List<Action> {
             new()
             {
                 text = "Code scannen",
@@ -109,14 +116,41 @@ public class startTour
                         }
                     },isPassword:true);
                 }
-            }, new() {
-                    text = "Terug naar start",
-                    onAction = line =>
+            }
+        };
+
+        if(allowExtraReservations == true)
+        actions.Add(
+            new()
+            {
+                text = "Extra reservering maken",
+                onAction = line => {
+                    ProgramManger.setActions(new List<Action>()
                     {
-                        ProgramManger.setActions(Program.getStartScreen());
-                    }
+                        new ()
+                        {
+                            text = "Scan uw unieke code om nu te boeken"
+                        }
+                    }, line =>
+                    {
+                        makeReservation.ReserveTour(line, tour);
+                    });
                 }
-        });
+            }
+        );
+
+        actions.Add(
+            new()
+            {
+                text = "Terug naar start",
+                onAction = line =>
+                {
+                    ProgramManger.setActions(Program.getStartScreen());
+                }
+            }
+        );
+
+        ProgramManger.setActions(actions);
     }
 
     private static bool checkCode(string code, List<Booking> bookings)
