@@ -164,7 +164,8 @@ namespace ReservationSystem
                 actions.Add(
                     new()
                     {
-                        text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToString("HH:mm")} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} plaatsen vrij")})",
+
+                        text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToString("HH:mm")} ({(isStarted ? "Rondleiding al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} plaatsen vrij")})",
                         textType = isFull || isStarted ? TextType.Error : TextType.Normal,
                         onAction = hasActions ? line =>
                         {
@@ -206,7 +207,8 @@ namespace ReservationSystem
                 },
                 new()
                 {
-                    text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToString("HH:mm")}\n{(isStarted? "Tour is al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} plaatsen vrij")}",
+
+                    text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToString("HH:mm")}\n{(isStarted? "Rondleiding is al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} plaatsen vrij")}",
                     hasExtraBreak = true,
 
                 }

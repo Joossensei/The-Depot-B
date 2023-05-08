@@ -61,7 +61,8 @@ namespace ReservationSystem
                                             actions.Add(
                                                 new()
                                                 {
-                                                    text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} plaatsen vrij")})",
+
+                                                    text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Rondleiding al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} plaatsen vrij")})",
                                                     onAction = line =>
                                                     {
                                                         changeReservations.moveReservation(tour, checkTour, reservation, tickets);
