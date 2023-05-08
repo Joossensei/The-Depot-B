@@ -4,12 +4,13 @@ class makeReservation
 {
 
     //General function if the reservation is invalid or fails to prevent duplicate code
-    private static void invalidReservation(string reason, Tour tour, Action extraAction = default, bool tryAgain = true)
+    private static List<Action> invalidReservation(string reason, Tour tour, Action extraAction = default, bool tryAgain = true)
     {
         List<Tour> tours = Program.tourstoday;
 
         List<Action> actions = new List<Action> { };
-        actions.Add(new() {
+        actions.Add(new()
+        {
             text = reason,
             textType = TextType.Error
         });
@@ -23,14 +24,17 @@ class makeReservation
                 hasExtraBreak = false,
                 onAction = line =>
                 {
-                    if (!makeReservation.getUsersTicketAndMakeReservation(tour))
-                    {
-                        actions.Add(new()
+                    ProgramManger.setActions(new List<Action>()
                         {
-                            text = "Dit ticket mag geen reservingen maken"
-                        });
-                    }
-
+                            new ()
+                            {
+                                text = "Scan uw unieke code om nu te boeken"
+                            }
+                        }, line =>
+                        {
+                            ReserveTour(line, tour);
+                        }
+                    );
                 }
             }
             );
@@ -55,7 +59,7 @@ class makeReservation
             }
         );
 
-        ProgramManger.start(actions);
+        return actions;
     }
 
 
@@ -76,20 +80,19 @@ class makeReservation
 
     public static void ReserveTour(string ticketID, Tour tour)
     {
+
+        List<Action> actions = new List<Action> { };
+
         List<Tour> tours = Program.tourstoday;
         if (Tour.tourFreePlaces(tour) > 0 || tour.tourStarted == false)
         {
 
-            List<Action> actions = new List<Action>
-            {
-
-            };
 
             bool validTicket = checkTicketValidity(ticketID);
 
             if (validTicket == false)
             {
-                invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour);
+                actions = invalidReservation("Deze code is ongeldig. Probeer het opnieuw", tour);
             }
             else
             {
@@ -100,11 +103,13 @@ class makeReservation
                 {
                     foreach (var reservation in checkTour.bookings)
                     {
-                        if ((reservation.userId == ticketID) && (reservation.occupationStatus != OccupationStatus.Canceled) && checkTour.id == tour.id)
+                        if (reservation.userId == ticketID && reservation.occupationStatus != OccupationStatus.Canceled && checkTour.id == tour.id)
                         {   //IF current loop's ticket is the same as scanned ticket & current loop's ticket is not cancelled & loop's tour is the same as requested tour, it means the user already has a reservation for this tour
-                            invalidReservation($"U heeft al een reservering voor deze rondleiding", tour, tryAgain: false);
+                            hasReservation = true;
+                            ProgramManger.setActions(invalidReservation($"U heeft al een reservering voor deze rondleiding", tour, tryAgain: false));
+                            return;
                         }
-                        else if ((reservation.userId == ticketID) && (reservation.occupationStatus == OccupationStatus.Joined))
+                        else if (reservation.userId == ticketID && reservation.occupationStatus == OccupationStatus.Joined)
                         {
                             hasReservation = true;
 
@@ -118,7 +123,9 @@ class makeReservation
                                 }
                             };
 
-                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime.ToString("HH:mm")})", tour, extraAction, false);
+                            ProgramManger.setActions(invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime})", tour, extraAction, false));
+                            return;
+
                         }
                     }
                 }
@@ -129,22 +136,16 @@ class makeReservation
                     {
                         if (checkTour.id == tour.id)
                         {
-                            if (Tour.tourFreePlaces(tour) == 0)
+
+                            //Add the booking/reservation to the current tour
+                            checkTour.bookings.Add(new Booking
+
                             {
-                                //Just to dubble check
-                                invalidReservation("Deze rondleiding zit helaas al vol", tour);
-                            }
-                            else
-                            {
-                                //Add the booking/reservation to the current tour
-                                checkTour.bookings.Add(new Booking
-                                {
-                                    userId = ticketID,
-                                    tourId = tour.id,
-                                    createData = DateTime.Now,
-                                    occupationStatus = OccupationStatus.Joined
-                                });
-                            }
+                                userId = ticketID,
+                                tourId = tour.id,
+                                createData = DateTime.Now,
+                                occupationStatus = OccupationStatus.Joined
+                            });
                         }
                     }
                 }
@@ -163,13 +164,17 @@ class makeReservation
 
                     hasExtraBreak = false,
                     onAction = line => {
-                        if (!makeReservation.getUsersTicketAndMakeReservation(tour))
-                        {
-                            actions.Add(new()
+                        ProgramManger.setActions(new List<Action>()
                             {
-                                text = "Dit ticket mag geen reservingen maken"
-                            });
-                        }
+                                new ()
+                                {
+                                    text = "Scan uw unieke code om nu te boeken"
+                                }
+                            }, line =>
+                            {
+                                ReserveTour(line, tour);
+                            }
+                        );
                     }
                     },
                     new() {
@@ -182,38 +187,15 @@ class makeReservation
                 };
             }
 
-            ProgramManger.start(actions);
         }
         else
         {
-            invalidReservation("Deze rondleiding zit helaas al vol", tour, tryAgain: false);
+            ProgramManger.setActions(invalidReservation("Deze tour zit helaas al vol", tour, tryAgain: false));
+            return;
+
+
         }
-    }
-
-    public static bool getUsersTicketAndMakeReservation(Tour tour)
-    {
-
-
-        Console.WriteLine($"Scan nu uw ticket om deze rondleiding te boeken ({tour.dateTime.ToString("HH:mm")})");
-
-        string ticketID = ProgramManger.readLine();
-        if (ticketID != "")
-        {
-            if (makeReservation.checkTicketValidity(ticketID))
-            {
-                makeReservation.ReserveTour(ticketID, tour);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        ProgramManger.setActions(actions, automaticClose: true);
 
     }
-
 }
