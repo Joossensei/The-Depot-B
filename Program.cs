@@ -161,18 +161,21 @@ namespace ReservationSystem
                 bool isStarted = tour.tourStarted;
 
                 //Adding the action items
-                actions.Add(
-                    new()
-                    {
-                        text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
-                        textType = isFull || isStarted ? TextType.Error : TextType.Normal,
-                        onAction = hasActions ? line =>
+                if (!isFull || !isStarted)
+                {
+                    actions.Add(
+                        new()
                         {
-                            ProgramManger.setActions(getTour(tour));
+                            text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                            textType = isFull || isStarted ? TextType.Error : TextType.Normal,
+                            onAction = hasActions ? line =>
+                            {
+                                ProgramManger.setActions(getTour(tour));
+                            }
+                            : null
                         }
-                        : null
-                    }
-                );
+                    );
+                }
             }
 
             return actions;
