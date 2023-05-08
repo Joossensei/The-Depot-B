@@ -33,7 +33,7 @@ public class startTour
                                 {
                                     new()
                                     {
-                                        text = "Wilt u de tour starten? (Scan uw code)",
+                                        text = "Wilt u de rondleiding starten? (Scan uw code)",
                                         onAction = line =>
                                         {
                                             if (line.Contains('g') && Program.employeCodes.Contains(line))
@@ -42,7 +42,7 @@ public class startTour
                                                 var manager = new jsonManager();
                                                 manager.writeToJson(tours, @"JsonFiles/tours.json");
 
-                                                Console.WriteLine("Tour is gestart!");
+                                                Console.WriteLine("Rondleiding is gestart!");
                                                 ProgramManger.setActions(Program.getStartScreen());
                                             }
                                             else
@@ -61,7 +61,7 @@ public class startTour
                                 start(tour, amntStarted);
                             }
                         } else {
-                            Console.WriteLine($"Sorry ingevulde code is niet gereserveerd voor deze tour");
+                            Console.WriteLine($"Sorry ingevulde code is niet gereserveerd voor deze rondleiding");
                             start(tour, amntStarted);
                         }
                     });
@@ -69,7 +69,7 @@ public class startTour
             },
             new()
             {
-                text = "Wilt u de tour starten?",
+                text = "Wilt u de rondleiding starten?",
                 onAction = line =>
                 {
                     ProgramManger.setActions(new List<Action>()
@@ -89,7 +89,7 @@ public class startTour
 
                             ProgramManger.setActions(new List<Action>()
                             {   new() {
-                                text="Tour is gestart!",
+                                text="Rondleiding is gestart!",
                                 textType=TextType.Success
                             },
                                 new()

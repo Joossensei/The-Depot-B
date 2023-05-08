@@ -115,7 +115,7 @@ class makeReservation
 
                             Action extraAction = new()
                             {
-                                text = "Huidige reservering annuleren en voor deze tour inschrijven",
+                                text = "Huidige reservering annuleren en voor deze rondleiding inschrijven",
                                 hasExtraBreak = false,
                                 onAction = line =>
                                 {
@@ -139,6 +139,7 @@ class makeReservation
 
                             //Add the booking/reservation to the current tour
                             checkTour.bookings.Add(new Booking
+
                             {
                                 userId = ticketID,
                                 tourId = tour.id,
@@ -158,7 +159,9 @@ class makeReservation
                         textType = TextType.Success
                     },
                     new() {
+
                     text = $"Nog een reservering maken voor deze tour ({tour.dateTime.ToString("HH:mm")})",
+
                     hasExtraBreak = false,
                     onAction = line => {
                         ProgramManger.setActions(new List<Action>()
@@ -189,6 +192,7 @@ class makeReservation
         {
             ProgramManger.setActions(invalidReservation("Deze tour zit helaas al vol", tour, tryAgain: false));
             return;
+
 
         }
         ProgramManger.setActions(actions, automaticClose: true);
