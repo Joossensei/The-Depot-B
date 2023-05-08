@@ -118,7 +118,7 @@ class makeReservation
                                 }
                             };
 
-                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime})", tour, extraAction, false);
+                            invalidReservation($"U heeft al een reservering staan ({checkTour.dateTime.ToString("HH:mm")})", tour, extraAction, false);
                         }
                     }
                 }
@@ -153,12 +153,14 @@ class makeReservation
 
                 actions = new List<Action> {
                     new() {
-                        text = $"Uw reservering is gelukt: ({tour.dateTime})",
+                        text = $"Uw reservering is gelukt: ({tour.dateTime.ToString("HH:mm")})",
                         hasExtraBreak = true,
                         textType = TextType.Success
                     },
                     new() {
-                    text = $"Nog een reservering maken voor deze rondleiding ({tour.dateTime})",
+
+                    text = $"Nog een reservering maken voor deze tour ({tour.dateTime.ToString("HH:mm")})",
+
                     hasExtraBreak = false,
                     onAction = line => {
                         if (!makeReservation.getUsersTicketAndMakeReservation(tour))
@@ -191,7 +193,9 @@ class makeReservation
     public static bool getUsersTicketAndMakeReservation(Tour tour)
     {
 
-        Console.WriteLine($"Scan nu uw ticket om deze rondleiding te boeken ({tour.dateTime})");
+
+        Console.WriteLine($"Scan nu uw ticket om deze rondleiding te boeken ({tour.dateTime.ToString("HH:mm")})");
+
         string ticketID = ProgramManger.readLine();
         if (ticketID != "")
         {
