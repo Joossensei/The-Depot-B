@@ -110,7 +110,7 @@ class makeReservation
 
                             Action extraAction = new()
                             {
-                                text = "Huidige reservering annuleren en voor deze tour inschrijven",
+                                text = "Huidige reservering annuleren en voor deze rondleiding inschrijven",
                                 hasExtraBreak = false,
                                 onAction = line =>
                                 {
@@ -132,7 +132,7 @@ class makeReservation
                             if (Tour.tourFreePlaces(tour) == 0)
                             {
                                 //Just to dubble check
-                                invalidReservation("Deze tour zit helaas al vol", tour);
+                                invalidReservation("Deze rondleiding zit helaas al vol", tour);
                             }
                             else
                             {
@@ -158,7 +158,7 @@ class makeReservation
                         textType = TextType.Success
                     },
                     new() {
-                    text = $"Nog een reservering maken voor deze tour ({tour.dateTime})",
+                    text = $"Nog een reservering maken voor deze rondleiding ({tour.dateTime})",
                     hasExtraBreak = false,
                     onAction = line => {
                         if (!makeReservation.getUsersTicketAndMakeReservation(tour))
@@ -184,14 +184,14 @@ class makeReservation
         }
         else
         {
-            invalidReservation("Deze tour zit helaas al vol", tour, tryAgain: false);
+            invalidReservation("Deze rondleiding zit helaas al vol", tour, tryAgain: false);
         }
     }
 
     public static bool getUsersTicketAndMakeReservation(Tour tour)
     {
 
-        Console.WriteLine($"Scan nu uw ticket om deze tour te boeken ({tour.dateTime})");
+        Console.WriteLine($"Scan nu uw ticket om deze rondleiding te boeken ({tour.dateTime})");
         string ticketID = ProgramManger.readLine();
         if (ticketID != "")
         {
