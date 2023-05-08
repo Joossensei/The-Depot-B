@@ -76,8 +76,6 @@ public static class ProgramManger
         //Creating a delay of 30 seconds then run an arrow function
         Task.Delay(new TimeSpan(0, 0, 5)).ContinueWith(task =>
         {
-            Console.WriteLine(openedPageCount);
-            Console.WriteLine(ProgramManger.openedPageCount);
             //Checking of the user did not navigate to another page
             if (openedPageCount == ProgramManger.openedPageCount)
             {
