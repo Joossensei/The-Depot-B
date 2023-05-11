@@ -53,15 +53,20 @@ namespace ReservationSystem
                 }
             };
 
-            //Adding the tours
-            actions.AddRange(getTours());
+            if(ProgramManger.userRole == Role.Gids){
+                // Adding gids tours
+                actions.AddRange(getToursToStart());
+            }else{
+                //Adding the tours
+                actions.AddRange(getTours());
+            }
 
             //Adding actions
             actions.AddRange(new List<Action>(){
                  new (){},
                  new (){
                     validRoles = new Role[]{Role.Bezoeker},
-                    text = "Reserveringen controleren",
+                    text = "Reservering beheren",
                     onAction = line => {
                         ProgramManger.setActions(new(){
                             new(){
@@ -137,7 +142,7 @@ namespace ReservationSystem
                                 }
                             }
                             else{
-                                ProgramManger.errors.Add("Unieke code niet gevonden");
+                                ProgramManger.errors.Add("Ticketnummer niet gevonden");
                             }
                         }, isPassword: true);
                     }
@@ -161,8 +166,8 @@ namespace ReservationSystem
                 bool isStarted = tour.tourStarted;
 
                 //Adding the action items
-
-                if (!isFull || !isStarted)
+                // Console.WriteLine(isStarted);
+                if (!isFull && !isStarted)
                 {
                     actions.Add(
                         new()
@@ -173,12 +178,56 @@ namespace ReservationSystem
                             textType = isFull || isStarted ? TextType.Error : TextType.Normal,
                             onAction = hasActions ? line =>
                             {
-                                ProgramManger.setActions(getTour(tour));
+                                getTour(tour);
                             }
                             : null
 
                         }
                     );
+                }
+            }
+
+            return actions;
+        }
+
+        public static List<Action> getToursToStart(bool hasActions = true)
+        {
+            List<Action> actions = new();
+
+            var teller = 0;
+
+            foreach (var tour in tourstoday)
+            {
+
+                //Getting the free places from the tour and checking if it is full
+                int freePlaces = Tour.tourFreePlaces(tour);
+
+                bool isFull = freePlaces == 0;
+                bool isStarted = tour.tourStarted;
+
+                //Adding the action items
+                // Console.WriteLine(isStarted);
+                if (!isFull && !isStarted)
+                {
+                    if(teller < 1){
+                        actions.Add(
+                            new()
+
+                            {
+
+                                text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                                textType = isFull || isStarted ? TextType.Error : TextType.Normal,
+                                onAction = hasActions ? line =>
+                                {
+                                    getTour(tour);
+                                }
+                                : null
+
+                            }
+                        );
+                        teller++;
+                        Console.WriteLine(teller);
+                    }
                 }
             }
 
@@ -199,7 +248,7 @@ namespace ReservationSystem
                     {
                         new ()
                         {
-                            text = "Scan uw unieke code om nu te boeken"
+                            text = "Voer je ticketnummer in of scan je badge om te reserveren"
                         }
                     }, line =>
                     {
@@ -241,14 +290,14 @@ namespace ReservationSystem
                     actions.Add(
                         new()
                         {
-                            text = "Rondleiding boeken",
+                            text = "Rondleiding reserveren",
                             onAction = line =>
                             {
                                 ProgramManger.setActions(new List<Action>()
                                     {
                                         new ()
                                         {
-                                            text = "Scan uw unieke code om nu te boeken"
+                                            text = "Voer je ticketnummer in of scan je badge om nu te reserveren"
                                         }
                                     }, line =>
                                     {

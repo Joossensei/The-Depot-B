@@ -13,14 +13,14 @@ public class startTour
         {
             new()
             {
-                text = "Code scannen",
+                text = "Bezoekers Aanwezigheid checken",
                 onAction = line =>
                 {
                     ProgramManger.setActions(new List<Action>()
                     {
                         new ()
                         {
-                            text = "Scan uw unieke code"
+                            text = "Scan uw ticketnummer"
                         }
                     }, line => {
                         if (checkCode(line, tour.bookings))
