@@ -173,7 +173,7 @@ namespace ReservationSystem
                             textType = isFull || isStarted ? TextType.Error : TextType.Normal,
                             onAction = hasActions ? line =>
                             {
-                                ProgramManger.setActions(getTour(tour));
+                                getTour(tour);
                             }
                             : null
 
