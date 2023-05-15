@@ -194,9 +194,9 @@ namespace ReservationSystem
         {
             List<Action> actions = new();
 
-            var teller = 0;
+            int teller = 0;
 
-            foreach (var tour in tourstoday)
+            foreach (Tour tour in tourstoday)
             {
 
                 //Getting the free places from the tour and checking if it is full
