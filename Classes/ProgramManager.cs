@@ -166,6 +166,9 @@ public static class ProgramManger
         //Looping through the actions and rendering them
         foreach (var action in actions)
         {
+            if (action.clear){
+                Console.Clear();
+            }
             //Checking if you have the rights to have this role
             if (action.validRoles.Contains(userRole))
             {
@@ -262,6 +265,7 @@ public class Action
     {
         this.id = id;
     }
+    public bool clear = true;
 }
 
 public enum TextType
