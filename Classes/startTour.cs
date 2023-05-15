@@ -27,12 +27,16 @@ public class startTour
         {
             actions.Add(new()
             {
+
                 text = "Extra reservering maken",
+
                 onAction = line =>
                 {
                     ProgramManger.setActions(new List<Action>()
                         {
+
                             new ()
+
                             {
                                 text = "Scan uw unieke code om nu te boeken"
                             }
