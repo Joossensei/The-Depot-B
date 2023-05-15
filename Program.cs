@@ -174,7 +174,7 @@ namespace ReservationSystem
 
                         {
 
-                            text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                            text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{tour.maxBookingCount} plaatsen vrij")})",
                             textType = isFull || isStarted ? TextType.Error : TextType.Normal,
                             onAction = hasActions ? line =>
                             {
@@ -215,7 +215,7 @@ namespace ReservationSystem
 
                             {
 
-                                text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{freePlaces} van de {tour.maxBookingCount} plaatsen vrij")})",
+                                text = $"{tour.dateTime.ToShortTimeString()} - {tour.dateTime.AddMinutes(tour.tourDuration).ToShortTimeString()} ({(isStarted ? "Tour al gestart" : isFull ? "Volgeboekt" : $"{tour.maxBookingCount} plaatsen vrij")})",
                                 textType = isFull || isStarted ? TextType.Error : TextType.Normal,
                                 onAction = hasActions ? line =>
                                 {

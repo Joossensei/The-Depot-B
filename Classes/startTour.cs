@@ -66,7 +66,7 @@ public class startTour
         actions.Add(
             new()
             {
-                text = "Tour starten",
+                text = "Rondleiding starten",
                 onAction = line =>
                 {
                     tour.tourStarted = true;
