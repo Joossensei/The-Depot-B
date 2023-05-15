@@ -84,7 +84,7 @@ class makeReservation
         List<Action> actions = new List<Action> { };
 
         List<Tour> tours = Program.tourstoday;
-        if (Tour.tourFreePlaces(tour) > 0 || tour.tourStarted == false)
+        if (Tour.tourFreePlaces(tour) > 0 && tour.tourStarted == false)
         {
 
 
