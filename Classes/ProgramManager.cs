@@ -138,6 +138,9 @@ public static class ProgramManger
 
     public static void setActions(List<Action> actions, System.Action<string>? onOtherValue = null, bool isPassword = false, bool automaticClose = false)
     {
+        
+        Console.Clear();
+        
         //Adding an id to the actions that can run an action
         int currentId = 1;
         openedPageCount++;
@@ -166,9 +169,6 @@ public static class ProgramManger
         //Looping through the actions and rendering them
         foreach (var action in actions)
         {
-            if (action.clear){
-                Console.Clear();
-            }
             //Checking if you have the rights to have this role
             if (action.validRoles.Contains(userRole))
             {
