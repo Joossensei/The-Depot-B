@@ -187,7 +187,7 @@ public class startTour
                     valid = true;
                     booking.occupationStatus = OccupationStatus.Visited;
                     var manager = new ReservationSystem.jsonManager();
-                    manager.writeToJson(Program.tourstoday, @"JsonFiles/tours.json");
+                    manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
                     Console.Beep();
                 }
                 else if (booking.userId == line && booking.occupationStatus == OccupationStatus.Visited)
@@ -250,7 +250,7 @@ public class startTour
     {
         tour.tourStarted = true;
         var manager = new jsonManager();
-        manager.writeToJson(Program.tourstoday, @"JsonFiles/tours.json");
+        manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
 
         //Let guide know the tour started and go back to homescreen
         ProgramManger.setActions(
