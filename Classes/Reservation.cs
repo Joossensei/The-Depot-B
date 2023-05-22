@@ -13,7 +13,8 @@ namespace ReservationSystem
             var tourFound = false;
             // var text = "";
 
-        List<Action> TourCheckReturn = new List<Action>();
+            List<Action> TourCheckReturn = new List<Action>();
+            List<Tour> cancelledTours = new List<Tour>(); 
 
             if(entryTickets.Contains(tickets)){
                 TourCheckReturn.Add(new (){text = "Uw ticket is geldig",textType = TextType.Success});
@@ -25,18 +26,15 @@ namespace ReservationSystem
 
                     foreach (var reservation in checkTour.bookings)
                     {
-                        // if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Canceled){
-                        //     TourCheckReturn.Add(new (){text = "Uw vorige boekingen: \n"});
-                        //     TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString()});
-                        //     TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
-                        //     break;
-                        //     }
+                        if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Canceled){
+                            cancelledTours.Add(checkTour);
+                            continue;
+                        }
                         if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Joined){
                             tourFound = true;
 
                             TourCheckReturn.Add(new (){text = "De Rondleiding die u heeft geboekt: \n"});
                             TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString("HH:mm")});
-                            TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
                             
                             TourCheckReturn.Add(new(){
                                     text = "Reservering annuleren",
@@ -46,6 +44,7 @@ namespace ReservationSystem
                                 });
                             TourCheckReturn.Add(new(){
                                     text = "Reservering wijzigen",
+                                    hasExtraBreak=true,
                                     onAction = line => {
                                         List<Action> actions = new();
 
@@ -74,36 +73,34 @@ namespace ReservationSystem
                                         ProgramManger.setActions(actions);     
                                     }
                                 });
-                            TourCheckReturn.Add(new(){
-                                    text = "Terug naar start",
-                                   
-                                    onAction = line => {
-                                        ProgramManger.setActions(Program.getStartScreen());
-                                    }
-                                });
-                                break;
+                                continue;
                             }
                         
 
                         }
-                        
                     }
-                    
-                    }
-                    if(tourFound == false){
-                        // Console.WriteLine("U heeft geen rondleiding geboekt");
-                        TourCheckReturn.Add(new (){text = "U heeft geen rondleiding geboekt", hasExtraBreak = true});
-                        TourCheckReturn.Add(new(){
-                                    text = "Terug naar start",
-                                   
-                                    onAction = line => {
-                                        ProgramManger.setActions(Program.getStartScreen());
-                                    }
-                                });
-                        }
-                    return TourCheckReturn;
-
                 }
+                if(cancelledTours.Count >= 1 && tourFound == true){
+                    
+                    TourCheckReturn.Add(new(){
+                        text="Dit zijn uw geannuleerde rondleidingen:"
+                    });
+                    foreach (Tour cancelledTour in cancelledTours)
+                    {
+                        TourCheckReturn.AddRange(new List<Action>  {
+                            new (){text = cancelledTour.dateTime.ToString("HH:mm")}
+                        });
+                    }
+                }
+                TourCheckReturn.Add(new(){
+                    text = "Terug naar overzicht",
+                    onAction = line => {
+                        ProgramManger.setActions(Program.getStartScreen());
+                    }
+                });
+                return TourCheckReturn;
+
+            }
                 
 
                 // if(tours.bookings.Contains(tickets)){
@@ -115,9 +112,29 @@ namespace ReservationSystem
             
             else{
                 // Console.WriteLine("Uw ticket heeft geen recht op een rondleiding");
-                TourCheckReturn.Add(new (){text = "Uw ticket heeft geen recht op een rondleiding", hasExtraBreak = true});
+                TourCheckReturn.AddRange(
+                    new List<Action> {
+                        new (){text = "Ongeldig ticket", hasExtraBreak = true},
+                        new (){
+                            validRoles = new Role[]{Role.Bezoeker},
+                            text = "Nog een ticket scannen",
+                            onAction = line => {
+                                ProgramManger.setActions(new(){
+                                    new(){
+                                        text = "Vul uw ticket in:"
+                                    }
+                                }, line =>{
+                                    List<Action> actions = Reservation.tourRes(line);
+
+                                    ProgramManger.setActions(actions);
+                                });
+                            },
+                        }
+                    }
+                );
+                
                 TourCheckReturn.Add(new(){
-                                    text = "Terug naar start",
+                                    text = "Terug naar overzicht",
                                    
                                     onAction = line => {
                                         ProgramManger.setActions(Program.getStartScreen());

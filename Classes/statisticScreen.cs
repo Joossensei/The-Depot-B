@@ -90,7 +90,7 @@ public class statisticScreen
                     hasExtraBreak = true
                 },
                 new (){
-                    text = "Terug naar start",
+                    text = "Terug naar overzicht",
                     onAction = line => {
                         ProgramManger.setActions(Program.getStartScreen());
                     }

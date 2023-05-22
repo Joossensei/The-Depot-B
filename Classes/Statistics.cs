@@ -41,7 +41,7 @@ namespace ReservationSystem
                 },
                 new()
                 {
-                    text = "Terug naar start",
+                    text = "Terug naar overzicht",
                     onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }
                 }
             });
@@ -90,7 +90,7 @@ namespace ReservationSystem
             List<Action> actions = new()
             {
                 new() {text = "Voer een actie uit door het nummer voor de actie in te voeren.", hasExtraBreak = true},
-                new() {text = "Terug naar start", onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }},
+                new() {text = "Terug naar overzicht", onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }},
                 new() {text = "Terug naar vorige scherm", onAction = line => { ProgramManger.setActions(getData()); }}
             };
 

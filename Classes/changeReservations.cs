@@ -5,7 +5,7 @@ public class changeReservations
     public static void cancelReservation(Tour tour, Booking reservation, bool showOptions = false)
     {
 
-        List<Tour> tours = Program.tourstoday;
+        List<Tour> tours = Program.tours;
         List<Tour> tempTours = new List<Tour> { };
 
         foreach (Tour checkTour in tours)
@@ -34,10 +34,11 @@ public class changeReservations
             List<Action> actions = new List<Action> {
                 new() {
                     text = "U heeft de reservering succesvol geanuleerd",
+                    textType = TextType.Success,
                     hasExtraBreak = true,
                     },
                     new() {
-                    text = "Nog een annulering maken",
+                    text = "Nog een annulering maken voor een ander ticket",
                     hasExtraBreak = false,
                     onAction = line => {
                         Console.WriteLine("Scan uw code om te annuleren");
@@ -54,7 +55,7 @@ public class changeReservations
                     }
                     },
                     new() {
-                    text = "Terug naar start",
+                    text = "Terug naar overzicht",
                     hasExtraBreak = false,
                     onAction = line => {
                         ProgramManger.setActions(Program.getStartScreen());

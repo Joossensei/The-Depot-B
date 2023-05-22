@@ -34,15 +34,13 @@ public class startTour
                 {
                     ProgramManger.setActions(new List<Action>()
                         {
-
                             new ()
-
                             {
                                 text = "Scan uw unieke code om nu te boeken"
                             }
                         }, line =>
                         {
-                            makeReservation.ReserveTour(line, tour);
+                            makeReservation.ReserveTour(line, tour, forCheckIn: true);
                         }
                     );
                 }
@@ -69,23 +67,39 @@ public class startTour
                 text = "Rondleiding starten",
                 onAction = line =>
                 {
-                    tour.tourStarted = true;
-                    var manager = new jsonManager();
-                    manager.writeToJson(Program.tourstoday, @"JsonFiles/tours.json");
 
-                    //Let guide know the tour started and go back to homescreen
-                    ProgramManger.setActions(
-                        new List<Action> {
-                            new()
-                            {
-                                text = "Rondleiding is gestart",
-                                textType=TextType.Success
+                    if (checkedInCount == 0)
+                    {
+                        ProgramManger.setActions(new List<Action> {
+                            new() {
+                                text="Er is niemand voor deze rondleiding ingecheckt",
+                                textType=TextType.Error,
+                                hasExtraBreak=true,
+                            },
+                            new() {
+                                text="Tour toch starten",
+                                onAction = line => {
+                                    definitive(tour);
+                                }
+                            },
+                            new() {
+                                text="Terug naar menu",
+                                onAction = line => {
+                                    start(tour);
+                                }
+                            },
+                            new(){
+                                text="Terug naar overzicht",
+                                onAction=line=>{
+                                    ProgramManger.setActions(Program.getStartScreen());
+                                }
                             }
-                        }, line =>
-                        {
-                            ProgramManger.setActions(Program.getStartScreen());
-                        }
-                    );
+                        });
+                    }
+                    else
+                    {
+                        definitive(tour);
+                    }
 
                 }
             }
@@ -110,7 +124,7 @@ public class startTour
     }
 
 
-    private static void scanTickets(Tour tour, bool succes = false)
+    private static void scanTickets(Tour tour, bool succes = false, string errMsg = "")
     {
 
         List<Action> actions = new List<Action> { };
@@ -121,17 +135,26 @@ public class startTour
                 new()
                 {
                     text = "Ticket is ingecheckt",
-                    textType = TextType.Success
+                    textType = TextType.Success,
+                    hasExtraBreak = true
                 }
             );
         }
         else if (succes == false)
         {
-            actions.Add(
-                new()
-                {
-                    text = "Ticket is niet ingecheckt",
-                    textType = TextType.Error
+            actions.AddRange(
+                new List<Action>{
+                    new()
+                    {
+                        text = "Ticket is niet ingecheckt",
+                        textType = TextType.Error,
+                        hasExtraBreak=true
+                    },
+                    new(){
+                        text=errMsg,
+                        textType=TextType.Error,
+                        hasExtraBreak=true
+                    }
                 }
             );
         }
@@ -164,8 +187,12 @@ public class startTour
                     valid = true;
                     booking.occupationStatus = OccupationStatus.Visited;
                     var manager = new ReservationSystem.jsonManager();
-                    manager.writeToJson(Program.tourstoday, @"JsonFiles/tours.json");
+                    manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
                     Console.Beep();
+                }
+                else if (booking.userId == line && booking.occupationStatus == OccupationStatus.Visited)
+                {
+                    scanTickets(tour, false, "Dit ticket is al ingecheckt");
                 }
             }
             //If all reservations have checked in, go back to menu, else: checkin again
@@ -179,7 +206,7 @@ public class startTour
             }
             else
             {
-                scanTickets(tour, false);
+                scanTickets(tour, false, "Er is iets misgegaan");
             }
         });
     }
@@ -217,5 +244,26 @@ public class startTour
         }
 
         return false;
+    }
+
+    private static void definitive(Tour tour)
+    {
+        tour.tourStarted = true;
+        var manager = new jsonManager();
+        manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
+
+        //Let guide know the tour started and go back to homescreen
+        ProgramManger.setActions(
+            new List<Action> {
+            new()
+            {
+                text = "Rondleiding is gestart",
+                textType=TextType.Success
+            }
+            }, line =>
+            {
+                ProgramManger.setActions(Program.getStartScreen());
+            }
+        );
     }
 }
