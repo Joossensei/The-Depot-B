@@ -8,6 +8,8 @@ public class startTour
     {
         int checkedInCount = checkedIn(tour);
         int totalBooked = tour.bookings.Count();
+        List<string> employeCodes = Program.employeCodes;
+        List<string> entryTickets = Program.entryTickets;
         List<Action> actions = new List<Action> { };
 
         //Show tour info
@@ -101,6 +103,63 @@ public class startTour
                         definitive(tour);
                     }
 
+                }
+            }
+        );
+
+                actions.Add(
+            new()
+            {
+                text = "Terug naar start",
+                onAction = line => {
+                        ProgramManger.setActions(new List<Action>{
+                            new(){
+                                text = "Voer je unieke code in of scan je badge om in te loggen"
+                            },
+                            new() {
+                                text= "Terug",
+                                onAction = line =>
+                                {
+                                    start(tour);
+                                }
+                            },
+                        }, (line)=>{
+                      //Checking if the unique code exists
+                            if(employeCodes.Contains(line) || entryTickets.Contains(line)){
+                                //Checking if the code is for an Afdelingshoofd
+                                if(line.Contains('a')){
+                                    ProgramManger.userRole = Role.Afdelingshoofd;
+                                    List<Action> actions = new List<Action> ();
+                                    actions.Add(new(){
+                                        text="Ingelogd als afdelingshoofd",
+                                        textType = TextType.Success
+                                    });
+                                    actions.AddRange(Program.getStartScreen());
+
+                                    ProgramManger.setActions(actions);
+                                }
+                                //Else check if the code is for an Gids
+                                else if(line.Contains('g')){
+                                    ProgramManger.userRole = Role.Gids;
+                                    List<Action> actions = new List<Action> ();
+                                    actions.Add(new(){
+                                        text="Ingelogd als gids",
+                                        textType = TextType.Success
+                                    });
+                                    actions.AddRange(Program.getStartScreen());
+
+                                    ProgramManger.setActions(actions);
+                                }
+                                else{
+                                    ProgramManger.errors.Add("Gebruikers kunnen niet inloggen");
+                                }
+                            }
+                            else{
+                                ProgramManger.errors.Add("Ticketnummer niet gevonden");
+                            }
+                    
+                }
+                        );
                 }
             }
         );
