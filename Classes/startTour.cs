@@ -147,7 +147,8 @@ public class startTour
                     new()
                     {
                         text = "Ticket is niet ingecheckt",
-                        textType = TextType.Error
+                        textType = TextType.Error,
+                        hasExtraBreak=true
                     },
                     new(){
                         text=errMsg,
