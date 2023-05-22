@@ -47,18 +47,33 @@ class makeReservation
         }
 
         //Always add a return to home as last item on the list
-        actions.Add(
-            new()
-            {
-                text = "Terug naar overzicht",
-                hasExtraBreak = false,
-                onAction = line =>
+        if (forCheckIn == false)
+        {
+            actions.Add(
+                new()
                 {
-                    ProgramManger.setActions(Program.getStartScreen());
+                    text = "Terug naar overzicht",
+                    hasExtraBreak = false,
+                    onAction = line =>
+                    {
+                        ProgramManger.setActions(Program.getStartScreen());
 
+                    }
                 }
-            }
-        );
+            );
+        }else{
+            actions.Add(
+                new()
+                {
+                    text = "Terug naar menu",
+                    hasExtraBreak = false,
+                    onAction = line =>
+                    {
+                        startTour.start(tour);
+                    }
+                }
+            );
+        }
 
         return actions;
     }
@@ -140,7 +155,8 @@ class makeReservation
 
                             //Add the booking/reservation to the current tour
                             //Check in right away if called from starttour
-                            if(forCheckIn == true) {
+                            if (forCheckIn == true)
+                            {
                                 checkTour.bookings.Add(new Booking
                                 {
                                     userId = ticketID,
@@ -148,15 +164,17 @@ class makeReservation
                                     createData = DateTime.Now,
                                     occupationStatus = OccupationStatus.Visited
                                 });
-                            }else {
-                            checkTour.bookings.Add(new Booking
+                            }
+                            else
+                            {
+                                checkTour.bookings.Add(new Booking
                                 {
                                     userId = ticketID,
                                     tourId = tour.id,
                                     createData = DateTime.Now,
                                     occupationStatus = OccupationStatus.Joined
                                 });
-                            }                            
+                            }
                         }
                     }
                 }
@@ -201,6 +219,18 @@ class makeReservation
                         }
                     });
                 }
+                else
+                {
+                    actions.Add(new()
+                    {
+                        text = "Terug naar menu",
+                        hasExtraBreak = false,
+                        onAction = line =>
+                        {
+                            startTour.start(tour);
+                        }
+                    });
+                };
             }
 
         }

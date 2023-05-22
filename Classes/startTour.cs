@@ -72,14 +72,14 @@ public class startTour
                     {
                         ProgramManger.setActions(new List<Action> {
                             new() {
-                                text="Er is niemand voor deze tour ingecheckt",
+                                text="Er is niemand voor deze rondleiding ingecheckt",
                                 textType=TextType.Error,
                                 hasExtraBreak=true,
                             },
                             new() {
                                 text="Tour toch starten",
                                 onAction = line => {
-                                    defitiveStart(tour);
+                                    definitive(tour);
                                 }
                             },
                             new() {
@@ -98,7 +98,7 @@ public class startTour
                     }
                     else
                     {
-                        defitiveStart(tour);
+                        definitive(tour);
                     }
 
                 }
@@ -246,7 +246,7 @@ public class startTour
         return false;
     }
 
-    private static void defitiveStart(Tour tour)
+    private static void definitive(Tour tour)
     {
         tour.tourStarted = true;
         var manager = new jsonManager();
