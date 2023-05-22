@@ -34,10 +34,11 @@ public class changeReservations
             List<Action> actions = new List<Action> {
                 new() {
                     text = "U heeft de reservering succesvol geanuleerd",
+                    textType = TextType.Success,
                     hasExtraBreak = true,
                     },
                     new() {
-                    text = "Nog een annulering maken",
+                    text = "Nog een annulering maken voor een ander ticket",
                     hasExtraBreak = false,
                     onAction = line => {
                         Console.WriteLine("Scan uw code om te annuleren");
