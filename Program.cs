@@ -39,7 +39,6 @@ namespace ReservationSystem
         //Function to get the home screen elements the start screen
         public static List<Action> getStartScreen()
         {
-            tourstoday = jsonManager.LoadToursToday();
 
             List<Action> actions = new List<Action> {};
 
@@ -121,7 +120,7 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(new List<Action>{
                             new(){
-                                text = "Voer je unieke code in of scan je badge om in te loggen"
+                                text = "Voer je unieke ticket in of scan je badge om in te loggen"
                             },
                             new() {
                                 text= "Terug naar start",

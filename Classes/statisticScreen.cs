@@ -4,7 +4,18 @@ public class statisticScreen
 {
     public static List<Action> getStatistics()
     {
-        List<Tour> tours = Program.tours;
+        //Get only tours in last 4 weeks
+        List<Tour> allTours = Program.tours;
+        List<Tour> tours = new List<Tour> {};
+        DateTime fourWeeksAgo = DateTime.Today.AddDays(-28);
+        
+        foreach (Tour tour in allTours){
+            if (tour.dateTime > fourWeeksAgo) {
+                tours.Add(tour);
+            }
+        }
+
+
         List<Action> actions = new() { };
 
         // Dictionary<Tour (The first tour), Tour (The tour that is supposed be merged with the first Tour)>

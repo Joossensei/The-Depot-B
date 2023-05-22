@@ -48,8 +48,10 @@ namespace ReservationSystem
                                     text = "Reservering wijzigen",
                                     onAction = line => {
                                         List<Action> actions = new();
-
-                                        foreach (var tour in alltours)
+                                        DateTime today = DateTime.Now;
+                                        List<Tour> tourstoday = alltours.Where(t => t.dateTime.Date == today.Date ).ToList();
+            
+                                        foreach (Tour tour in tourstoday)
                                         {
                                             //Getting the free places from the tour and checking if it is full
                                             int freePlaces = Tour.tourFreePlaces(tour);

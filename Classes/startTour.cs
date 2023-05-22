@@ -73,7 +73,7 @@ public class startTour
                 {
                     tour.tourStarted = true;
                     var manager = new jsonManager();
-                    manager.writeToJson(Program.tourstoday, @"JsonFiles/tours.json");
+                    manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
 
                     //Let guide know the tour started and go back to homescreen
                     ProgramManger.setActions(
@@ -223,7 +223,7 @@ public class startTour
                     valid = true;
                     booking.occupationStatus = OccupationStatus.Visited;
                     var manager = new ReservationSystem.jsonManager();
-                    manager.writeToJson(Program.tourstoday, @"JsonFiles/tours.json");
+                    manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
                     Console.Beep();
                 }
             }
@@ -278,7 +278,7 @@ public class startTour
         return false;
     }
 
-    private static void definitive(Tour tour)
+    private static void definitiveStart(Tour tour)
     {
         tour.tourStarted = true;
         var manager = new jsonManager();

@@ -6,7 +6,7 @@ class makeReservation
     //General function if the reservation is invalid or fails to prevent duplicate code
     private static List<Action> invalidReservation(string reason, Tour tour, Action extraAction = default, bool tryAgain = true)
     {
-        List<Tour> tours = Program.tourstoday;
+        List<Tour> tours = Program.tours;
 
         List<Action> actions = new List<Action> { };
         actions.Add(new()
@@ -83,7 +83,7 @@ class makeReservation
 
         List<Action> actions = new List<Action> { };
 
-        List<Tour> tours = Program.tourstoday;
+        List<Tour> tours = Program.tours;
         if (Tour.tourFreePlaces(tour) > 0 && tour.tourStarted == false)
         {
 
