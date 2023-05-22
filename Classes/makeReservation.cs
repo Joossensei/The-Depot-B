@@ -183,13 +183,13 @@ class makeReservation
 
                 actions = new List<Action> {
                     new() {
-                        text = $"Uw reservering is gelukt: ({tour.dateTime.ToString("HH:mm")})",
+                        text = $"De rondleiding van ({tour.dateTime.ToString("HH:mm")}) is succesvol gereserveerd.",
                         hasExtraBreak = true,
                         textType = TextType.Success
                     },
                     new() {
 
-                    text = $"Nog een reservering maken voor deze tour ({tour.dateTime.ToString("HH:mm")})",
+                    text = $"Nog een reservering maken voor deze rondleiding ({tour.dateTime.ToString("HH:mm")})",
 
                     hasExtraBreak = false,
                     onAction = line => {

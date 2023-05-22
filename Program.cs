@@ -41,17 +41,30 @@ namespace ReservationSystem
         //Function to get the home screen elements the start screen
         public static List<Action> getStartScreen()
         {
+            List<Action> actions = new List<Action> {};
 
-            List<Action> actions = new List<Action>{
+                actions.AddRange(new List<Action>{
                 new (){
-                    text = "Voer een actie uit door het nummer voor de actie in te voeren.",
+                    validRoles = new Role[] {Role.Gids, Role.Afdelingshoofd},
+                    text = "Typ het nummer wat naast de actie wordt aangegeven.",
                     hasExtraBreak = true
+                },
+                new (){
+                    validRoles = new Role[] {Role.Bezoeker},
+                    text = "Typ het nummer wat naast de actie wordt aangegeven.",
+                },
+                 new (){
+                    validRoles = new Role[] {Role.Bezoeker},
+                    text = "[Om een reservering te maken vul het getal in van de gewenste tijd]",
+                    hasExtraBreak = true,
+                    textType = TextType.Success  
                 },
                 new (){
                     text = $"Beschikbare rondleidingen ({DateTime.Now.ToShortDateString()})",
                     hasExtraBreak = true
                 }
-            };
+            });
+            
 
             if(ProgramManger.userRole == Role.Gids){
                 // Adding gids tours
@@ -68,9 +81,16 @@ namespace ReservationSystem
                     validRoles = new Role[]{Role.Bezoeker},
                     text = "Reservering beheren",
                     onAction = line => {
-                        ProgramManger.setActions(new(){
+                        ProgramManger.setActions(new List<Action>{
                             new(){
-                                text = "Vul uw ticket in:"
+                                text = "Voer je unieke code in of scan je badge om in te loggen"
+                            },
+                            new() {
+                                text= "Terug naar start",
+                                onAction = line =>
+                                {
+                                    ProgramManger.setActions(getStartScreen());
+                                }
                             }
                         }, line =>{
                             Console.WriteLine($"Ticket: {line} is ingevuld.");
