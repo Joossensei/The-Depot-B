@@ -79,7 +79,6 @@ namespace ReservationSystem;
         public static List<Tour> LoadToursToday()
         {
             DateTime today = DateTime.Now;
-            Console.WriteLine("Testing: " + today.Date);
             try
             {
                 using (StreamReader reader = new StreamReader(@"JsonFiles/tours.json"))

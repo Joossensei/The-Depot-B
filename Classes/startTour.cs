@@ -208,7 +208,7 @@ public class startTour
                     valid = true;
                     booking.occupationStatus = OccupationStatus.Visited;
                     var manager = new ReservationSystem.jsonManager();
-                    manager.writeToJson(Program.tourstoday, @"JsonFiles/tours.json");
+                    manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
                     Console.Beep();
                 }
             }
