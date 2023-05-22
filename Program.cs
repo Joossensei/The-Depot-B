@@ -142,7 +142,7 @@ namespace ReservationSystem
                                 }
                             }
                             else{
-                                ProgramManger.errors.Add("Ticketnummer niet gevonden");
+                                ProgramManger.errors.Add("Unieke code niet gevonden");
                             }
                         }, isPassword: true);
                     }
