@@ -41,6 +41,8 @@ namespace ReservationSystem
         //Function to get the home screen elements the start screen
         public static List<Action> getStartScreen()
         {
+            tourstoday = jsonManager.LoadToursToday();
+
             List<Action> actions = new List<Action> {};
 
                 actions.AddRange(new List<Action>{
@@ -227,7 +229,7 @@ namespace ReservationSystem
 
                 //Adding the action items
                 // Console.WriteLine(isStarted);
-                if (!isFull && !isStarted)
+                if (!isStarted)
                 {
                     if(teller < 1){
                         actions.Add(
@@ -246,7 +248,6 @@ namespace ReservationSystem
                             }
                         );
                         teller++;
-                        Console.WriteLine(teller);
                     }
                 }
             }

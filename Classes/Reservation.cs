@@ -34,7 +34,7 @@ namespace ReservationSystem
                         if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Joined){
                             tourFound = true;
 
-                            TourCheckReturn.Add(new (){text = "De Rondleiding die u heeft geboekt: \n"});
+                            TourCheckReturn.Add(new (){text = "De rondleiding die u heeft geboekt: \n"});
                             TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString("HH:mm")});
                             TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
                             

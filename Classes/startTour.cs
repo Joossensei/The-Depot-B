@@ -7,7 +7,7 @@ public class startTour
     public static void start(Tour tour)
     {
         int checkedInCount = checkedIn(tour);
-        int totalBooked = tour.bookings.Count();
+        int totalBooked = Tour.tourAmountBookings(tour);
         List<string> employeCodes = Program.employeCodes;
         List<string> entryTickets = Program.entryTickets;
         List<Action> actions = new List<Action> { };
@@ -18,7 +18,7 @@ public class startTour
                 new(){
                     text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToString("HH:mm")}",
                 },new(){
-                    text=$"{checkedInCount} ingechecked van de {totalBooked} totale boekingen",
+                    text=$"{checkedInCount} ingechecked van de {totalBooked} totale reserveringen",
                     hasExtraBreak=true
                 }
             }
@@ -56,7 +56,7 @@ public class startTour
         {
             actions.Add(new()
             {
-                text = "Tickets scannen om in te checken",
+                text = "Tickets scannen om aan te melden",
                 onAction = line =>
                 {
                     scanTickets(tour);
@@ -261,7 +261,7 @@ public class startTour
                     }
                 case OccupationStatus.Canceled:
                     {
-                        Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
+                        Console.WriteLine("U heeft helaas de reservering gecancelled hierdoor kan u niet starten!");
                         return false;
                     }
                 case OccupationStatus.Visited:
