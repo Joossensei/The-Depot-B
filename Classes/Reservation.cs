@@ -115,7 +115,27 @@ namespace ReservationSystem
             
             else{
                 // Console.WriteLine("Uw ticket heeft geen recht op een rondleiding");
-                TourCheckReturn.Add(new (){text = "Uw ticket heeft geen recht op een rondleiding", hasExtraBreak = true});
+                TourCheckReturn.AddRange(
+                    new List<Action> {
+                        new (){text = "Uw ticket heeft geen recht op een rondleiding", hasExtraBreak = true},
+                        new (){
+                            validRoles = new Role[]{Role.Bezoeker},
+                            text = "Nog een ticket scannen",
+                            onAction = line => {
+                                ProgramManger.setActions(new(){
+                                    new(){
+                                        text = "Vul uw ticket in:"
+                                    }
+                                }, line =>{
+                                    List<Action> actions = Reservation.tourRes(line);
+
+                                    ProgramManger.setActions(actions);
+                                });
+                            },
+                        }
+                    }
+                );
+                
                 TourCheckReturn.Add(new(){
                                     text = "Terug naar start",
                                    
