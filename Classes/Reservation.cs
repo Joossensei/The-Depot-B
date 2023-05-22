@@ -35,7 +35,6 @@ namespace ReservationSystem
 
                             TourCheckReturn.Add(new (){text = "De Rondleiding die u heeft geboekt: \n"});
                             TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString("HH:mm")});
-                            TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
                             
                             TourCheckReturn.Add(new(){
                                     text = "Reservering annuleren",
@@ -86,7 +85,7 @@ namespace ReservationSystem
                             foreach (Tour cancelledTour in cancelledTours)
                             {
                                 TourCheckReturn.AddRange(new List<Action>  {
-                                    new (){text = cancelledTour.dateTime.ToString("HH:mm") + " - Rondleiding duur: " + cancelledTour.tourDuration.ToString() + " min"}
+                                    new (){text = cancelledTour.dateTime.ToString("HH:mm")}
                                 });
                             }
                         }
@@ -103,7 +102,7 @@ namespace ReservationSystem
                         foreach (Tour cancelledTour in cancelledTours)
                         {
                             TourCheckReturn.AddRange(new List<Action>  {
-                                new (){text = cancelledTour.dateTime.ToString("HH:mm") + " - Rondleiding duur: " + cancelledTour.tourDuration.ToString() + " min"}
+                                new (){text = cancelledTour.dateTime.ToString("HH:mm")}
                             });
                         }
                     }
