@@ -13,7 +13,8 @@ namespace ReservationSystem
             var tourFound = false;
             // var text = "";
 
-        List<Action> TourCheckReturn = new List<Action>();
+            List<Action> TourCheckReturn = new List<Action>();
+            List<Tour> cancelledTours = new List<Tour>(); 
 
             if(entryTickets.Contains(tickets)){
                 TourCheckReturn.Add(new (){text = "Uw ticket is geldig",textType = TextType.Success});
@@ -25,12 +26,10 @@ namespace ReservationSystem
 
                     foreach (var reservation in checkTour.bookings)
                     {
-                        // if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Canceled){
-                        //     TourCheckReturn.Add(new (){text = "Uw vorige boekingen: \n"});
-                        //     TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString()});
-                        //     TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
-                        //     break;
-                        //     }
+                        if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Canceled){
+                            cancelledTours.Add(checkTour);
+                            continue;
+                        }
                         if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Joined){
                             tourFound = true;
 
@@ -46,6 +45,7 @@ namespace ReservationSystem
                                 });
                             TourCheckReturn.Add(new(){
                                     text = "Reservering wijzigen",
+                                    hasExtraBreak=true,
                                     onAction = line => {
                                         List<Action> actions = new();
 
@@ -74,36 +74,49 @@ namespace ReservationSystem
                                         ProgramManger.setActions(actions);     
                                     }
                                 });
-                            TourCheckReturn.Add(new(){
-                                    text = "Terug naar start",
-                                   
-                                    onAction = line => {
-                                        ProgramManger.setActions(Program.getStartScreen());
-                                    }
-                                });
-                                break;
+                                continue;
                             }
                         
 
                         }
-                        
+                        if(cancelledTours.Count >= 1 && tourFound == true){
+                            TourCheckReturn.Add(new(){
+                                text="Dit zijn uw geannuleerde rondleidingen:"
+                            });
+                            foreach (Tour cancelledTour in cancelledTours)
+                            {
+                                TourCheckReturn.AddRange(new List<Action>  {
+                                    new (){text = cancelledTour.dateTime.ToString("HH:mm") + " - Rondleiding duur: " + cancelledTour.tourDuration.ToString() + " min"}
+                                });
+                            }
+                        }
                     }
                     
-                    }
-                    if(tourFound == false){
-                        // Console.WriteLine("U heeft geen rondleiding geboekt");
-                        TourCheckReturn.Add(new (){text = "U heeft geen rondleiding geboekt", hasExtraBreak = true});
-                        TourCheckReturn.Add(new(){
-                                    text = "Terug naar start",
-                                   
-                                    onAction = line => {
-                                        ProgramManger.setActions(Program.getStartScreen());
-                                    }
-                                });
-                        }
-                    return TourCheckReturn;
-
                 }
+                if(tourFound == false){
+                    TourCheckReturn.Add(new (){text = "U heeft geen rondleiding geboekt", hasExtraBreak = true,textType=TextType.Error});
+
+                    if(cancelledTours.Count >= 1){
+                        TourCheckReturn.Add(new(){
+                            text="Dit zijn uw geannuleerde rondleidingen:"
+                        });
+                        foreach (Tour cancelledTour in cancelledTours)
+                        {
+                            TourCheckReturn.AddRange(new List<Action>  {
+                                new (){text = cancelledTour.dateTime.ToString("HH:mm") + " - Rondleiding duur: " + cancelledTour.tourDuration.ToString() + " min"}
+                            });
+                        }
+                    }
+                }
+                TourCheckReturn.Add(new(){
+                    text = "Terug naar start",
+                    onAction = line => {
+                        ProgramManger.setActions(Program.getStartScreen());
+                    }
+                });
+                return TourCheckReturn;
+
+            }
                 
 
                 // if(tours.bookings.Contains(tickets)){
