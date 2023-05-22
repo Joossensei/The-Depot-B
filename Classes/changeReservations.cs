@@ -55,7 +55,7 @@ public class changeReservations
                     }
                     },
                     new() {
-                    text = "Terug naar start",
+                    text = "Terug naar overzicht",
                     hasExtraBreak = false,
                     onAction = line => {
                         ProgramManger.setActions(Program.getStartScreen());

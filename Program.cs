@@ -92,7 +92,14 @@ namespace ReservationSystem
                     text = "Uitloggen",
                     onAction = line => {
                         ProgramManger.userRole = Role.Bezoeker;
-                        ProgramManger.setActions(getStartScreen());
+                        List<Action> actions = new List<Action> {};
+                        actions.Add(new() {
+                            text="Succesvol uitgelogd",
+                            textType=TextType.Success,
+                            hasExtraBreak = true
+                        }); 
+                        actions.AddRange(getStartScreen());
+                        ProgramManger.setActions(actions);
                     }
                 },
                 new (){
@@ -104,7 +111,7 @@ namespace ReservationSystem
                                 text = "Voer je unieke code in of scan je badge om in te loggen"
                             },
                             new() {
-                                text= "Terug naar start",
+                                text= "Terug naar overzicht",
                                 onAction = line =>
                                 {
                                     ProgramManger.setActions(getStartScreen());
@@ -255,7 +262,9 @@ namespace ReservationSystem
                         makeReservation.ReserveTour(line, tour);
                     }
                 );
-
+            }
+            else if(ProgramManger.userRole == Role.Gids && isStarted == false){
+                startTour.start(tour);
             }
             else if (isStarted == false)
             {
@@ -290,6 +299,7 @@ namespace ReservationSystem
                     actions.Add(
                         new()
                         {
+                          validRoles = new Role[] { Role.Bezoeker },
                             text = "Rondleiding reserveren",
                             onAction = line =>
                             {

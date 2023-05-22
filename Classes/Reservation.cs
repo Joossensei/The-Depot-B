@@ -78,37 +78,22 @@ namespace ReservationSystem
                         
 
                         }
-                        if(cancelledTours.Count >= 1 && tourFound == true){
-                            TourCheckReturn.Add(new(){
-                                text="Dit zijn uw geannuleerde rondleidingen:"
-                            });
-                            foreach (Tour cancelledTour in cancelledTours)
-                            {
-                                TourCheckReturn.AddRange(new List<Action>  {
-                                    new (){text = cancelledTour.dateTime.ToString("HH:mm")}
-                                });
-                            }
-                        }
                     }
-                    
                 }
-                if(tourFound == false){
-                    TourCheckReturn.Add(new (){text = "U heeft geen rondleiding geboekt", hasExtraBreak = true,textType=TextType.Error});
-
-                    if(cancelledTours.Count >= 1){
-                        TourCheckReturn.Add(new(){
-                            text="Dit zijn uw geannuleerde rondleidingen:"
+                if(cancelledTours.Count >= 1 && tourFound == true){
+                    
+                    TourCheckReturn.Add(new(){
+                        text="Dit zijn uw geannuleerde rondleidingen:"
+                    });
+                    foreach (Tour cancelledTour in cancelledTours)
+                    {
+                        TourCheckReturn.AddRange(new List<Action>  {
+                            new (){text = cancelledTour.dateTime.ToString("HH:mm")}
                         });
-                        foreach (Tour cancelledTour in cancelledTours)
-                        {
-                            TourCheckReturn.AddRange(new List<Action>  {
-                                new (){text = cancelledTour.dateTime.ToString("HH:mm")}
-                            });
-                        }
                     }
                 }
                 TourCheckReturn.Add(new(){
-                    text = "Terug naar start",
+                    text = "Terug naar overzicht",
                     onAction = line => {
                         ProgramManger.setActions(Program.getStartScreen());
                     }
@@ -129,7 +114,7 @@ namespace ReservationSystem
                 // Console.WriteLine("Uw ticket heeft geen recht op een rondleiding");
                 TourCheckReturn.AddRange(
                     new List<Action> {
-                        new (){text = "Uw ticket heeft geen recht op een rondleiding", hasExtraBreak = true},
+                        new (){text = "Ongeldig ticket", hasExtraBreak = true},
                         new (){
                             validRoles = new Role[]{Role.Bezoeker},
                             text = "Nog een ticket scannen",
@@ -149,7 +134,7 @@ namespace ReservationSystem
                 );
                 
                 TourCheckReturn.Add(new(){
-                                    text = "Terug naar start",
+                                    text = "Terug naar overzicht",
                                    
                                     onAction = line => {
                                         ProgramManger.setActions(Program.getStartScreen());
