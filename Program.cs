@@ -139,6 +139,7 @@ namespace ReservationSystem
                             }
                         }, (line)=>{
                             //Checking if the unique code exists
+                            line = line.ToLower();
                             if(employeCodes.Contains(line) || entryTickets.Contains(line)){
                                 //Checking if the code is for an Afdelingshoofd
                                 if(line.Contains('a')){
