@@ -16,7 +16,6 @@ namespace ReservationSystem
 
         //Some test data for the tours
         public static List<Tour> tours = new List<Tour> { };
-        public static List<Tour> tourstoday = new List<Tour> { };
         public static List<string> entryTickets = new List<string>();
 
         public static List<string> employeCodes = new() { "g1", "g2", "g3", "a1" };
@@ -31,7 +30,6 @@ namespace ReservationSystem
             entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
-            tourstoday = jsonManager.LoadToursToday();
             tours = jsonManager.LoadTours();
 
             // staring the program    
@@ -134,6 +132,7 @@ namespace ReservationSystem
                             }
                         }, (line)=>{
                             //Checking if the unique code exists
+                            line = line.ToLower();
                             if(employeCodes.Contains(line) || entryTickets.Contains(line)){
                                 //Checking if the code is for an Afdelingshoofd
                                 if(line.Contains('a')){
@@ -177,8 +176,9 @@ namespace ReservationSystem
         public static List<Action> getTours(bool hasActions = true)
         {
             List<Action> actions = new();
-
-            foreach (var tour in tourstoday)
+            DateTime today = DateTime.Now;
+            List<Tour> tourstoday = tours.Where(t => t.dateTime.Date == today.Date ).ToList();
+            foreach (Tour tour in tourstoday)
             {
 
                 //Getting the free places from the tour and checking if it is full
@@ -215,7 +215,8 @@ namespace ReservationSystem
         public static List<Action> getToursToStart(bool hasActions = true)
         {
             List<Action> actions = new();
-
+            DateTime today = DateTime.Now;
+            List<Tour> tourstoday = tours.Where(t => t.dateTime.Date == today.Date ).ToList();
             int teller = 0;
 
             foreach (Tour tour in tourstoday)

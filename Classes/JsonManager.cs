@@ -36,11 +36,11 @@ namespace ReservationSystem;
                     {
                         string json = reader.ReadToEnd();
                         List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
-                        foreach (string Entryt in entryTickets)
-                        {
-                            System.Console.WriteLine(Entryt);
-                        }
-                        Console.WriteLine(entryTickets);
+                        // foreach (string Entryt in entryTickets)
+                        // {
+                        //     System.Console.WriteLine(Entryt);
+                        // }
+                        // Console.WriteLine(entryTickets);
                         return entryTickets ?? new List<string>();
                     }
 
@@ -55,11 +55,11 @@ namespace ReservationSystem;
                     {
                         string json = reader.ReadToEnd();
                         List<string> entryTickets = JsonConvert.DeserializeObject<List<string>>(json);
-                        foreach (string Entryt in entryTickets)
-                        {
-                            System.Console.WriteLine(Entryt);
-                        }
-                        Console.WriteLine(entryTickets);
+                        // foreach (string Entryt in entryTickets)
+                        // {
+                        //     System.Console.WriteLine(Entryt);
+                        // }
+                        // Console.WriteLine(entryTickets);
                         return entryTickets ?? new List<string>();
                     }
 
@@ -74,48 +74,6 @@ namespace ReservationSystem;
 
             }
         }
-
-        // load data for today
-        public static List<Tour> LoadToursToday()
-        {
-            DateTime today = DateTime.Now;
-            try
-            {
-                using (StreamReader reader = new StreamReader(@"JsonFiles/tours.json"))
-                {
-                    string json = reader.ReadToEnd();
-                    List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
-                    
-                    // Filter tours based on date and time remove // 
-                    //tours = tours.Where(t => t.dateTime.Date == today.Date && t.dateTime.TimeOfDay >= today.TimeOfDay).ToList();
-                    
-                    // filter tour based on day
-                    tours = tours.Where(t => t.dateTime.Date == today.Date ).ToList();
-                    
-                    return tours ?? new List<Tour>();
-                }
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    using (StreamReader reader = new StreamReader(@"../../../JsonFiles/tours.json"))
-                    {
-                        string json = reader.ReadToEnd();
-                        List<Tour> tours = JsonConvert.DeserializeObject<List<Tour>>(json);
-                        // Filter tours based on date and time
-                        tours = tours.Where(t => t.dateTime.Date == today.Date && t.dateTime.TimeOfDay >= today.TimeOfDay).ToList();
-                        return tours ?? new List<Tour>();
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("No reservations found");
-                    return new List<Tour>();
-                }
-            }
-        }
-
         
         public static List<Tour> LoadTours()
         {

@@ -93,7 +93,7 @@ public class startTour
             }
         );
 
-                actions.Add(
+        actions.Add(
             new()
             {
                 text = "Terug naar start",
@@ -187,9 +187,9 @@ public class startTour
         else if (succes == false)
         {
             actions.Add(
-                new()
-                {
-                    text = "Ticket is niet ingecheckt",
+                    new()
+                    {
+                        text = "Ticket is niet ingecheckt",
                     textType = TextType.Error
                 }
             );
@@ -276,5 +276,26 @@ public class startTour
         }
 
         return false;
+    }
+
+    private static void definitive(Tour tour)
+    {
+        tour.tourStarted = true;
+        var manager = new jsonManager();
+        manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
+
+        //Let guide know the tour started and go back to homescreen
+        ProgramManger.setActions(
+            new List<Action> {
+            new()
+            {
+                text = "Rondleiding is gestart",
+                textType=TextType.Success
+            }
+            }, line =>
+            {
+                ProgramManger.setActions(Program.getStartScreen());
+            }
+        );
     }
 }

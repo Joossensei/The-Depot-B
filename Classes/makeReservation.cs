@@ -70,7 +70,7 @@ class makeReservation
         List<string> entryTickets = jsonManager.LoadEntryTickets();
         foreach (var ticket in entryTickets)
         {
-            if (ticket == ticketID)
+            if (ticket.ToLower() == ticketID.ToLower())
             {
                 validTicket = true;
             }
