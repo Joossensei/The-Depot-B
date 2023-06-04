@@ -60,7 +60,7 @@ public class statisticScreen
         {
             actions.Add(new()
             {
-                text = "De volgende rondleidingen kunnen worden samengevoegd, want deze hebben allemaal weinig aanmeldingen:"
+                text = "De volgende rondleidingen hebben weinig aanmeldingen, dus wij raden aan bij deze rondleidingen de frequentie te verlagen:"
             });
             foreach (KeyValuePair<Tour, Tour> entry in emtpyTours)
             {
@@ -69,7 +69,7 @@ public class statisticScreen
 
                 actions.Add(new()
                 {
-                    text = $"De rondleiding {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")} samenvoegen",
+                    text = $"Door de rondleiding {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")} samen te voegen",
                 });
             }
         }
@@ -79,7 +79,7 @@ public class statisticScreen
         {
             actions.Add(new()
             {
-                text = "Tussen de volgende rondleidingen kan er een extra worden toegevoegd, want deze hebben allemaal veel aanmeldingen:"
+                text = "De volgende rondleidingen hebben veel aanmeldingen, dus wij raden aan om bij deze rondleidingen de frequentie te verhogen:"
             });
             foreach (KeyValuePair<Tour, Tour> entry in fullTours)
             {
@@ -88,7 +88,7 @@ public class statisticScreen
 
                 actions.Add(new()
                 {
-                    text = $"Extra rondleiding tussen {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")}",
+                    text = $"Misschien een extra rondleiding tussen {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")}?",
                 });
             }
         }

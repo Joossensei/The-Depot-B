@@ -1,19 +1,35 @@
-using ReservationSystem;
+namespace ReservationSystem;
 
-namespace startTour;
+//namespace startTour;
 
 public class startTour
 {
-    public static void start(Tour tour, int amntStarted)
+    public static void start(Tour tour)
     {
-        List<Tour> tours = Program.tours;
+        int checkedInCount = checkedIn(tour);
+        int totalBooked = tour.bookings.Count();
+        List<Action> actions = new List<Action> { };
 
+        //Show tour info
+        actions.AddRange(
+            new List<Action> {
+                new(){
+                    text = $"{tour.dateTime.ToString("HH:mm")} - {tour.dateTime.AddMinutes(tour.tourDuration).ToString("HH:mm")}",
+                },new(){
+                    text=$"{checkedInCount} ingechecked van de {totalBooked} totale boekingen",
+                    hasExtraBreak=true
+                }
+            }
+        );
 
-        ProgramManger.setActions(new List<Action>
+        //If there are a low amount of reservations, add the ability to reserve more
+        if (totalBooked < 6)
         {
-            new()
+            actions.Add(new()
             {
-                text = "Code scannen",
+
+                text = "Extra reservering maken",
+
                 onAction = line =>
                 {
                     ProgramManger.setActions(new List<Action>()
@@ -25,87 +41,178 @@ public class startTour
                                 text = "Scan uw unieke code om nu te reserveren"
                             }
                         }, line =>
-                        {
-                            text = "Scan uw unieke code"
+                        {                            
+                            makeReservation.ReserveTour(line, tour, forCheckIn: true);
                         }
-                    }, line => {
-                        if (checkCode(line, tour.bookings))
-                        {
-                            if (amntStarted >= tour.maxBookingCount)
-                            {
-                                ProgramManger.setActions(new List<Action>
-                                {
-                                    new()
-                                    {
-                                        text = "Wilt u de tour starten? (Scan uw code)",
-                                        onAction = line =>
-                                        {
-                                            if (line == "gids")
-                                            {
-                                                Console.WriteLine("Tour is gestart!");
-                                                ProgramManger.setActions(Program.getStartScreen());
-                                            }
-                                            else
-                                            {
-                                                start(tour, amntStarted);
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                amntStarted += 1;
-                                start(tour, amntStarted);
-                            }
-                        } else {
-                            start(tour, amntStarted);
-                        }
-                    });
+                    );
                 }
+            });
+        }
+
+        //Only show the action to checkin of not everyone has checked in
+        if (checkedInCount < totalBooked)
+        {
+            actions.Add(new()
+            {
+                text = "Tickets scannen om in te checken",
+                onAction = line =>
+                {
+                    scanTickets(tour);
+                }
+            });
+        }
+
+
+        actions.Add(
+            new()
+            {
+                text = "Rondleiding starten",
+                onAction = line =>
+                {
+
+                    if (checkedInCount == 0)
+                    {
+                        ProgramManger.setActions(new List<Action> {
+                            new() {
+                                text="Er is niemand voor deze rondleiding ingecheckt",
+                                textType=TextType.Error,
+                                hasExtraBreak=true,
+                            },
+                            new() {
+                                text="Tour toch starten",
+                                onAction = line => {
+                                    definitive(tour);
+                                }
+                            },
+                            new() {
+                                text="Terug naar menu",
+                                onAction = line => {
+                                    start(tour);
+                                }
+                            },
+                            new(){
+                                text="Terug naar overzicht",
+                                onAction=line=>{
+                                    ProgramManger.setActions(Program.getStartScreen());
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        definitive(tour);
+                    }
+
+                }
+            }
+        );
+
+        ProgramManger.setActions(actions);
+    }
+
+    public static int checkedIn(Tour tour)
+    {
+        int checkedInCount = 0;
+
+        foreach (Booking booking in tour.bookings)
+        {
+            if (booking.occupationStatus == OccupationStatus.Visited)
+            {
+                checkedInCount++;
+            }
+        }
+
+        return checkedInCount;
+    }
+
+
+    private static void scanTickets(Tour tour, bool succes = false, string errMsg = "")
+    {
+
+        List<Action> actions = new List<Action> { };
+
+        if (succes == true)
+        {
+            actions.Add(
+                new()
+                {
+                    text = "Ticket is ingecheckt",
+                    textType = TextType.Success,
+                    hasExtraBreak = true
+                }
+            );
+        }
+        else if (succes == false)
+        {
+            actions.AddRange(
+                new List<Action>{
+                    new()
+                    {
+                        text = "Ticket is niet ingecheckt",
+                        textType = TextType.Error,
+                        hasExtraBreak=true
+                    },
+                    new(){
+                        text=errMsg,
+                        textType=TextType.Error,
+                        hasExtraBreak=true
+                    }
+                }
+            );
+        }
+
+
+        actions.AddRange(new List<Action>{
+            new(){
+                text="Scan een ticket",
+                hasExtraBreak=true
             },
             new()
             {
-                text = "Wilt u de tour starten?",
+                text = "Terug naar menu",
                 onAction = line =>
                 {
-                    ProgramManger.setActions(new List<Action>()
-                    {
-                        new ()
-                        {
-                            text = "Scan uw unieke code",
-                        }
-                    }, (line) =>
-                    {
-                        if (line == "gids")
-                        {
-
-                            tour.tourStarted= true;
-                            var manager = new jsonManager();
-                            manager.writeToJson(tours, @"JsonFiles/tours.json");
-
-                            ProgramManger.setActions(new List<Action>()
-                            {
-                                new()
-                                {
-                                    text = "Tour is gestart! \n   Terug naar start",
-                                    onAction = line =>
-                                    {
-                                        ProgramManger.setActions(Program.getStartScreen());
-
-                                    }
-                                }
-                            });
-                        }
-                        else
-                        {
-                            start(tour, amntStarted);
-                        }    
-                    });
+                    start(tour);
                 }
             }
         });
+
+
+        ProgramManger.setActions(actions, line =>
+        {
+            bool valid = false;
+            //Loop through booking in tour and check if this ticket has a valid reservation. If so, update to joined and write to json
+            foreach (Booking booking in tour.bookings)
+            {
+                if (booking.userId == line && booking.occupationStatus == OccupationStatus.Joined)
+                {
+                    valid = true;
+                    booking.occupationStatus = OccupationStatus.Visited;
+                    var manager = new ReservationSystem.jsonManager();
+                    manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
+                    Console.Beep();
+                }
+                else if (booking.userId == line && booking.occupationStatus == OccupationStatus.Visited)
+                {
+                    scanTickets(tour, false, "Dit ticket is al ingecheckt");
+                }
+            }
+            //If all reservations have checked in, go back to menu, else: checkin again
+            if (checkedIn(tour) == tour.bookings.Count())
+            {
+                start(tour);
+            }
+            else if (valid == true)
+            {
+                scanTickets(tour, true);
+            }
+            else
+            {
+                scanTickets(tour, false, "Er is iets misgegaan");
+            }
+        });
     }
+
 
     private static bool checkCode(string code, List<Booking> bookings)
     {
@@ -116,22 +223,22 @@ public class startTour
             switch (booking.occupationStatus)
             {
                 case OccupationStatus.Joined:
-                {
-                    booking.occupationStatus = OccupationStatus.Visited;
-                    var manager = new jsonManager();
-                    manager.writeToJson(tours, @"JsonFiles/tours.json");
-                    return true;                        
-                }
+                    {
+                        booking.occupationStatus = OccupationStatus.Visited;
+                        var manager = new jsonManager();
+                        manager.writeToJson(tours, @"JsonFiles/tours.json");
+                        return true;
+                    }
                 case OccupationStatus.Canceled:
-                {
-                    Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
-                    return false;
-                }
+                    {
+                        Console.WriteLine("U heeft helaas de boeking gecancelled hierdoor kan u niet starten!");
+                        return false;
+                    }
                 case OccupationStatus.Visited:
-                {
-                    Console.WriteLine("U heeft deze rondleiding al bezocht!");
-                    return false;
-                }
+                    {
+                        Console.WriteLine("U heeft deze rondleiding al bezocht!");
+                        return false;
+                    }
                 default:
                     Console.WriteLine("Er ging iets fout probeer het nog een keer!");
                     return false;
@@ -139,5 +246,26 @@ public class startTour
         }
 
         return false;
+    }
+
+    private static void definitive(Tour tour)
+    {
+        tour.tourStarted = true;
+        var manager = new jsonManager();
+        manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
+
+        //Let guide know the tour started and go back to homescreen
+        ProgramManger.setActions(
+            new List<Action> {
+            new()
+            {
+                text = "Rondleiding is gestart",
+                textType=TextType.Success
+            }
+            }, line =>
+            {
+                ProgramManger.setActions(Program.getStartScreen());
+            }
+        );
     }
 }

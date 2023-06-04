@@ -1,7 +1,18 @@
-using Newtonsoft.Json;
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 
+namespace ReservationSystem;
 public static class ProgramManger
 {
+
+    [DllImport("user32.dll")]
+    static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, IntPtr dwExtraInfo);
+
+    const int VK_RETURN = 0x0D;
+    const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
+    const uint KEYEVENTF_KEYUP = 0x0002;
+
     public static bool isActive = true;
     public static List<Action> actions = new();
     public static System.Action<string>? onOtherValue;
@@ -11,25 +22,27 @@ public static class ProgramManger
 
     public static Role userRole = Role.Bezoeker;
 
+    static int openedPageCount = 0;
+
+    static bool resetErrors = false;
+
+
     public static string readLine()
     {
         string line = "";
-
         if (isPassword)
             line = readPassword();
         else
             line = Console.ReadLine() ?? "";
-
-
         if (line == "exit")
         {
             isActive = false;
             Console.WriteLine("Programma successvol gesloten.");
         }
-
         return line;
-    }
 
+
+    }
     private static string readPassword()
     {
         string line = "";
@@ -57,8 +70,33 @@ public static class ProgramManger
         return line;
     }
 
-    public static void start(List<Action>? actions)
+    public static void delayedReturnToHome()
     {
+        int openedPageCount = ProgramManger.openedPageCount;
+        //Creating a delay of 30 seconds then run an arrow function
+        Task.Delay(new TimeSpan(0, 0, 30)).ContinueWith(task =>
+        {
+            //Checking of the user did not navigate to another page
+            if (openedPageCount == ProgramManger.openedPageCount)
+            {
+                //Indicating that the errors need to be reset
+                resetErrors = true;
+                //Simulating enter keypress
+                keybd_event(VK_RETURN, 0, KEYEVENTF_EXTENDEDKEY, IntPtr.Zero); // simulate an Enter key press
+                keybd_event(VK_RETURN, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, IntPtr.Zero); // release the Enter key
+
+                //Sending application back to the startscreen
+                ProgramManger.setActions(Program.getStartScreen());
+                //Setting the role to a user so you are singed out
+                userRole = Role.Bezoeker;
+            }
+        });
+    }
+
+    public static async void start(List<Action>? actions)
+    {
+        //Resetting openedPageCount
+        openedPageCount = 0;
         Console.ForegroundColor = ConsoleColor.White;
         if (actions != null)
         {
@@ -68,6 +106,8 @@ public static class ProgramManger
         //The loop of the programm
         while (isActive)
         {
+            //Checking if the screen has been send back to start via auto enter press then reset the error
+            checkResetErrors();
             renderLine();
             //Rendering the current actions
             renderActions(ProgramManger.actions);
@@ -76,7 +116,6 @@ public static class ProgramManger
             renderErrors();
             renderLine();
 
-            //Reading a line
             var line = readLine();
 
             //Checking if the application has not exitted yet
@@ -88,10 +127,26 @@ public static class ProgramManger
         }
     }
 
-    public static void setActions(List<Action> actions, System.Action<string>? onOtherValue = null, bool isPassword = false)
+    private static void checkResetErrors()
     {
+        if (ProgramManger.resetErrors)
+        {
+            ProgramManger.resetErrors = false;
+            ProgramManger.errors.Clear();
+        }
+    }
+
+    public static void setActions(List<Action> actions, System.Action<string>? onOtherValue = null, bool isPassword = false, bool automaticClose = false)
+    {
+        
+        Console.Clear();
+        
         //Adding an id to the actions that can run an action
         int currentId = 1;
+        openedPageCount++;
+        if (automaticClose)
+            ProgramManger.delayedReturnToHome();
+        
         foreach (var action in actions)
         {
             //Checking id the action has an action function
@@ -108,7 +163,8 @@ public static class ProgramManger
         ProgramManger.isPassword = isPassword;
     }
 
-    private static void renderActions(List<Action> actions)
+
+    public static void renderActions(List<Action> actions)
     {
         //Looping through the actions and rendering them
         foreach (var action in actions)
@@ -209,6 +265,7 @@ public class Action
     {
         this.id = id;
     }
+    public bool clear = true;
 }
 
 public enum TextType
