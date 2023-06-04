@@ -2,9 +2,22 @@ namespace ReservationSystem;
 
 public class statisticScreen
 {
-    public static List<Action> getStatistics()
+    public static List<Action> getStatistics(int daysBack = 28)
     {
-        List<Tour> tours = Program.tours;
+        //Get only tours in last 4 weeks
+        List<Tour> allTours = Program.tours;
+        List<Tour> tours = new List<Tour> { };
+        DateTime fourWeeksAgo = DateTime.Today.AddDays(-daysBack);
+
+        foreach (Tour tour in allTours)
+        {
+            if (tour.dateTime > fourWeeksAgo)
+            {
+                tours.Add(tour);
+            }
+        }
+
+
         List<Action> actions = new() { };
 
         // Dictionary<Tour (The first tour), Tour (The tour that is supposed be merged with the first Tour)>
@@ -88,6 +101,21 @@ public class statisticScreen
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
+                },
+                new (){
+                    text="Langer/korter terugkijken",
+                    onAction = line => {
+                        ProgramManger.setActions(new List<Action>()
+                        {
+                            new ()
+                            {
+                                text = "Voer een aantal dagen in die je terug wilt kijken"
+                            }
+                        }, line =>
+                        {
+                            ProgramManger.setActions(getStatistics(daysBack:int.Parse(line)));
+                        });
+                    }
                 },
                 new (){
                     text = "Terug naar start",

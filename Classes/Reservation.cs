@@ -34,8 +34,8 @@ namespace ReservationSystem
                         if(reservation.userId == tickets && reservation.occupationStatus == OccupationStatus.Joined){
                             tourFound = true;
 
-                            TourCheckReturn.Add(new (){text = "De Rondleiding die u heeft geboekt: \n"});
-                            TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString()});
+                            TourCheckReturn.Add(new (){text = "De rondleiding die u heeft gereserveerd: \n"});
+                            TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString("HH:mm")});
                             TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
                             
                             TourCheckReturn.Add(new(){
@@ -91,7 +91,7 @@ namespace ReservationSystem
                     }
                     if(tourFound == false){
                         // Console.WriteLine("U heeft geen rondleiding geboekt");
-                        TourCheckReturn.Add(new (){text = "U heeft geen rondleiding geboekt", hasExtraBreak = true});
+                        TourCheckReturn.Add(new (){text = "U heeft geen rondleiding gereserveerd", hasExtraBreak = true});
                         TourCheckReturn.Add(new(){
                                     text = "Terug naar start",
                                    

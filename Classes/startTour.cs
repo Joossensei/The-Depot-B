@@ -17,8 +17,14 @@ public class startTour
                 onAction = line =>
                 {
                     ProgramManger.setActions(new List<Action>()
-                    {
-                        new ()
+                        {
+
+                            new ()
+
+                            {
+                                text = "Scan uw unieke code om nu te reserveren"
+                            }
+                        }, line =>
                         {
                             text = "Scan uw unieke code"
                         }
