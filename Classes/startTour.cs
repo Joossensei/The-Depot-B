@@ -36,12 +36,14 @@ public class startTour
                 {
                     ProgramManger.setActions(new List<Action>()
                         {
+
                             new ()
+
                             {
-                                text = "Scan uw unieke code om nu te boeken"
+                                text = "Scan uw unieke code om nu te reserveren"
                             }
                         }, line =>
-                        {
+                        {                            
                             makeReservation.ReserveTour(line, tour, forCheckIn: true);
                         }
                     );

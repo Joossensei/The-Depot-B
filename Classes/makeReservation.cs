@@ -29,7 +29,7 @@ class makeReservation
                         {
                             new ()
                             {
-                                text = "Scan uw unieke code om nu te boeken"
+                                text = "Scan uw unieke code om nu te reserveren"
                             }
                         }, line =>
                         {
@@ -115,11 +115,16 @@ class makeReservation
 
                 //If the ticket is valid, check if the user already has a reservation
                 bool hasReservation = false;
-                foreach (var checkTour in tours)
+                foreach (Tour checkTour in tours)
                 {
-                    foreach (var reservation in checkTour.bookings)
+                    foreach (Booking reservation in checkTour.bookings)
                     {
-                        if (reservation.userId == ticketID && reservation.occupationStatus != OccupationStatus.Canceled && checkTour.id == tour.id)
+                        if(reservation.userId == ticketID && reservation.occupationStatus == OccupationStatus.Visited) {
+                            Action ExtraAction = new(){
+                                text="U heeft al een reservering"
+                            };
+                        }
+                        else if (reservation.userId == ticketID && reservation.occupationStatus != OccupationStatus.Canceled && checkTour.id == tour.id)
                         {   //IF current loop's ticket is the same as scanned ticket & current loop's ticket is not cancelled & loop's tour is the same as requested tour, it means the user already has a reservation for this tour
                             hasReservation = true;
                             ProgramManger.setActions(invalidReservation($"U heeft al een reservering voor deze rondleiding", tour, tryAgain: false));
@@ -197,7 +202,7 @@ class makeReservation
                             {
                                 new ()
                                 {
-                                    text = "Scan uw unieke code om nu te boeken"
+                                    text = "Scan uw unieke code om nu te reservering"
                                 }
                             }, line =>
                             {

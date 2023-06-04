@@ -78,7 +78,7 @@ namespace ReservationSystem
             // fake information about bookings.
             //Console.WriteLine($"\nGeboekte rondleidingen tussen {d1.ToShortDateString()} en {d2.ToShortDateString()}: 157  ");
             Console.WriteLine($"Maximaal aantal bookingen voor de rondleidingen({result.Count()}) zijn {result.Count()*13}");
-            Console.WriteLine($"Bezoeker hebben voor deze periode {result.Count()*7} rondleidingen geboekt.");
+            Console.WriteLine($"Bezoeker hebben voor deze periode {result.Count()*7} rondleidingen gereserveerd.");
             Console.WriteLine($"Rondleidingen dat het meeste is geboekt voor deze periode: rondleiding van 13:00");
             /* test for displaying results
             foreach (var t in result)
