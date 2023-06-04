@@ -103,7 +103,7 @@ public class statisticScreen
                     hasExtraBreak = true
                 },
                 new (){
-                    text="Langer/korter terugkijken",
+                    text="Filter op aantal dagen",
                     onAction = line => {
                         ProgramManger.setActions(new List<Action>()
                         {
