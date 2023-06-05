@@ -41,7 +41,7 @@ namespace ReservationSystem
                 },
                 new()
                 {
-                    text = "Terug naar start",
+                    text = "Terug naar overzicht",
                     onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }
                 }
             });
@@ -78,7 +78,7 @@ namespace ReservationSystem
             // fake information about bookings.
             //Console.WriteLine($"\nGeboekte rondleidingen tussen {d1.ToShortDateString()} en {d2.ToShortDateString()}: 157  ");
             Console.WriteLine($"Maximaal aantal bookingen voor de rondleidingen({result.Count()}) zijn {result.Count()*13}");
-            Console.WriteLine($"Bezoeker hebben voor deze periode {result.Count()*7} rondleidingen geboekt.");
+            Console.WriteLine($"Bezoeker hebben voor deze periode {result.Count()*7} rondleidingen gereserveerd.");
             Console.WriteLine($"Rondleidingen dat het meeste is geboekt voor deze periode: rondleiding van 13:00");
             /* test for displaying results
             foreach (var t in result)
@@ -90,7 +90,7 @@ namespace ReservationSystem
             List<Action> actions = new()
             {
                 new() {text = "Voer een actie uit door het nummer voor de actie in te voeren.", hasExtraBreak = true},
-                new() {text = "Terug naar start", onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }},
+                new() {text = "Terug naar overzicht", onAction = line => { ProgramManger.setActions(Program.getStartScreen()); }},
                 new() {text = "Terug naar vorige scherm", onAction = line => { ProgramManger.setActions(getData()); }}
             };
 

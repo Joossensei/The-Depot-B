@@ -2,15 +2,17 @@ namespace ReservationSystem;
 
 public class statisticScreen
 {
-    public static List<Action> getStatistics()
+    public static List<Action> getStatistics(int daysBack = 28)
     {
         //Get only tours in last 4 weeks
         List<Tour> allTours = Program.tours;
-        List<Tour> tours = new List<Tour> {};
-        DateTime fourWeeksAgo = DateTime.Today.AddDays(-28);
-        
-        foreach (Tour tour in allTours){
-            if (tour.dateTime > fourWeeksAgo) {
+        List<Tour> tours = new List<Tour> { };
+        DateTime fourWeeksAgo = DateTime.Today.AddDays(-daysBack);
+
+        foreach (Tour tour in allTours)
+        {
+            if (tour.dateTime > fourWeeksAgo)
+            {
                 tours.Add(tour);
             }
         }
@@ -58,7 +60,7 @@ public class statisticScreen
         {
             actions.Add(new()
             {
-                text = "De volgende rondleidingen hebben weinig aanmeldingen, dus wij raden aan deze rondleidingen samen te voegen:"
+                text = "De volgende rondleidingen hebben weinig aanmeldingen, dus wij raden aan bij deze rondleidingen de frequentie te verlagen:"
             });
             foreach (KeyValuePair<Tour, Tour> entry in emtpyTours)
             {
@@ -67,7 +69,7 @@ public class statisticScreen
 
                 actions.Add(new()
                 {
-                    text = $"De rondleiding {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")} samenvoegen",
+                    text = $"Door de rondleiding {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")} samen te voegen",
                 });
             }
         }
@@ -77,7 +79,7 @@ public class statisticScreen
         {
             actions.Add(new()
             {
-                text = "De volgende rondleidingen hebben veel aanmeldingen, dus wij raden aan deze rondleidingen toe te voegen:"
+                text = "De volgende rondleidingen hebben veel aanmeldingen, dus wij raden aan om bij deze rondleidingen de frequentie te verhogen:"
             });
             foreach (KeyValuePair<Tour, Tour> entry in fullTours)
             {
@@ -86,7 +88,7 @@ public class statisticScreen
 
                 actions.Add(new()
                 {
-                    text = $"Extra rondleiding tussen {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")}",
+                    text = $"Misschien een extra rondleiding tussen {firstTour.dateTime.ToString("dddd HH:mm")} en {secondTour.dateTime.ToString("HH:mm")}?",
                 });
             }
         }
@@ -99,6 +101,44 @@ public class statisticScreen
                 new (){
                     text = "Voer een actie uit door het nummer voor de actie in te voeren.",
                     hasExtraBreak = true
+                },
+                new (){
+                    text="Langer/korter terugkijken",
+                    onAction = line => {
+                        ProgramManger.setActions(new List<Action>()
+                        {
+                            new ()
+                            {
+                                text = "Voer een aantal dagen in die je terug wilt kijken"
+                            }
+                        }, line =>
+                        {
+                            if(int.Parse(line) > 104) {
+                                //Cant see back more than 2 years
+                                ProgramManger.setActions(new List<Action> {
+                                    new() {
+                                        text="U kunt niet meer dan 2 jaar terug kijken",
+                                        textType=TextType.Error,
+                                        hasExtraBreak=true
+                                    },
+                                    new() {
+                                        text="104 weken terug kijken",
+                                        onAction = line => {
+                                            ProgramManger.setActions(getStatistics(104));
+                                        }
+                                    },
+                                    new() {
+                                        text="Terug naar overzicht",
+                                        onAction = line => {
+                                            ProgramManger.setActions(Program.getStartScreen());
+                                        }
+                                    }
+                                });
+                            }else{
+                            ProgramManger.setActions(getStatistics(daysBack:int.Parse(line)));
+                            }
+                        });
+                    }
                 },
                 new (){
                     text = "Terug naar start",

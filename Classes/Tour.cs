@@ -120,7 +120,7 @@ public class Tour
 
         foreach (var booking in tour.bookings)
         {
-            if (booking.occupationStatus == OccupationStatus.Joined)
+            if (booking.occupationStatus == OccupationStatus.Joined || booking.occupationStatus == OccupationStatus.Visited)
             {
                 freePlaces--;
             }

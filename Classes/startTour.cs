@@ -40,11 +40,11 @@ public class startTour
                             new ()
 
                             {
-                                text = "Scan uw unieke code om nu te boeken"
+                                text = "Scan uw unieke code om nu te reserveren"
                             }
                         }, line =>
-                        {
-                            makeReservation.ReserveTour(line, tour);
+                        {                            
+                            makeReservation.ReserveTour(line, tour, forCheckIn: true);
                         }
                     );
                 }
@@ -71,24 +71,70 @@ public class startTour
                 text = "Rondleiding starten",
                 onAction = line =>
                 {
-                    tour.tourStarted = true;
-                    var manager = new jsonManager();
-                    manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
+                    if (checkedInCount < totalBooked || totalBooked == 0)
+                    {
+                        ProgramManger.setActions(
+                            new List<Action> {
+                                new()
+                                {
+                                    text = "Weet je zeker dat je de rondleiding wilt starten?",
+                                    textType=TextType.Error
+                                },
+                                new()
+                                {
+                                    text = "Ja",
+                                    onAction = s =>
+                                    {
+                                        tour.tourStarted = true;
+                                        var manager = new jsonManager();
+                                        manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
 
-                    //Let guide know the tour started and go back to homescreen
-                    ProgramManger.setActions(
-                        new List<Action> {
-                            new()
+                                        //Let guide know the tour started and go back to homescreen
+                                        ProgramManger.setActions(
+                                            new List<Action> {
+                                                new()
+                                                {
+                                                    text = "Rondleiding is gestart",
+                                                    textType=TextType.Success
+                                                }
+                                            }, line =>
+                                            {
+                                                ProgramManger.setActions(Program.getStartScreen());
+                                            }
+                                        );
+                                    }
+                                },
+                                new()
+                                {
+                                    text = "Nee",
+                                    onAction = s => start(tour)
+                                }
+                            }, line =>
                             {
-                                text = "Rondleiding is gestart",
-                                textType=TextType.Success
+                                start(tour);
                             }
-                        }, line =>
-                        {
-                            ProgramManger.setActions(Program.getStartScreen());
-                        }
-                    );
+                        );
+                    }
+                    else
+                    {
+                        tour.tourStarted = true;
+                        var manager = new jsonManager();
+                        manager.writeToJson(Program.tours, @"JsonFiles/tours.json");
 
+                        //Let guide know the tour started and go back to homescreen
+                        ProgramManger.setActions(
+                            new List<Action> {
+                                new()
+                                {
+                                    text = "Rondleiding is gestart",
+                                    textType=TextType.Success
+                                }
+                            }, line =>
+                            {
+                                ProgramManger.setActions(Program.getStartScreen());
+                            }
+                        );
+                    }
                 }
             }
         );
@@ -174,7 +220,7 @@ public class startTour
 
         List<Action> actions = new List<Action> { };
 
-        if (succes == true)
+        if (succes)
         {
             actions.Add(
                 new()
@@ -184,7 +230,7 @@ public class startTour
                 }
             );
         }
-        else if (succes == false)
+        else
         {
             actions.Add(
                     new()
