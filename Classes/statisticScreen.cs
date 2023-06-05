@@ -113,7 +113,30 @@ public class statisticScreen
                             }
                         }, line =>
                         {
+                            if(int.Parse(line) > 104) {
+                                //Cant see back more than 2 years
+                                ProgramManger.setActions(new List<Action> {
+                                    new() {
+                                        text="U kunt niet meer dan 2 jaar terug kijken",
+                                        textType=TextType.Error,
+                                        hasExtraBreak=true
+                                    },
+                                    new() {
+                                        text="104 weken terug kijken",
+                                        onAction = line => {
+                                            ProgramManger.setActions(getStatistics(104));
+                                        }
+                                    },
+                                    new() {
+                                        text="Terug naar overzicht",
+                                        onAction = line => {
+                                            ProgramManger.setActions(Program.getStartScreen());
+                                        }
+                                    }
+                                });
+                            }else{
                             ProgramManger.setActions(getStatistics(daysBack:int.Parse(line)));
+                            }
                         });
                     }
                 },

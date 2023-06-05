@@ -16,7 +16,6 @@ namespace ReservationSystem
 
         //Some test data for the tours
         public static List<Tour> tours = new List<Tour> { };
-        public static List<Tour> tourstoday = new List<Tour> { };
         public static List<string> entryTickets = new List<string>();
 
         public static List<string> employeCodes = new() { "g1", "g2", "g3", "a1" };
@@ -31,7 +30,6 @@ namespace ReservationSystem
             entryTickets = jsonManager.LoadEntryTickets();
 
             // load tours from JSON file
-            tourstoday = jsonManager.LoadToursToday();
             tours = jsonManager.LoadTours();
 
             // staring the program    
@@ -41,6 +39,7 @@ namespace ReservationSystem
         //Function to get the home screen elements the start screen
         public static List<Action> getStartScreen()
         {
+
             List<Action> actions = new List<Action> {};
 
                 actions.AddRange(new List<Action>{
@@ -128,7 +127,7 @@ namespace ReservationSystem
                     onAction = line => {
                         ProgramManger.setActions(new List<Action>{
                             new(){
-                                text = "Voer je unieke code in of scan je badge om in te loggen"
+                                text = "Voer je unieke ticket in of scan je badge om in te loggen"
                             },
                             new() {
                                 text= "Terug naar overzicht",
@@ -183,7 +182,8 @@ namespace ReservationSystem
         public static List<Action> getTours(bool hasActions = true)
         {
             List<Action> actions = new();
-
+            DateTime today = DateTime.Now;
+            List<Tour> tourstoday = tours.Where(t => t.dateTime.Date == today.Date ).ToList();
             foreach (Tour tour in tourstoday)
             {
 
@@ -221,7 +221,8 @@ namespace ReservationSystem
         public static List<Action> getToursToStart(bool hasActions = true)
         {
             List<Action> actions = new();
-
+            DateTime today = DateTime.Now;
+            List<Tour> tourstoday = tours.Where(t => t.dateTime.Date == today.Date ).ToList();
             int teller = 0;
 
             foreach (Tour tour in tourstoday)
@@ -235,7 +236,7 @@ namespace ReservationSystem
 
                 //Adding the action items
                 // Console.WriteLine(isStarted);
-                if (!isFull && !isStarted)
+                if (!isStarted)
                 {
                     if(teller < 1){
                         actions.Add(
@@ -254,7 +255,6 @@ namespace ReservationSystem
                             }
                         );
                         teller++;
-                        Console.WriteLine(teller);
                     }
                 }
             }
