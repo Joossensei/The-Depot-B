@@ -38,12 +38,11 @@ namespace ReservationSystem
                             {
                                 tourFound = true;
 
-                                TourCheckReturn.Add(new() { text = "De rondleiding die u heeft geboekt: \n" });
-                                TourCheckReturn.Add(new() { text = checkTour.dateTime.ToString("HH:mm") });
-                                TourCheckReturn.Add(new() { text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min", hasExtraBreak = true });
-
-                                TourCheckReturn.Add(new()
-                                {
+                            TourCheckReturn.Add(new (){text = "De rondleiding die u heeft gereserveerd: \n"});
+                            TourCheckReturn.Add(new (){text = checkTour.dateTime.ToString("HH:mm")});
+                            TourCheckReturn.Add(new (){text = "Rondleiding duur: " + checkTour.tourDuration.ToString() + " min",hasExtraBreak = true});
+                            
+                            TourCheckReturn.Add(new(){
                                     text = "Reservering annuleren",
                                     onAction = line =>
                                     {
@@ -184,3 +183,4 @@ namespace ReservationSystem
         }
     }
 }
+        
