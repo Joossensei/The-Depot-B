@@ -28,7 +28,7 @@ public class statisticScreen
         bool skipNext = false;
 
         //Tours.count - 1, because you cant calucate the next tour if there is no next tour
-        for (int i = 0; i < (tours.Count - 1); i++)
+        for (int i = 0; (i < (tours.Count - 1)) && (i < 15); i++)
         {
             /* skipNext is set when 1 tour and the next tour both are empty or full to prevent the next tour being processed again 
             tours[i + 1].dateTime.ToString("HH:mm") == "11:00" checks if the next tour is the next time to prevent tours over multiple days being merged */
